@@ -49,15 +49,17 @@ $this->load->view("info_header");
 </div>
 <script type="text/javascript" src="<?=base_url()?>assets/lib/js/jquery.min.js"></script>
 <script>
-  var allValsId = [];
+  var allValsId = []; // varibel untuk menampung 
   $(document).ready(function(){
    $(".user_password").focus(function(){
     this.type = "text";
   }).blur(function(){
     this.type = "password";
   }) 
-
+ 
+  // js untuk set data pegawai yang dipilih pada form tambah HPS
   $('.setPegawai').click(function(){
+    allValsId = [];
     var allVals = [];
     var selVals = [];
     $('.dataPg:checked').each(function() {
@@ -69,8 +71,10 @@ $this->load->view("info_header");
    });
     $('.timData').html(allVals);
     $('#selKetua').html(selVals);
+    // alert(allValsId);
   }); 
 
+   // js untuk set data pegawai yang dipilih pada form edit tim HPS
   $('.setPegawaiE').click(function(){
     var allVals = [];
     var selVals = [];
@@ -82,9 +86,7 @@ $this->load->view("info_header");
    });
     $('.timDataE').html(allVals);
     $('#selKetuaE').html(selVals);
-
   }); 
-
 });
 </script>
 <!-- Modal Lihat Tim HPS-->
@@ -147,14 +149,14 @@ $this->load->view("info_header");
                     <tr>
                       <td style="vertical-align: top;">
                         <legend> Data Pegawai </legend>
-                        <fieldset class="col-md-11" style="border: 1px solid #ccc;padding-bottom: 1%;height: 150px;overflow: auto;">
+                        <fieldset class="col-md-11" style="border: 1px solid #ccc;padding-bottom: 1%;height: 150px;overflow: auto;padding-top: 3%;">
                           <?php 
                           foreach($pegawai as $pe){
                             ?>
                             <div class="checkbox3 checkbox-check addcheck">
                               <input type="checkbox" id="checkbox-<?=$pe['NIP']?>" class="dataPg" value="<?=$pe['NAMA_PEGAWAI']?>" da="<?=$pe['NIP']?>">
                               <label for="checkbox-<?=$pe['NIP']?>">
-                                <?=$pe['NAMA_PEGAWAI']?> <?= ($pe['HPS_CERTIFIED']=='1')?'<strong>(Certified)</strong>':''?>
+                                <?=$pe['NAMA_PEGAWAI']?> <?= ($pe['PROCUREMENT_CERTIFIED']=='1')?'<strong>(Certified)</strong>':''?>
                               </label>
                             </div>
                             <?php
@@ -335,13 +337,14 @@ $this->load->view("info_header");
       myFormData.append('anggota',allValsId);
 
       $.ajax({
-        url: '<?=base_url()?>TimHPS/saveTimHps',
+        url: '<?=base_url()?>TimHPS/create',
         type: "POST",
         data:myFormData,
         processData: false,
         contentType: false,
         success : function(res){
           window.location.href ="<?=base_url()?>TimHPS";
+          // alert(res);
         },
         error: function (msg) {
           console.log("gagal"+msg);

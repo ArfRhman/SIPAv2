@@ -7,20 +7,32 @@ class m_timPenerimaan extends CI_Model {
 		parent::__construct();
 	}
 
+	//mengambil semua data tim Penerima
 	public function getAllTimPenerimaan(){
-		$query = $this->db->query("SELECT * from team_penerima")->result_array();
+		$query = $this->db->query("SELECT * from tim_penerima")->result_array();
 		return $query;
 	}
 
+	// menyimpan nama dan ketua tim Peneirma
 	function saveTimPenerimaan($p){
-		$query = $this->db->query("INSERT into team_penerima(
+		$query = $this->db->query("INSERT into tim_penerima(
 			ID_USER,
-			NAMA_TIM,
-			LIST_USER_PENERIMA
+			NAMA_TIM
 			)values(
 			'$p[id]',
-			'$p[namatim]',
-			'$p[anggota]'
+			'$p[namatim]'
+			)");
+		return $this->db->insert_id();
+	}
+
+	// menyimpan data anggota tim penerima
+	function saveAnggotaTimPenerima($nip,$id){
+		$query = $this->db->query("INSERT into anggota_tim_penerima(
+			ID_TIM_PENERIMA,
+			NIP
+			)values(
+			'$id',
+			'$nip'
 			)");
 		return $query;
 	}
