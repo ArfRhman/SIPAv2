@@ -5,7 +5,8 @@ class M_user extends CI_Model {
 	function m_user(){
 		parent::__construct();
 	}
-
+	
+	// menyimpan data user untuk tim HPS
 	function saveUserFromTim($p){
 		$query = $this->db->query("INSERT into user(
 			ID_JENIS_USER,

@@ -55,8 +55,9 @@ $this->load->view("info_header");
     }).blur(function(){
       this.type = "password";
     }) 
-
+     // js untuk set data pegawai yang dipilih pada form tambah tim penerima
     $('.setPegawai').click(function(){
+       allValsId = [];
       var allVals = [];
       var selVals = [];
       $('.dataPg:checked').each(function() {
@@ -70,6 +71,7 @@ $this->load->view("info_header");
       $('#selKetua').html(selVals);
     }); 
 
+     // js untuk set data pegawai yang dipilih pada form edit tim penerima
     $('.setPegawaiE').click(function(){
       var allVals = [];
       var selVals = [];
@@ -337,7 +339,7 @@ $this->load->view("info_header");
       myFormData.append('anggota',allValsId);
 
       $.ajax({
-        url: '<?=base_url()?>TimPenerimaan/saveTimPenerimaan',
+        url: '<?=base_url()?>TimPenerimaan/create',
         type: "POST",
         data:myFormData,
         processData: false,

@@ -7,7 +7,7 @@ class M_pegawai extends CI_Model {
 	}
 
 	function getAllPegawai(){
-		$query = $this->db->query("SELECT * from pegawai")->result_array();
+		$query = $this->db->query("SELECT * from pegawai ORDER BY PROCUREMENT_CERTIFIED DESC")->result_array();
 		return $query;
 	}
 
