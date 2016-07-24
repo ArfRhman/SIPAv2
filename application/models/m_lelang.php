@@ -6,7 +6,7 @@ class M_lelang extends CI_Model {
 		parent::__construct();
 	}
 
-	//Mengambil semua paket yang telah terferifikasi oleh PPK
+	//Mengambil data paket yang berada dalam fase lelang
 	function getAllLelang(){
 		$query = $this->db->query("SELECT *,p.STATUS AS stss 
 			from paket p
@@ -20,6 +20,19 @@ class M_lelang extends CI_Model {
 		return $query;
 	}
 
+	//Mengupdate data paket apabila status lelangnya gagal
+	function updateLelangGagal($p,$data){
+		$this->db->query("UPDATE paket set 
+			KETERANGAN_GAGAL_KONTRAK='$p[keterangan]'
+			where ID_PAKET='$p[id_paket]'
+			");
+
+		$this->db->insert('progress_paket',$data);
+		return 1;
+	}
+
+/*
+//=============Old==============
 	//Mengambil data paket lelang berdasarkan id paket
 	function getPaketLelangSuksesById($id){
 		$query = $this->db->query("SELECT * 
@@ -60,30 +73,6 @@ class M_lelang extends CI_Model {
 		return 1;
 	}
 
-	//Mengupdate data paket apabila status lelangnya gagal
-	function updateLelangGagal($p,$data){
-		$this->db->query("UPDATE paket set 
-			TENDER_A='$p[tender_a]',
-			NAMA_A='$p[nama_a]',
-			NPWP_A='$p[npwp_a]',
-			ALAMAT_A='$p[alamat_a]',
-			TENDER_B='$p[tender_b]',
-			NAMA_B='$p[nama_b]',
-			NPWP_B='$p[npwp_b]',
-			ALAMAT_B='$p[alamat_b]',
-			TENDER_C='$p[tender_c]',
-			NAMA_C='$p[nama_c]',
-			NPWP_C='$p[npwp_c]',
-			ALAMAT_C='$p[alamat_c]',
-			STATUS = -9,
-			ID_TEAM_PENERIMA='$p[timPenerima]',
-			KETERANGAN_GAGAL_KONTRAK='$p[keterangan]' 
-			where ID_PAKET='$p[id_paket]'
-			");
-
-		$this->db->insert('progress_paket',$data);
-		return 1;
-	}
 
 	//Mengupdate data paket kembali ke normal
 	function updateLelangNormal($p){
@@ -99,6 +88,7 @@ class M_lelang extends CI_Model {
 			");
 		return $query;
 	}
+	*/
 }
 
 ?>

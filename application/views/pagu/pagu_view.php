@@ -14,7 +14,11 @@ $this->load->view("info_header");
                             <div class="card-title">
                                 <span class="title">Pengelolaan Pagu  
                                     <select class="periode">
-                                        <?php foreach($periode as $p){ ?>
+                                        <?php 
+                                        if(empty($periode)){ ?>
+                                        <option><?=$currentDate?></option>
+                                        <?php }else
+                                        foreach($periode as $p){ ?>
                                         <option <?=$p['TAHUN_ANGGARAN']==$currentDate ? 'selected' : '' ?>><?=$p['TAHUN_ANGGARAN']?></option>
                                         <?php } ?>
                                     </select>
@@ -81,7 +85,7 @@ $this->load->view("info_header");
             <div class="modal-body">
               <div class="card">
                <div class="card-body"  style="padding: 0px 20px !important;">
-                <form action="<?=base_url()?>Pagu/savePagu" method="POST">
+                <form action="<?=base_url()?>Pagu/create" method="POST">
 
                     <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujur">0</span></b></div>
                     <?$totJur = 0;
@@ -116,7 +120,7 @@ $this->load->view("info_header");
             <div class="modal-body">
               <div class="card">
                <div class="card-body"  style="padding: 0px 20px !important;">
-                <form action="<?=base_url()?>Pagu/updatePagu" method="POST">
+                <form action="<?=base_url()?>Pagu/update" method="POST">
                     <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujurE">0</span></b></div>
                     <?$totJur = 0;$no=1;
                     foreach ($jurusan as $j) {

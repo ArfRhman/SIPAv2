@@ -6,11 +6,19 @@ class M_lokasi extends CI_Model {
 		parent::__construct();
 	}
 
-	//Mengambil data nama lokasi berdasarkan id jurusan
+	//Mengambil semua lokasi
+	function getAllLokasi(){
+		$query = $this->db->query("SELECT * from lokasi")->result_array();
+		return $query;
+	}
+
+	//Mengambil data lokasi berdasarkan jurusan
 	function getLokasiByIdJurusan($id){
 		$query = $this->db->query("SELECT * from lokasi where ID_JURUSAN='$id'")->result_array();
 		return $query;
 	}
+	/*
+	//=============OLD=============
 
 	//Mengambil data id lokasi berdasarkan nama lokasi
 	function getIdLokasiByName($id,$name){
@@ -18,11 +26,7 @@ class M_lokasi extends CI_Model {
 		return $query;	
 	}
 
-	//Mengambil semua lokasi
-	function getAllLokasi(){
-		$query = $this->db->query("SELECT * from lokasi")->result_array();
-		return $query;
-	}
+	*/
 }
 
 ?>

@@ -89,10 +89,7 @@ class M_beritaacara extends CI_Model {
 		return $query;
 	}
 
-	function saveBukti($dataBukti){
-		$this->db->insert('bukti_penerimaan',$dataBukti);
-		return 1;
-	}
+	
 	function deleteBukti($id){
 		$this->db->where('ID_BUKTI',$id);
 		$this->db->delete('bukti_penerimaan');

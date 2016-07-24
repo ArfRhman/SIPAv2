@@ -5,6 +5,16 @@ class M_spm extends CI_Model {
 	function m_spm(){
 		parent::__construct();
 	}
+
+
+	//Men-approve data paket di fase SPM
+	function approveSpm($id){
+		$query = $this->db->query("UPDATE paket set STATUS_BAYAR = 1 where ID_PAKET = '$id'");
+		return $query;
+	}
+
+	/*
+	//===========Old===========
 	function getAllDataPaket(){
 		$query = $this->db->query("SELECT * 
 			from paket p
@@ -39,6 +49,8 @@ class M_spm extends CI_Model {
 		$this->db->update('penerimaan',$data);
 		return 1;
 	}
+
+	*/
 
 }
 
