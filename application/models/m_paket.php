@@ -101,11 +101,6 @@ class M_paket extends CI_Model {
 		return $query;
 	}
 
-	//Mengambil data kategori beserta paketnya
-	function getAllKategoriWithPaket($tahun){
-		$query = $this->db->query("SELECT *,(SELECT STATUS from progress_paket where progress_paket.ID_PAKET = paket.ID_PAKET order by TANGGAL DESC limit 0,1) as STATUS_PROGRESS,kategori.ID_KATEGORI as ID_KAT from kategori left join paket on paket.ID_KATEGORI = kategori.ID_KATEGORI")->result_array();
-		return $query;
-	}
 
 /*
 //===================Old===============	

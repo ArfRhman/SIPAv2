@@ -6,19 +6,18 @@ class Paket extends CI_Controller {
 	public function paket(){
 		parent::__construct();
 		$this->load->model("m_paket");
-		//$this->load->model("m_kategori");
-		//$this->load->model("m_alat");
-		//$this->load->model("m_timHps");
+		$this->load->model("m_kategori");
+		$this->load->model("m_alat");
+		$this->load->model("m_timHps");
 
 	}
 	// menampilkan halaman awal pengelompokan paket usulan
 	public function index(){
-		print_r("adad");die();
-		// $this->load->view('top');
-		// $tahun=date("Y");
-		// $data['kategori']=$this->m_paket->getAllKategoriWithPaket($tahun);
-		// $this->load->view('pengelompokan/pengelompokan_view',$data);
-		// $this->load->view('bottom');
+		 $this->load->view('top');
+		 $tahun=date("Y");
+		 $data['kategori']=$this->m_paket->getAllKategoriWithPaket($tahun);
+		 $this->load->view('pengelompokan/pengelompokan_view',$data);
+		 $this->load->view('bottom');
 	}
 
 	//Menampilkan form add pengelompokan
