@@ -6,12 +6,13 @@ class Kontrak extends CI_Controller {
 	public function kontrak(){
 		parent::__construct();
 		$this->load->model("m_kontrak");
-		$this->load->model("m_pengelompokan");
+		$this->load->model("m_paket");
 	}
 
 	public function index(){
 		$this->load->view('top');
-		$data['paket']=$this->m_kontrak->getAllDataPaket();
+		$data['paket']=$this->m_paket->getAllPaketKontrak();
+		// print_r($data); die();
 		$this->load->view("kontrak/kontrak_view",$data);
 		$this->load->view('bottom');
 	}

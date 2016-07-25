@@ -28,15 +28,15 @@ $this->load->view("info_header");
                                     </tr>
                                     <?php 
                                     foreach($paket as $p){
-                                        $tglHasilLelang = $this->m_lelang->getPaketLelangSuksesById($p['ID_PAKET']);
+                                        // $tglHasilLelang = $this->m_lelang->getPaketLelangSuksesById($p['ID_PAKET']);
                                         ?>
                                         <tr>
                                             <td><?=$p['ID_PROGRESS_PAKET']?>// PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?></td>
                                             <td> <?=$p['NAMA_PAKET']?> </td>
                                             <td> <?=$p['TAHUN_ANGGARAN']?> </td>
                                             <td> Rp. <?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?> </td>
-                                            <td> <? $tgl = explode(" ", $tglHasilLelang['TANGGAL']); echo $tgl[0];?></td>
-                                            <td> <?=$this->m_data->getDataFromTblWhere('team_penerima', 'ID_TEAM_PENERIMA', $p['ID_TEAM_PENERIMA'])->row()->NAMA_TIM?></td>
+                                            <td> <? //$tgl = explode(" ", $tglHasilLelang['TANGGAL']); echo $tgl[0];?></td>
+                                            <td> <?=$this->m_data->getDataFromTblWhere('tim_penerima', 'ID_TIM_PENERIMA', $p['ID_TIM_PENERIMA'])->row()->NAMA_TIM?></td>
                                             <td><a href="<?=base_url()?>Kontrak/detail/<?=$p['ID_PAKET']?>" class="btn btn-primary"><i class="fa fa-file-text"></i> &nbsp; Lihat Kontrak</a></td>
                                         </tr>
                                         <?php 
