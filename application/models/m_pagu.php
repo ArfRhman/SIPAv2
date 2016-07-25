@@ -48,18 +48,11 @@ class M_pagu extends CI_Model {
 		return $query;
 	}
 
-
-	/*
-	//=======================Old=======================
-
-	//Mengambil data pagu berdasarkan id pagu
-	function getPaguByIdPagu($id){
-		$query = $this->db->query("SELECT * from pagu where ID_PAGU = '$id'")->row_array();
+	//Mengambil data pagu di tahun sekarang berdasarkan id jurusan
+	function getCurrentPaguByIdJurusan($id,$tahun){
+		$query = $this->db->query("SELECT * from pagu where ID_JURUSAN = '$id' AND TAHUN_ANGGARAN = '$tahun'")->row_array();
 		return $query;
 	}
-
-	
-	
 
 	//Mengambil data pagu berdasarkan id jurusan
 	function getPaguByIdJurusan($id){
@@ -67,9 +60,12 @@ class M_pagu extends CI_Model {
 		return $query;
 	}
 
-	//Mengambil data pagu di tahun sekarang berdasarkan id jurusan
-	function getCurrentPaguByIdJurusan($id,$tahun){
-		$query = $this->db->query("SELECT * from pagu where ID_JURUSAN = '$id' AND TAHUN_ANGGARAN = '$tahun'")->row_array();
+	/*
+	//=======================Old=======================
+
+	//Mengambil data pagu berdasarkan id pagu
+	function getPaguByIdPagu($id){
+		$query = $this->db->query("SELECT * from pagu where ID_PAGU = '$id'")->row_array();
 		return $query;
 	}
 	

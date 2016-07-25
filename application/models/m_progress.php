@@ -6,11 +6,7 @@ class M_progress extends CI_Model {
 		parent::__construct();
 	}
 
-	function getProgressByUserJurusan($id,$id_jenis){
-		$query=$this->db->query("SELECT * from progress_paket where ID_JURUSAN = '$id' AND ID_JENIS_USER='$id_jenis' order by ID_PROGRESS_PAKET DESC")->row_array();
-		return $query;
-	}
-
+	//Menyimpan progress usulan
 	function saveProgressUsulan($p){
 		$query=$this->db->query("INSERT into progress_paket(
 			ID_USER,
@@ -18,7 +14,7 @@ class M_progress extends CI_Model {
 			ID_USULAN,
 			STATUS,
 			REVISI_KE,
-			ID_JURUSAN,
+			TANGGAL,
 			ID_JENIS_USER
 			)values(
 			'$p[id_user]',
@@ -26,11 +22,19 @@ class M_progress extends CI_Model {
 			'$p[id_usulan]',
 			'$p[status]',
 			'$p[revisi_ke]',
-			'$p[id_jurusan]',
+			CURDATE(),
 			'$p[id_jenis_user]'
 			)");
 		return $query;
 	}
+
+	/*
+	//============Old===========
+	function getProgressByUserJurusan($id,$id_jenis){
+		$query=$this->db->query("SELECT * from progress_paket where ID_JURUSAN = '$id' AND ID_JENIS_USER='$id_jenis' order by ID_PROGRESS_PAKET DESC")->row_array();
+		return $query;
+	}
+
 
 // get data progress paket 
 	function getProgressPaketByFase($fase){
@@ -68,6 +72,7 @@ class M_progress extends CI_Model {
 			)");
 		return $query;
 	}
+	*/
 }
 
 ?>

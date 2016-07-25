@@ -1,7 +1,7 @@
 <?php 
 $sess=$this->session->userdata();
 $id_jurusan = $this->session->userdata('ID_JURUSAN');
-$startDate = $this->m_site->getStartDate(date('Y'));
+$startDate ='';// $this->m_site->getStartDate(date('Y'));
 
 $fase = '-';
 $deadline = '-';

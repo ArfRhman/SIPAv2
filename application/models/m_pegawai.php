@@ -18,14 +18,12 @@ class M_pegawai extends CI_Model {
 		return $query;
 	}
 
-
-/*
-//===============OLd================
+	//===============Tambahan================
+	//Mengambil id pegawai berdasarkan nama
 	function getUserIdByName($nama){
 		$query = $this->db->query("SELECT * from pegawai,user where pegawai.NAMA_PEGAWAI = '$nama' AND pegawai.NIP = user.NIP")->row_array();
 		return $query;
 	}
-	*/
 	
 }
 

@@ -286,6 +286,29 @@ class M_alat extends CI_Model {
 		return $query;
 	}
 
+	//Menyimpan data perubahan alat (insert baru dengan beda revisi)
+	
+
+
+	//============Tambahan===========
+	//Mengambil data maksimal revisi
+	function getMaxRevisi($id){
+		$query = $this->db->query("SELECT MAX(REVISI) as m from alat where ID_USULAN='$id'")->row_array();
+		return $query;
+	}
+
+	//Mengambil data alat usulan serta yang telah final
+	function getAlatByIdUsulanAndFinal($id,$max,$jur){
+		$query = $this->db->query("SELECT *,(SELECT NAMA_PAKET from paket where paket.ID_PAKET = alat.ID_PAKET) as NAMA_PAKET,(SELECT NAMA_PEGAWAI from pegawai,user where pegawai.NIP = user.NIP AND alat.ID_USER = user.ID_USER) as NAMA_PEGAWAI from alat where ID_USULAN ='$id' AND REVISI='$max[m]' OR IS_FINAL=1 AND ID_JURUSAN = '$jur'")->result_array();
+		return $query;	
+	}
+
+	//Mengubah is final jadi nol ketika manajemen save pengajuan
+	function clearFinal($id){
+		$query = $this->db->query("UPDATE alat set IS_FINAL = 0 where ID_JURUSAN = '$id'");
+		return $query;
+	}
+
 /*
 //==================OLd============
 	
@@ -295,30 +318,7 @@ class M_alat extends CI_Model {
 		return $query;
 	}
 
-	function getMaxRevisi($id){
-		$query = $this->db->query("SELECT MAX(REVISI) as m from alat where ID_USULAN='$id'")->row_array();
-		return $query;
-	}
-
-
-
 	
-
-	function getAlatByIdUsulanAndFinal($id,$max,$jur){
-		$query = $this->db->query("SELECT *,(SELECT NAMA_PAKET from paket where paket.ID_PAKET = alat.ID_PAKET) as NAMA_PAKET,(SELECT NAMA_PEGAWAI from pegawai,user where pegawai.NIP = user.NIP AND alat.ID_USER = user.ID_USER) as NAMA_PEGAWAI from alat where ID_USULAN ='$id' AND REVISI='$max[m]' OR IS_FINAL=1 AND ID_JURUSAN = '$jur'")->result_array();
-		return $query;	
-	}
-
-	
-
-	
-
-	//Mengubah is final jadi nol ketika manajemen save pengajuan
-	function clearFinal($id){
-		$query = $this->db->query("UPDATE alat set IS_FINAL = 0 where ID_JURUSAN = '$id'");
-		return $query;
-	}
-
 
 	function saveUpdateAlatHps($p){
 		if($p['ref']==""){
@@ -410,6 +410,19 @@ class M_alat extends CI_Model {
 		}
 		return $query;
 	}
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+	
 
 	
 	

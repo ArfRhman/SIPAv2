@@ -6,11 +6,21 @@ class M_kategori extends CI_Model {
 		parent::__construct();
 	}
 
+	//Mengambil seluruh kategori
 	function getAllKategori(){
 		$query = $this->db->query("SELECT * FROM kategori")->result_array();
 		return $query;
 	}
 
+	//=======Tambahan========
+	//Mengambil kategori berdasrkan nama kategori
+	function getKategoriByName($name){
+		$query = $this->db->query("SELECT * from kategori where KATEGORI = '$name'")->row_array();
+		return $query;
+	}
+
+	/*
+	//==================Old
 	//Mengambil data kategori beserta paketnya
 	function getAllKategoriWithPaket($tahun){
 		$query = $this->db->query("SELECT *,(SELECT STATUS from progress_paket where progress_paket.ID_PAKET = paket.ID_PAKET order by TANGGAL DESC limit 0,1) as STATUS_PROGRESS,kategori.ID_KATEGORI as ID_KAT from kategori left join paket on paket.ID_KATEGORI = kategori.ID_KATEGORI")->result_array();
@@ -22,11 +32,8 @@ class M_kategori extends CI_Model {
 		return $query;
 	}
 
-	function getKategoriByName($name){
-		$query = $this->db->query("SELECT * from kategori where KATEGORI = '$name'")->row_array();
-		return $query;
-	}
-
+	
+	*/
 
 }
 

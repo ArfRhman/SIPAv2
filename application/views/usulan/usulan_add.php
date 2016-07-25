@@ -193,7 +193,7 @@
 
     $.when(
       $.ajax({
-        url: '<?=base_url()?>Usulan/saveUsulan',
+        url: '<?=base_url()?>Usulan/create',
         type: "POST",
         data:myFormData,
         contentType: false,

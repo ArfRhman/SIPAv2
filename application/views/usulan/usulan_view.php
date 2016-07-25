@@ -10,7 +10,7 @@ $this->load->view("info_header");
    $id_jurusan = $this->session->userdata('ID_JURUSAN');
     $id_jenis = $this->session->userdata('ID_JENIS_USER');
   if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3 || $id_jenis== 5){
-    // $usul = $this->m_usulan->getUsulanFromBelow($id_jurusan);
+    //$usul = $this->m_usulan->getUsulanFromBelow($id_jurusan);
     // echo $usul[0]['STAT'];
   }
   ?>
@@ -24,8 +24,7 @@ $this->load->view("info_header");
                <li role="presentation" class="active">
                  <a href="#usulan" aria-controls="rd" role="tab" data-toggle="tab">Usulan Pengadaan</a></li>
                  <? if($this->session->userdata('ID_JENIS_USER') == 2 || $this->session->userdata('ID_JENIS_USER') == 3){?>
-                 <li role="presentation" ><a href="#verusulan" aria-controls="verusulan" role="tab" data-toggle="tab">Verifikasi Usulan 
-                 <?php //if(!empty($usulan_below)){?><span class="badge danger">!</span><?php //} ?> </a></li>
+                 <li role="presentation" ><a href="#verusulan" aria-controls="verusulan" role="tab" data-toggle="tab">Verifikasi Usulan <?php if(!empty($usulan_below)){?><span class="badge danger">!</span><?php } ?> </a></li>
                  <? }?>
 
 
@@ -35,7 +34,7 @@ $this->load->view("info_header");
                 <div role="tabpanel" class="tab-pane active" id="usulan">
 
                   <div class="card-body">
-                    <a href="<?=base_url()?>Usulan/addUsulan" class="btn btn-info"> <i class="fa fa-plus-square"></i>&nbsp; Tambah Usulan</a>
+                    <a href="<?=base_url()?>Usulan/add" class="btn btn-info"> <i class="fa fa-plus-square"></i>&nbsp; Tambah Usulan</a>
                     &nbsp;
                     <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#modalLihatUsulanFinal"> <i class="fa fa-search"></i>&nbsp; Lihat Usulan Final</a>
                     <table class="table table-stripped table-bordered table-hover">
@@ -49,24 +48,24 @@ $this->load->view("info_header");
                         <th>Aksi</th>
                       </tr>
                       <?php 
-                      // foreach($usulan as $p){
-                      //   $noDok = "Usulan-".$p['ID_USULAN']."/".$p['INISIAL']."/".$p['TAHUN_ANGGARAN'];
+                      foreach($usulan as $p){
+                        $noDok = "Usulan-".$p['ID_USULAN']."/".$p['INISIAL']."/".$p['TAHUN_ANGGARAN'];
                         ?>
                         <tr>
-                          <td><?//$noDok?></td>
-                          <td><?//=$p['TAHUN_ANGGARAN']?></td>
+                          <td><?=$noDok?></td>
+                          <td><?=$p['TAHUN_ANGGARAN']?></td>
                           <td>
-                            <a href="<?=base_url()?>Usulan/DetailUsulan/<?=$p['ID_USULAN']?>">
-                              <?//=$p['NAMA_PAKET']?>
+                            <a href="<?=base_url()?>Usulan/detail/<?=$p['ID_USULAN']?>">
+                              <?=$p['NAMA_PAKET']?>
                             </a>
                           </td>
-                          <td><?//=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?></td>
-                          <td><?//=//$p['TANGGAL_DIBUAT']?></td>
-                          <td><?//=//$p['LAST_UPDATE']?></td>
+                          <td><?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?></td>
+                          <td><?=$p['TANGGAL_DIBUAT']?></td>
+                          <td><?=$p['LAST_UPDATE']?></td>
                           <td><a href="#" download class="btn btn-success"><i class="fa fa-download"></i> </a> | <a href="#" download class="btn btn-primary" onclick="getRevisi(<?=$p['ID_USULAN']?>,'<?=$noDok?>')" data-toggle="modal" data-target="#modalLihatRevisi"><i class="fa fa-files-o"></i> Revisi </a></td>
                         </tr>
                         <?php 
-                     // }
+                      }
                       ?>
                     </table>
 
@@ -85,24 +84,24 @@ $this->load->view("info_header");
                       <th>Aksi</th>
                     </tr>
                     <?php 
-                    // foreach($usulan_below as $p){
-                    //   $noDok = "Usulan-".$p['ID_USULAN']."/".$p['INISIAL']."/".$p['TAHUN_ANGGARAN'];
+                    foreach($usulan_below as $p){
+                      $noDok = "Usulan-".$p['ID_USULAN']."/".$p['INISIAL']."/".$p['TAHUN_ANGGARAN'];
                       ?>
                       <tr>
-                        <td><?//=$noDok?></td>
-                        <td><?//=$p['TAHUN_ANGGARAN']?></td>
+                        <td><?=$noDok?></td>
+                        <td><?=$p['TAHUN_ANGGARAN']?></td>
                         <td>
-                          <!-- <a href="<?//=base_url()?>Usulan/detailUsulan/<?//=$p['ID_USULAN']?>/<?//=$p['REVISI_KE']?>"> -->
-                            <?//=$p['NAMA_PAKET']?>
+                          <a href="<?=base_url()?>Usulan/detail/<?=$p['ID_USULAN']?>/<?=$p['REVISI_KE']?>">
+                            <?=$p['NAMA_PAKET']?>
                           </a>
                         </td>
-                        <td><?//=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?></td>
-                        <td><?//=$p['TANGGAL_DIBUAT']?></td>
-                        <td><?//=$p['LAST_UPDATE']?></td>
+                        <td><?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?></td>
+                        <td><?=$p['TANGGAL_DIBUAT']?></td>
+                        <td><?=$p['LAST_UPDATE']?></td>
                         <td><a href="#" download class="btn btn-success"><i class="fa fa-download"></i> </a></td>
                       </tr>
                       <?php 
-                //    }
+                    }
                     ?>
                   </table>
                 </div>

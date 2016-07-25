@@ -9,7 +9,7 @@ class M_usulan extends CI_Model {
 
 	//Mengambil data usulan berdasarkan id jurusan
 	function getUsulanByIdJurusan($id,$id_jenis){
-		$query = $this->db->query("SELECT * from usulan,jurusan where usulan.ID_JURUSAN = '$id' AND jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND usulan.ID_JENIS_USER = '$id_jenis'")->result_array();
+		$query = $this->db->query("SELECT * from usulan,jurusan,user where user.id_user = usulan.id_user AND user.id_jenis_user = '$id_jenis' AND usulan.ID_JURUSAN = '$id' AND jurusan.ID_JURUSAN = usulan.ID_JURUSAN")->result_array();
 		return $query;
 	}
 
@@ -21,16 +21,14 @@ class M_usulan extends CI_Model {
 			NAMA_PAKET,
 			TANGGAL_DIBUAT,
 			TAHUN_ANGGARAN,
-			TOTAL_ANGGARAN,
-			ID_JENIS_USER
+			TOTAL_ANGGARAN
 			)values(
 			'$p[id_user]',
 			'$p[id_jurusan]',
 			'$p[nama]',
 			NOW(),
 			'$p[tahun]',
-			'$p[total]',
-			'$p[id_jenis_user]'
+			'$p[total]'
 			)");
 		return $this->db->insert_id();
 	}
@@ -59,7 +57,7 @@ class M_usulan extends CI_Model {
 
 	//Mengambil data usulan yang telah diajukan oleh teknisi atau kepala lab
 	function getUsulanFromBelow($id){
-		$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,jurusan where jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND progress_paket.ID_JURUSAN = '$id' AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
+		$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,user where user.ID_JURUSAN = '$id' AND progress_paket.ID_USER = user.ID_USER AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
 		return $query;
 	}
 

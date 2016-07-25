@@ -122,7 +122,7 @@
             if($jenis==3){
               if($jenis==$usulan['ID_JENIS_USER']){
                 ?>
-                <form method="POST" action="<?=base_url()?>Progress/saveProgressUsulan"/>
+                <form method="POST" action="<?=base_url()?>Usulan/ajukan"/>
                   <input type="hidden" name="id_usulan" value="<?=$usulan['ID_USULAN']?>">
                   <input type="hidden" name="revisi_ke" value="<?=$curr?>">
                   <button id="btnKirimAjuan" type="submit" class="btn btn-primary"><i class="fa fa-check"></i> &nbsp;Kirim Ajuan</button>
@@ -134,7 +134,7 @@
                 }
               }else{
                 ?>
-                <form method="POST" action="<?=base_url()?>Progress/saveProgressUsulan"/>
+                <form method="POST" action="<?=base_url()?>Usulan/ajukan"/>
                   <input type="hidden" name="id_usulan" value="<?=$usulan['ID_USULAN']?>">
                   <input type="hidden" name="revisi_ke" value="<?=$curr?>">
                   <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> &nbsp;Kirim Ajuan</button>
@@ -216,7 +216,7 @@
     cekPagu();
 
     $(".revisi").change(function(){
-      window.location.href = "<?=base_url()?>Usulan/DetailUsulan/<?=$usulan['ID_USULAN']?>/"+$(".revisi").val();
+      window.location.href = "<?=base_url()?>Usulan/detail/<?=$usulan['ID_USULAN']?>/"+$(".revisi").val();
     });
 
     $("#addRow").click(function(){
@@ -298,7 +298,7 @@
           myFormData.set('paket',rowUsulan[i][15]);
 
           $.ajax({
-            url: '<?=base_url()?>Usulan/updateAlat',
+            url: '<?=base_url()?>Usulan/update',
             type: "POST",
             data:myFormData,
             contentType: false,
@@ -349,7 +349,7 @@ $("#btnKonfirm").click(function(e){
   myFormData.append('paket','');
 
   $.ajax({
-    url: '<?=base_url()?>Progress/saveProgressKonfirmasi',
+    url: '<?=base_url()?>Usulan/konfirmasi',
     type: "POST",
     data:myFormData,
     contentType: false,
@@ -395,7 +395,7 @@ $("#btnKonfirm").click(function(e){
       myFormData.set('paket',rowUsulan[i][15]);
 
       $.ajax({
-        url: '<?=base_url()?>Usulan/updateAlat',
+        url: '<?=base_url()?>Usulan/update',
         type: "POST",
         data:myFormData,
         contentType: false,
@@ -448,7 +448,7 @@ $("#btnAccept").click(function(e){
   myFormData.append('paket','');
 
   $.ajax({
-    url: '<?=base_url()?>Progress/approveUsulan',
+    url: '<?=base_url()?>Usulan/approve',
     type: "POST",
     data:myFormData,
     contentType: false,
