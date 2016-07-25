@@ -199,7 +199,7 @@
                     <? } ?>
                     <? if($id_jenis==5){ ?>
                     <li class="list <?= ($this->uri->segment(1)=='Pengelompokan')?'active':''; ?>">
-                        <a href="<?=base_url()?>Pengelompokan">
+                        <a href="<?=base_url()?>Paket">
                             <span class="icon fa fa-list-alt"></span><span class="title">Pengelompokan</span>
                         </a>
                     </li>

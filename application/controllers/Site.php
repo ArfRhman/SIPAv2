@@ -27,7 +27,7 @@ class Site extends CI_Controller {
 			}elseif($id_jenis == 4){
 				redirect(base_url().'Pagu');
 			}elseif($id_jenis == 5){
-				redirect(base_url().'Pengelompokan');
+				redirect(base_url().'Paket');
 			}elseif($id_jenis == 6){
 				redirect(base_url().'HPS');
 			}elseif($id_jenis == 7){
