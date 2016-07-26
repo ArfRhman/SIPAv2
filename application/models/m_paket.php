@@ -38,6 +38,34 @@ class M_paket extends CI_Model {
 		return $query;
 	}
 
+	//Mengambil data paket untuk berita acara
+	function getAllDataPaket(){
+		$query = $this->db->query("SELECT * 
+			from paket p
+			inner join (
+				select *,pp.ID_USER AS idUSr,pp.`STATUS` AS sts from progress_paket pp 
+				WHERE pp.`STATUS` IN (SELECT ppp.STATUS FROM progress_paket ppp WHERE ppp.`STATUS` BETWEEN '10' and '12' AND ppp.ID_PAKET = pp.ID_PAKET ORDER BY ppp.`STATUS` DESC)
+				ORDER BY pp.TANGGAL desc 
+				) r
+		on r.ID_PAKET = p.ID_PAKET
+		group by r.ID_PAKET")->result_array();
+		return $query;
+	}
+
+	//Mengambil data paket yang telah memasuki tahap kontrak by id
+	function getAllDataPaketById($id){
+		$query = $this->db->query("SELECT * 
+			from paket p
+			inner join (
+				select *,pp.ID_USER AS idUSr,pp.`STATUS` AS sts from progress_paket pp 
+				WHERE pp.`STATUS` IN (SELECT ppp.STATUS FROM progress_paket ppp WHERE ppp.`STATUS` BETWEEN '9' and '10' AND ppp.ID_PAKET = pp.ID_PAKET ORDER BY ppp.STATUS DESC) AND pp.ID_PAKET = $id
+				ORDER BY pp.TANGGAL desc 
+				) r
+		on r.ID_PAKET = p.ID_PAKET
+		group by r.ID_PAKET")->row_array();
+		return $query;
+	}
+
 	//Mengambil data kategori beserta paket dengan kategori tersebut
 	function getAllKategoriWithPaket($tahun){
 		$query = $this->db->query("SELECT *,(SELECT STATUS from progress_paket where progress_paket.ID_PAKET = paket.ID_PAKET order by TANGGAL DESC limit 0,1) as STATUS_PROGRESS,kategori.ID_KATEGORI as ID_KAT from kategori left join paket on paket.ID_KATEGORI = kategori.ID_KATEGORI")->result_array();

@@ -16,6 +16,7 @@ class M_pemenang extends CI_Model {
 		$this->db->insert('pemenang',$data);
 		return 1;
 	}
+
 }
 
 ?>

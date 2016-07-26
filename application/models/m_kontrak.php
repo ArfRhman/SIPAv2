@@ -35,8 +35,7 @@ class M_kontrak extends CI_Model {
 				KETERANGAN='$p[keterangan]',
 				FILE='$p[file]'
 				where ID_KONTRAK='$p[id_kontrak]'");
-		}
-		else{
+		}else{
 			$query = $this->db->query("UPDATE kontrak set 
 				KETERANGAN='$p[keterangan]'
 				where ID_KONTRAK='$p[id_kontrak]'");
@@ -48,6 +47,14 @@ class M_kontrak extends CI_Model {
 	function deleteKontrak($id){
 		$query = $this->db->query("DELETE from kontrak where ID_KONTRAK = '$id'");
 		return $query;
+	}
+
+
+	//Mengupdate data penyedia pada paket
+	function updatePenyedia($id,$data){
+		$this->db->where('ID_PAKET',$id);
+		$this->db->update('paket',$data);
+		return 1;
 	}
 
 	/*
@@ -91,16 +98,9 @@ class M_kontrak extends CI_Model {
 	}
 
 	
-	function getPenyediaById($id){
-		$query = $this->db->query("SELECT * from paket where ID_PAKET = '$id'")->row_array();
-		return $query;
-	}
+	
 
-	function savePenyedia($id,$data){
-		$this->db->where('ID_PAKET',$id);
-		$this->db->update('paket',$data);
-		return 1;
-	}
+	
 
 
 	*/

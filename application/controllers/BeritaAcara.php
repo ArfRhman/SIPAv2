@@ -5,19 +5,23 @@ class BeritaAcara extends CI_Controller {
 
 	public function BeritaAcara(){
 		parent::__construct();
+		$this->load->model("m_paket");
+
 	}
 
 	public function index(){
 		$this->load->view('top');
-		$data['paket']=$this->m_beritaacara->getAllDataPaket();
+		$data['paket']=$this->m_paket->getAllDataPaket();
 		$this->load->view("berita_acara/view",$data);
 		$this->load->view('bottom');
 	}
 
 	public function BAPP($id){
 		$this->load->view('top');
-		$data['p']=$this->m_beritaacara->getPaketById($id);
+		$data['p']=$this->m_paket->getPaketById($id);
 		$data['alat']=$this->m_beritaacara->getAlatByIdPaket($id);
+		
+		print_r($data); die();
 		$this->load->view("berita_acara/bapp",$data);
 		$this->load->view('bottom');
 	}

@@ -34,8 +34,8 @@ $this->load->view("info_header");
                                         <td><?=$p['TAHUN_ANGGARAN']?></td>
                                         <td> <?=$p['NAMA_PAKET']?> </td>
                                         <td> Rp. <?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?> </td>
-                                        <td> <? $tgl = explode(" ", $p['TANGGAL_DIBUAT']); echo $tgl[0];?></td>
-                                        <td> <? $tgl = explode(" ", $p['LAST_UPDATE']); echo $tgl[0];?></td>
+                                        <td> <? $tgl = explode(" ", $p['TANGGAL_DIBUAT']); echo  IndoTgl($tgl[0]);?></td>
+                                        <td> <? $tgl = explode(" ", $p['LAST_UPDATE']); echo IndoTgl($tgl[0]);?></td>
                                         <td><a href="<?=site_url()?>BeritaAcara/BAPP/<?=$p['ID_PAKET']?>" class="btn btn-info"><i class="fa fa-search"></i> Detail </a></td>
                                         <td>
                                          <!-- <a href="#" class="btn btn-success"><i class="fa fa-plus"></i> Tambah </a> -->

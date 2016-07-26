@@ -17,25 +17,30 @@ $this->load->view("info_header");
                             </div>
                             <div class="card-body">
                                 <table class="table table-stripped table-bordered table-hover">
-                                <tr class="active">
-                                    <th>No. Dokumen</th>
-                                    <th>Nama Paket</th>
-                                    <th>Tahun</th>
-                                    <th>Total Anggaran</th>
-                                    <th>Tanggal Hasil Lelang</th>
-                                    <th>Penyedia</th>
-                                    <th>Dokumen Kontrak</th>
+                                    <tr class="active">
+                                        <th>No. Dokumen</th>
+                                        <th>Nama Paket</th>
+                                        <th>Tahun</th>
+                                        <th>Total Anggaran</th>
+                                        <th>Tanggal Hasil Lelang</th>
+                                        <th>Penyedia</th>
+                                        <th>Dokumen Kontrak</th>
                                     </tr>
                                     <?php 
                                     foreach($paket as $p){
                                         // $tglHasilLelang = $this->m_lelang->getPaketLelangSuksesById($p['ID_PAKET']);
+                                        $maxProgress = $this->m_progress->getMaksProgressAlatByPaket($p['ID_PAKET']);
                                         ?>
                                         <tr>
-                                            <td><?=$p['ID_PROGRESS_PAKET']?>// PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?></td>
+                                            <td><?=$p['ID_PROGRESS_PAKET']?>// PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?>
+                                                <? if($maxProgress['ST']>9){?>
+                                                <span class="label label-success" style="font-size: 11px;"><i class="fa fa-check"></i> Telah Disetujui</span>
+                                                <? } ?>
+                                            </td>
                                             <td> <?=$p['NAMA_PAKET']?> </td>
                                             <td> <?=$p['TAHUN_ANGGARAN']?> </td>
                                             <td> Rp. <?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?> </td>
-                                            <td> <? //$tgl = explode(" ", $tglHasilLelang['TANGGAL']); echo $tgl[0];?></td>
+                                            <td> <?  $tgl = explode(" ", $p['TANGGAL']); echo IndoTgl($tgl[0]);?></td>
                                             <td> <?=$this->m_data->getDataFromTblWhere('tim_penerima', 'ID_TIM_PENERIMA', $p['ID_TIM_PENERIMA'])->row()->NAMA_TIM?></td>
                                             <td><a href="<?=base_url()?>Kontrak/detail/<?=$p['ID_PAKET']?>" class="btn btn-primary"><i class="fa fa-file-text"></i> &nbsp; Lihat Kontrak</a></td>
                                         </tr>

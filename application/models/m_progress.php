@@ -14,20 +14,29 @@ class M_progress extends CI_Model {
 			ID_USULAN,
 			STATUS,
 			REVISI_KE,
-			TANGGAL,
-			ID_JENIS_USER
+			TANGGAL
 			)values(
 			'$p[id_user]',
 			'$p[id_fase]',
 			'$p[id_usulan]',
 			'$p[status]',
 			'$p[revisi_ke]',
-			CURDATE(),
-			'$p[id_jenis_user]'
+			CURDATE()
 			)");
 		return $query;
 	}
 
+	// menyimpan data progress paket
+	function saveProgressGeneral($data){
+		$this->db->insert('progress_paket',$data);
+		return 1;
+	}
+
+	// mengambil status akhir progress berdasarkan id paket
+	function getMaksProgressAlatByPaket($id){
+		$query = $this->db->query("SELECT MAX(pp.STATUS) AS ST FROM progress_paket pp WHERE pp.ID_PAKET = '$id'")->row_array();
+		return $query;
+	}
 	/*
 	//============Old===========
 	function getProgressByUserJurusan($id,$id_jenis){
@@ -47,10 +56,7 @@ class M_progress extends CI_Model {
 		return $query;
 	}
 
-	function getProgressAlatByPaket($id){
-		$query = $this->db->query("SELECT MAX(pp.STATUS) AS ST FROM progress_paket pp WHERE pp.ID_PAKET = '$id'")->row_array();
-		return $query;
-	}
+	
 
 	function saveProgressGeneral($data){
 		$this->db->insert('progress_paket',$data);

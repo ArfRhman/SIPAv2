@@ -44,7 +44,6 @@ class Lelang extends CI_Controller {
 				'ID_USER'=> $this->session->userdata('ID_USER'),
 				'ID_FASE'=> '3',
 				'STATUS'=>'9',
-				'ID_JENIS_USER'=> $this->session->userdata('ID_JENIS_USER'),
 				'REVISI_KE'=>'1'
 				);
 
@@ -90,7 +89,6 @@ class Lelang extends CI_Controller {
 				'ID_USER'=> $this->session->userdata('ID_USER'),
 				'ID_FASE'=> '3',
 				'STATUS'=>'-9',
-				'ID_JENIS_USER'=> $this->session->userdata('ID_JENIS_USER'),
 				'REVISI_KE'=>'1'
 				);
 			$this->m_lelang->updateLelangGagal($p);
