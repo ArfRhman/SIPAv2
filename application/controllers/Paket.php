@@ -9,6 +9,7 @@ class Paket extends CI_Controller {
 		$this->load->model("m_kategori");
 		$this->load->model("m_alat");
 		$this->load->model("m_timHps");
+		$this->load->model("m_progress");
 
 	}
 	// menampilkan halaman awal pengelompokan paket usulan
@@ -20,14 +21,8 @@ class Paket extends CI_Controller {
 		 $this->load->view('bottom');
 	}
 
-	//Menampilkan form add pengelompokan
-	//[PopUp]
-	public function addPengelompokan(){
-		$this->load->view('pengelompokan/pengelompokan_add');
-	}
-
-	//Menyimpan data pengelompokan
-	public function savePengelompokan(){
+	//Menyimpan data paket
+	public function create(){
 		// $p = $this->input->post();
 		// $id = 1;//$this->session->userdata("id_jurusan");
 		// $tahun = date("Y");
@@ -37,19 +32,61 @@ class Paket extends CI_Controller {
 		$p=$this->input->post();
 		$p['id_user']=$this->session->userdata("ID_USER");
 		$p['tahun_anggaran']=date("Y");
-		$dataid=$this->m_pengelompokan->getPengelompokanByKategori($p['kategori']);
+		$dataid=$this->m_paket->getPaketByKategori($p['kategori']);
 		
 		if(empty($dataid)){
-			$id = $this->m_pengelompokan->savePengelompokan($p);
+			$id = $this->m_paket->savePaket($p);
 		}else{
 			$id = $dataid['ID_PAKET'];
 			$p['id_paket']=$id;
-			$this->m_pengelompokan->updatePengelompokan($p);
+			$this->m_paket->updatePaket($p);
 		}
 		
 		$this->m_alat->updateKategoriAlat($p['kategori'],$id);
-		redirect("Pengelompokan");
+		redirect("Paket");
 	}
+
+	public function ajukan($kat){
+		$dataid=$this->m_paket->getPaketByKategori($kat);
+		$p=$this->input->post();
+		$p['id_paket']=$dataid['ID_PAKET'];
+		$p['id_user']=$this->session->userdata("ID_USER");
+		//$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
+		$p['id_jenis_user']=$this->session->userdata("ID_JENIS_USER");
+		$p['id_fase']=2;	
+		$p['status']=5;	
+		$this->m_progress->saveProgressGeneral($p);
+		
+		//$this->session->set_flashdata('data', 'Data Berhasil Diajukan ke Tim HPS');
+		//redirect("Paket");
+	}
+
+
+	//===============Tambahan================
+	//Mengambil paket berdasarkan kategori
+	public function getPaketByIdKategori($kat){
+		$data['tim']=$this->m_timHps->getAllTimHps();
+		$data['paket2'] = $this->m_alat->getAlatByIdKategori($kat);
+		$data['paket']=$this->m_alat->getAlatNonPaketByIdKategori($kat);
+		$kategori = $this->m_paket->getPaketByKategori($kat);
+		$data['kategori']=array();
+		if(!empty($kategori)){
+			$data['kategori']=$kategori;
+		}
+		$data['paket']=array_merge($data['paket'],$data['paket2']);
+		$this->load->view("pengelompokan/detail_pengelompokan_view",$data);
+	}
+
+	/*
+	//===================Old==============
+
+	//Menampilkan form add pengelompokan
+	//[PopUp]
+	public function addPengelompokan(){
+		$this->load->view('pengelompokan/pengelompokan_add');
+	}
+
+	
 
 	//Menampilkan form edit pengelompokan
 	//[PopUp]
@@ -64,19 +101,8 @@ class Paket extends CI_Controller {
 		redirect("Pengelompokan");
 	}
 
-	public function getPaketByIdKategori($kat){
-		$data['tim']=$this->m_timHps->getAllTimHps();
-		$data['paket2'] = $this->m_alat->getAlatByIdKategori($kat);
-		$data['paket']=$this->m_alat->getAlatNonPaketByIdKategori($kat);
-		$kategori = $this->m_pengelompokan->getPengelompokanByKategori($kat);
-		$data['kategori']=array();
-		if(!empty($kategori)){
-			$data['kategori']=$kategori;
-		}
-		$data['paket']=array_merge($data['paket'],$data['paket2']);
-		$this->load->view("pengelompokan/detail_pengelompokan_view",$data);
-	}
-
+	
+	*/
 }
 
 

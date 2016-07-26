@@ -51,7 +51,7 @@ class M_usulan extends CI_Model {
 
 	//Mengambil data usulan berdasarkan Id Usulan
 	function getUsulanByIdUsulan($id){
-		$query = $this->db->query("SELECT * from usulan,pagu where ID_USULAN = '$id' AND usulan.TAHUN_ANGGARAN = pagu.TAHUN_ANGGARAN")->row_array();
+		$query = $this->db->query("SELECT * from usulan,pagu,user where usulan.ID_USER=user.ID_USER AND ID_USULAN = '$id' AND usulan.TAHUN_ANGGARAN = pagu.TAHUN_ANGGARAN")->row_array();
 		return $query;
 	}
 

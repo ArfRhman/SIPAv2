@@ -84,7 +84,7 @@ $this->load->view("info_header");
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="modal-title" id="myModalLabel">Lihat Paket Pengelompokan</h4>
                       </div>
-                      <form action="<?=base_url()?>Pengelompokan/savePengelompokan" method="POST">
+                      <form action="<?=base_url()?>Paket/create" method="POST">
                         <div class="modal-body" id="bodyPengelompokan">
 
                         </div>
@@ -139,7 +139,7 @@ $this->load->view("info_header");
       }
       function getPaketByIdKategori(kat){
         $.ajax({
-          url: '<?=base_url()?>Pengelompokan/getPaketByIdKategori/'+kat,
+          url: '<?=base_url()?>Paket/getPaketByIdKategori/'+kat,
           type: "GET",
           success : function(res){
            $("#bodyPengelompokan").html(res);
@@ -154,7 +154,7 @@ $this->load->view("info_header");
 
       function ajukanPaket(kat){
         $.ajax({
-          url: '<?=base_url()?>Progress/saveProgressPengelompokan/'+kat,
+          url: '<?=base_url()?>Paket/ajukan/'+kat,
           type: "GET",
           success : function(res){
            window.location.href='Pengelompokan';

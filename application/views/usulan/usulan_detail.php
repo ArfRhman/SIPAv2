@@ -112,7 +112,8 @@
         </div>
         <div class="col-md-4" style="text-align: right;
         ">
-        <? if($this->session->userdata('ID_JENIS_USER') == 2 || $this->session->userdata('ID_JENIS_USER') == 3){
+        <? 
+        if($this->session->userdata('ID_JENIS_USER') == 2 || $this->session->userdata('ID_JENIS_USER') == 3){
           if($this->session->userdata('ID_USER') != $usulan['ID_USER'] ){
             ?>
             <button id="btnKonfirm" class="btn btn-danger"><i class="fa fa-warning"></i> &nbsp;Konfirmasi</button>

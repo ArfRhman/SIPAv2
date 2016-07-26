@@ -14,24 +14,13 @@ class M_paket extends CI_Model {
 
 	//Mengambil data paket berdasarkan id kategori
 	function getPaketByKategori($kat){
-		$query = $this->db->query("SELECT * from paket,team_hps where ID_KATEGORI = '$kat' AND paket.ID_TEAM_HPS = team_hps.ID_TEAM_HPS")->row_array();
+		$query = $this->db->query("SELECT * from paket,tim_hps where ID_KATEGORI = '$kat' AND paket.ID_TIM_HPS = tim_hps.ID_TIM_HPS")->row_array();
 		return $query;
 	}
 
 	//Mengambil data paket berdasarkan tim hps
 	function getPengelompokanByTim($id){
 		$query = $this->db->query("SELECT * from paket,team_hps where team_hps.ID_USER = '$id' AND paket.ID_TEAM_HPS = team_hps.ID_TEAM_HPS")->result_array();
-		return $query;
-	}
-
-	//Mengubah data paket
-	function updatePengelompokan($p){
-		$query = $this->db->query("UPDATE paket set 
-			NAMA_PAKET='$p[nama]',
-			ID_TEAM_HPS='$p[tim]',
-			LAST_UPDATE=NOW() 
-			where ID_PAKET = '$p[id_paket]'
-			");
 		return $query;
 	}
 
@@ -59,7 +48,7 @@ class M_paket extends CI_Model {
 	function savePaket($p){
 		$query = $this->db->query("INSERT into paket(
 			ID_USER,
-			ID_TEAM_HPS,
+			ID_TIM_HPS,
 			NAMA_PAKET,
 			TANGGAL_DIBUAT,
 			TAHUN_ANGGARAN,

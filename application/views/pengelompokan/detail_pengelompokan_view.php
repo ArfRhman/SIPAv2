@@ -7,7 +7,7 @@
     <div class="sub-title">Tim HPS 
     <select name="tim" class="form-control" style="width: 20%;margin-left:1%;">
       <?php foreach($tim as $t){?>
-      <option value="<?=$t['ID_TEAM_HPS']?>" <?php if(!empty($kategori)){?><?=$kategori['ID_TEAM_HPS']==$t['ID_TEAM_HPS'] ? 'selected' : ''?><?php } ?>><?=$t['NAMA_TIM']?></option>
+      <option value="<?=$t['ID_TIM_HPS']?>" <?php if(!empty($kategori)){?><?=$kategori['ID_TEAM_HPS']==$t['ID_TEAM_HPS'] ? 'selected' : ''?><?php } ?>><?=$t['NAMA_TIM']?></option>
       <?php } ?> 
     </select></div>
     <div>
