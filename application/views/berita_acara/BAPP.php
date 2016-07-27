@@ -39,7 +39,7 @@
                     <span class="col-md-3" style="margin-bottom:5px"> <?=$p['TAHUN_ANGGARAN']?></span>
 
                     <span class="col-md-3" style="margin-bottom:5px"><b> Tanggal Dibuat :</b></span>
-                    <span class="col-md-3" style="margin-bottom:5px"> <? $tgl = explode(" ", $p['TANGGAL_DIBUAT']); echo $tgl[0];?></span>
+                    <span class="col-md-3" style="margin-bottom:5px"> <? $tgl = explode(" ", $p['TANGGAL_DIBUAT']); echo IndoTgl($tgl[0]);?></span>
                   </div>
 
                   <div class="row">
@@ -47,7 +47,7 @@
                     <span class="col-md-3" style="margin-bottom:5px"> <?=$p['NAMA_PAKET']?></span>
 
                     <span class="col-md-3" style="margin-bottom:5px"><b> Last Update :</b></span>
-                    <span class="col-md-3" style="margin-bottom:5px"> <? $tgl = explode(" ", $p['LAST_UPDATE']); echo $tgl[0];?></span>
+                    <span class="col-md-3" style="margin-bottom:5px"> <? $tgl = explode(" ", $p['LAST_UPDATE']); echo IndoTgl($tgl[0]);?></span>
                   </div>
 
                 </div>
@@ -62,15 +62,16 @@
                   <th rowspan="2">Spesifikasi</th>
                   <th rowspan="2">Setara</th>
                   <th rowspan="2">Satuan</th>
-                  <th rowspan="2">Jumlah</th>
+                  <th rowspan="2" >Jumlah</th>
                   <th colspan="<?= ($maxTgl['c']!=0)?$maxTgl['c']*2:'2'?>"  style="text-align:center"> Pemeriksaan</th>
-                  <th rowspan="2">Jumlah Penerimaan</th>
+                  <th rowspan="2">Total Diterima</th>
+                  <th rowspan="2">Belum Diterima</th>
                   <th rowspan="2">Aksi</th>
                 </tr>
                 <tr class="active">
                   <?for ($i=0; $i < $maxTgl['c']; $i++) { ?>
                   <th style="border-left: 2px solid #ccc;">Tanggal</th >
-                    <th>Jumlah</th>
+                    <th style="border-right: 2px solid #ccc;">Jumlah</th>
                     <? }  
                     if($maxTgl['c'] == 0) {?>
                     <th style="border-left: 2px solid #ccc;">Tanggal</th >
@@ -93,10 +94,10 @@
                         <? foreach ($tanggalPemeriksaan as $t) {?>
                         <td style="border-left: 2px solid #ccc;">
                           <a href="#" data-toggle="tooltip" data-placement="left" data-html="true" title="Ket : <?= $t['KETERANGAN']?>">
-                            <? $tgl = explode(" ", $t['TANGGAL_PENERIMAAN']); echo $tgl[0];?>
+                            <? $tgl = explode(" ", $t['TANGGAL_PENERIMAAN']); echo IndoTgl($tgl[0]);?>
                           </a>
                         </td>
-                        <td ><?=$t['JUMLAH']?></td>
+                        <td ><?=$t['JUMLAH']?> <a href="<?=base_url()?>BeritaAcara/deleteBAPP/<?=$t['ID_PENERIMAAN']?>" style="float: right;color: #e60000;" onclick="return confirm('Apakah Anda Yakin Menghapus Data Ini ?');">X</a></td>
                         <? 
                         $jm += $t['JUMLAH']; 
                         $c++;
@@ -113,8 +114,18 @@
                         <td style="border-left: 2px solid #ccc;"> - </td>
                         <td> - </td>
                         <? } ?>
-                        <td> <?= $jm ?> </td>
-                        <td><a href="#" class="btn btn-info" data-toggle="modal" data-target="#modalAddPenerimaan" onclick="setAddPenerimaan('<?=$a['ID_ALAT']?>','<?=$p['ID_TEAM_PENERIMA']?>','<?=$p['ID_PAKET']?>')"><i class="fa fa-plus"></i> Tambah </a></td>
+                        <td style="border-left: 2px solid #ccc;">  <span class="label label-success" style="font-size: 14px;"><?= $jm ?></span> </td>
+                        <?
+                        $sisaAlat = $a['JUMLAH_ALAT'] - $jm;
+                        ?>
+                        <td>  <span class="label label-danger" style="font-size: 14px;"><?= $sisaAlat ?></span> </td>
+                        <td>
+                        <?if($sisaAlat==0){?>
+                        <span class="label label-success" style="font-size: 11px;"><i class="fa fa-check"></i>Alat Telah Diterima Semua</span>
+                        <?}else{?>
+                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#modalAddPenerimaan" onclick="setAddPenerimaan('<?=$a['ID_ALAT']?>','<?=$p['ID_TIM_PENERIMA']?>','<?=$p['ID_PAKET']?>','<?=$sisaAlat?>')" ><i class="fa fa-plus"></i> Tambah </a>
+                        <?}?>
+                        </td>
 
                       </tr>
                       <?}?>
@@ -147,7 +158,7 @@
                 <input type="hidden" name="id_paket" id="id_paket">
                 <div class="sub-title">Jumlah Barang</div>
                 <div>
-                  <input type="text" name="jml" class="form-control">
+                  <input type="text" id="jmlBarang" name="jml" class="form-control" onKeyUp="cekSisa(this.value);"><span>Maks : <label id="sisaId"></label></span>
                 </div>
                 <div class="sub-title">Keterangan</div>
                 <div>
@@ -167,10 +178,19 @@
 
   <!-- end add tanggal pemeriksaan -->
   <script type="text/javascript">
-    function setAddPenerimaan(a,b,c) {
+    function setAddPenerimaan(a,b,c,sisa) {
       document.getElementById('id_alat').value = a;
       document.getElementById('id_tim').value = b;
       document.getElementById('id_paket').value = c;
+      document.getElementById('sisaId').innerHTML  = sisa;
+    }
+
+    function cekSisa(val){
+      var max =  document.getElementById('sisaId').innerHTML;
+      if(val > 3 ){
+        alert('Jumlah melebihi maksimal!');
+        document.getElementById('jmlBarang').value  = max;
+      }
     }
 
   </script>

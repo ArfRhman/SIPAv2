@@ -5,29 +5,34 @@ class M_beritaacara extends CI_Model {
 	function m_beritaacara(){
 		parent::__construct();
 	}
-	function getAllDataPaket(){
-		$query = $this->db->query("SELECT * 
-			from paket p
-			inner join (
-				select *,pp.ID_USER AS idUSr,pp.`STATUS` AS sts from progress_paket pp 
-				WHERE pp.`STATUS` IN (SELECT ppp.STATUS FROM progress_paket ppp WHERE ppp.`STATUS` BETWEEN '10' and '12' AND ppp.ID_PAKET = pp.ID_PAKET ORDER BY ppp.`STATUS` DESC)
-				ORDER BY pp.TANGGAL desc 
-				) r
-		on r.ID_PAKET = p.ID_PAKET
-		group by r.ID_PAKET")->result_array();
-		return $query;
+	
+	// menyimpan data penerimaan alat
+	function saveBAPP($data){
+
+		$query = $this->db->query("SELECT * from penerimaan where ID_PAKET='$data[ID_PAKET]' AND ID_ALAT ='$data[ID_ALAT]' AND TANGGAL_PENERIMAAN = '$data[TANGGAL_PENERIMAAN]'")->row_array();
+		if(empty($query)){
+			$this->db->insert('penerimaan',$data);
+		}else{
+			$tot = $query['JUMLAH'] + $data['JUMLAH'];
+			$this->db->query("UPDATE penerimaan set JUMLAH='$tot' where ID_PENERIMAAN='$query[ID_PENERIMAAN]'");
+		}
+		return 1;
 	}
-	function getAllDataPaketById($id){
-		$query = $this->db->query("SELECT * 
-			from paket p
-			inner join (
-				select *,pp.ID_USER AS idUSr,pp.`STATUS` AS sts from progress_paket pp 
-				WHERE pp.STATUS = 9
-				ORDER BY pp.TANGGAL desc 
-				) r
-		on r.ID_PAKET = p.ID_PAKET AND p.ID_PAKET = '$id'
-		group by r.ID_PAKET AND r.ID_FASE = '3'")->row_array();
-		return $query;
+	// menghapus data BAPP
+	function deleteBAPP($id){
+		$this->db->where('ID_PENERIMAAN',$id);
+		$this->db->delete('penerimaan');
+		return 1;
+	}
+	// menyimpan data bukti Pengadaan
+	function saveBukti($dataBukti){
+		$this->db->insert('bukti_pengadaan',$dataBukti);
+		return 1;
+	}
+	// get Bukti Pengadaan berdasarkan id paket
+	function getBuktiById($id){
+		$res = $this->db->query("SELECT * FROM bukti_pengadaan WHERE ID_PAKET = '$id'")->result_array();
+		return $res;
 	}
 
 	function getAlatByIdPaket($id){
@@ -44,14 +49,8 @@ class M_beritaacara extends CI_Model {
 		return $query;
 	}
 
-	function getBuktiById($id){
-		$res = $this->db->query("SELECT * FROM bukti_penerimaan WHERE ID_PAKET = '$id'")->result_array();
-		return $res;
-	}
-	function saveBAPP($data){
-		$this->db->insert('penerimaan',$data);
-		return 1;
-	}
+	
+	
 	function cekTglPenerimaan($id){
 		$ret = $this->db->query("SELECT MAX(counted) AS c FROM
 			(
