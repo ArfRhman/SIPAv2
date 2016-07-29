@@ -95,7 +95,7 @@ class M_paket extends CI_Model {
 	}
 
 	//Mengambil data paket yang tela memasuki tahap SPM
-	function getPaketSpm(){
+	function getPaketSPM(){
 		$query = $this->db->query("SELECT * 
 			from paket p
 			inner join (
@@ -115,6 +115,11 @@ class M_paket extends CI_Model {
 			LAST_UPDATE=NOW() 
 			where ID_PAKET = '$p[id_paket]'
 			");
+		return $query;
+	}
+	//Mengambil data paket yang telah memasuki tahap pencatatan
+	function getPaketPencatatanById($id){
+		$query = $this->db->query("SELECT * FROM progress_paket pp,paket p WHERE  pp.`STATUS` BETWEEN '13' and '14' AND p.ID_PAKET = pp.ID_PAKET AND pp.ID_PAKET IN ((SELECT ID_PAKET FROM alat WHERE ID_JURUSAN = $id AND ID_PAKET != ''))")->result_array();
 		return $query;
 	}
 

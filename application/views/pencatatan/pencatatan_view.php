@@ -23,7 +23,7 @@
                     </tr>
                     <? foreach ($paket as $p) {?>
                     <tr>
-                    <td> <?=$p['ID_PROGRESS_PAKET']?>//PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?> </td>
+                    <td>PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?> </td>
                     <td><?=$p['TAHUN_ANGGARAN']?></td>
                     <td> <?=$p['NAMA_PAKET']?> </td>
                       <td> <a class="btn btn-primary" href="<?=site_url()?>Pencatatan/Detail/<?=$p['ID_PAKET']?>"> <i class="fa fa-search"></i> Detail</a></td>
