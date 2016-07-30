@@ -18,6 +18,7 @@ class M_alat extends CI_Model {
 		return $query;	
 	}
 
+
 	//Mengambil data alat yang telah berada didalam paket berdasarkan id kategori
 	function getAlatByIdKategori($kat){
 		$query = $this->db->query("SELECT *,alat.ID_PAKET as ID_PAKET from alat,lokasi,jurusan,progress_paket where progress_paket.STATUS = 3 AND (progress_paket.ID_USULAN = alat.ID_USULAN AND progress_paket.REVISI_KE = alat.REVISI) AND lokasi.ID_LOKASI = alat.ID_LOKASI AND jurusan.ID_JURUSAN = alat.ID_JURUSAN AND alat.ID_KATEGORI = '$kat' AND alat.IS_FINAL = 1 AND alat.ID_PAKET is not null")->result_array();
@@ -308,7 +309,39 @@ class M_alat extends CI_Model {
 		$query = $this->db->query("UPDATE alat set IS_FINAL = 0 where ID_JURUSAN = '$id'");
 		return $query;
 	}
+	// mengambil data alat yang diterima berdasarkan id jurusan
+	function getPenerimaanAlat($id_jurusan){
+		 $query = $this->db->query('SELECT * FROM penerimaan pn WHERE pn.ID_PAKET = (SELECT MAX(a.ID_PAKET) FROM alat AS a WHERE a.ID_JURUSAN = '.$id_jurusan.')')->result_array(); 
+		 return $query;
+	}
+	// mengubah status persetujuan penerimaan alat
+	function approvePenerimaan($id,$data){
+		$this->db->where('ID_PENERIMAAN',$id);
+		$this->db->update('penerimaan',$data);
+		return 1;
+	}
 
+	//Mengambil data total jumlah alat berdasarkan id paket serta urutan revisi paketnya
+	function getAllJumlahAlatByIdPaket($id,$max){
+		$res = $this->db->query("SELECT SUM(JUMLAH_ALAT) AS maxAlat FROM alat WHERE ID_PAKET = '$id' AND REVISI_PAKET='$max[m]'")->row_array();
+		return $res;
+	}
+	//Mengambil data total jumlah alat yang telah diterima berdasarkan id paket
+	function getAllJumlahPenerimaanAlatByIdPaket($id){
+		$res = $this->db->query('SELECT SUM(JUMLAH) AS maxTrmAlat FROM penerimaan WHERE ID_PAKET = '.$id.'')->row_array();
+		return $res;
+	}
+	// mengambil status konfirmasi penerimaan alat berdasarkan id paket
+	function getStatusKonfirmasiByIdPaket($id){
+		$res = $this->db->query('SELECT COUNT(STATUS_KONFIRMASI) AS c FROM penerimaan WHERE STATUS_KONFIRMASI IN (0) AND ID_PAKET = '.$id.'')->row_array();
+		return $res;
+	}
+	// menambah data nomor inventaris alat
+	function addNoInventaris($id,$data){
+		$this->db->where('ID_ALAT',$id);
+		$this->db->update('alat',$data);
+
+	}
 /*
 //==================OLd============
 	

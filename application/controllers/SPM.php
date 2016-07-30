@@ -3,19 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class SPM extends CI_Controller {
 
-	public function kontrak(){
+	public function SPM(){
 		parent::__construct();
 		$this->load->model("m_kontrak");
-		$this->load->model("m_pengelompokan");
+		$this->load->model("m_paket");
+		$this->load->model("m_beritaacara");
 	}
-
+	// menampilkan halaman awal untuk approve SPM
 	public function index(){
 		$this->load->view('top');
-		$data['paket']=$this->m_spm->getAllDataPaket();
+		$data['paket'] = $this->m_paket->getPaketSPM();
 		$this->load->view("spm/view",$data);
 		$this->load->view('bottom');
 	}
-
+	// menampilkan data bukti pengadaan
 	public function getBukti(){
 		$id = $_POST['id'];
 		$bukti = $this->m_beritaacara->getBuktiById($id);
@@ -26,39 +27,44 @@ class SPM extends CI_Controller {
 		$display .= '</table>';
 		echo $display;
 	}
-	function confirmSPM(){
+	// mengubah status approve untuk SPM
+	function approve(){
 		$id = $this->input->post('id_paket');
 		$data = array('STATUS_BAYAR'=>1);
-		$this->m_spm->confirmSPM($id,$data);
+		$this->m_spm->approveSPM($id,$data);
 
 		// $cekProgress = $this->m_kontrak->cekProgressPenerimaan($id);
 		// if($cekProgress==0){
-			$dataProgress = array(
+
+		$dataProgress = array(
 				'ID_PAKET'=>$id,
 				'ID_USER'=> $this->session->userdata('ID_USER'),
-				'ID_FASe'=> '5',
+				'ID_FASE'=> '5',
 				'STATUS'=>'13',
-				'ID_JENIS_USER'=> $this->session->userdata('ID_JENIS_USER'),
+				'REVISI_KE'=>'1'
 				);
-			$this->m_beritaacara->saveProgressPenerimaan($dataProgress);
+
+		$this->m_progress->saveProgressGeneral($dataProgress);
+		// $this->m_beritaacara->saveProgressPenerimaan($dataProgress);
 		// }
-			redirect($_SERVER['HTTP_REFERER']);
+		redirect($_SERVER['HTTP_REFERER']);
 		return 1;
 	}
 
 	function KonfirmasiAlat(){
+		$id_jurusan = $this->session->userdata('ID_JURUSAN');
 		$this->load->view('top');
-		// $data['paket']=$this->m_spm->getAllDataPaket();
-		$this->load->view("spm/konfirmasi");
+		$data['pnb']=$this->m_alat->getPenerimaanAlat($id_jurusan);
+		$this->load->view("spm/konfirmasi",$data);
 		$this->load->view('bottom');
 	}
 
-	function confirmPenerimaan(){
+	function approvePenerimaan(){
 		$id = $this->input->post('id_penerimaan');
 		$data = array('STATUS_KONFIRMASI'=>1);
-		$this->m_spm->confirmPenerimaan($id,$data);
+		$this->m_alat->approvePenerimaan($id,$data);
 
-			redirect($_SERVER['HTTP_REFERER']);
+		redirect($_SERVER['HTTP_REFERER']);
 		return 1;
 	}
 

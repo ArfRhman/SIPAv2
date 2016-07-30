@@ -121,7 +121,7 @@ class Kontrak extends CI_Controller {
 		}
 		redirect($_SERVER['HTTP_REFERER']);	
 	}
-
+	// update progress untuk setujui data kontrak
 	public function setujui(){
 		$id = $this->input->post('id_paket');
 		$data = array(

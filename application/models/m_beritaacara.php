@@ -62,7 +62,7 @@ class M_beritaacara extends CI_Model {
 		return $ret;
 	}
 	function getTglPenerimaanByIdAlat($id){
-		$query = $this->db->query("SELECT * FROM penerimaan WHERE ID_ALAT = $id")->result_array();
+		$query = $this->db->query("SELECT * FROM penerimaan WHERE ID_ALAT = $id ORDER BY TANGGAL_PENERIMAAN")->result_array();
 		return $query;
 	}
 	function saveProgressPenerimaan($data){

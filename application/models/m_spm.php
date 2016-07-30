@@ -8,11 +8,11 @@ class M_spm extends CI_Model {
 
 
 	//Men-approve data paket di fase SPM
-	function approveSpm($id){
+	function approveSPM($id){
 		$query = $this->db->query("UPDATE paket set STATUS_BAYAR = 1 where ID_PAKET = '$id'");
 		return $query;
 	}
-
+	
 	/*
 	//===========Old===========
 	function getAllDataPaket(){
@@ -27,18 +27,9 @@ class M_spm extends CI_Model {
 		group by r.ID_PAKET")->result_array();
 		return $query;
 	}
-	function getAllJumlahAlatByIdPaket($id){
-		$res = $this->db->query('SELECT SUM(JUMLAH_ALAT) AS maxAlat FROM alat WHERE ID_PAKET = '.$id.'')->row_array();
-		return $res;
-	}
-	function getAllJumlahPenerimaanAlatByIdPaket($id){
-		$res = $this->db->query('SELECT SUM(JUMLAH) AS maxTrmAlat FROM penerimaan WHERE ID_PAKET = '.$id.'')->row_array();
-		return $res;
-	}
-	function getStatusKonfirmasiByIdPaket($id){
-		$res = $this->db->query('SELECT COUNT(STATUS_KONFIRMASI) AS c FROM penerimaan WHERE STATUS_KONFIRMASI IN (0) AND ID_PAKET = '.$id.'')->row_array();
-		return $res;
-	}
+	
+	
+	
 	function confirmSPM($id,$data){
 		$this->db->where('ID_PAKET',$id);
 		$this->db->update('paket',$data);

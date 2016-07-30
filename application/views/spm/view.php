@@ -29,14 +29,16 @@ $this->load->view("info_header");
                     <th>Bukti Pengadaan</th>
                     <th>Aksi</th>
                   </tr>
-                  <?foreach ($paket as $p) {
-                    $maxAlat = $this->m_spm->getAllJumlahAlatByIdPaket($p['ID_PAKET']);
-                    $jmlTrmAlat = $this->m_spm->getAllJumlahPenerimaanAlatByIdPaket($p['ID_PAKET']);
+                  <?
+                  foreach ($paket as $p) {
+                    $maxRev = $this->m_alat->getMaxRevisiPaket($p['ID_PAKET']);
+                    $maxAlat = $this->m_alat->getAllJumlahAlatByIdPaket($p['ID_PAKET'],$maxRev);
+                    $jmlTrmAlat = $this->m_alat->getAllJumlahPenerimaanAlatByIdPaket($p['ID_PAKET']);
                     $sisaAlat = $maxAlat['maxAlat'] - $jmlTrmAlat['maxTrmAlat'];
-                    $statusKonfirmasi =  $this->m_spm->getStatusKonfirmasiByIdPaket($p['ID_PAKET']);
+                    $statusKonfirmasi =  $this->m_alat->getStatusKonfirmasiByIdPaket($p['ID_PAKET']);
                     ?>
                     <tr>
-                      <td><?=$p['ID_PROGRESS_PAKET']?>//PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?></td>
+                      <td><?=$p['ID_PROGRESS_PAKET']?>/PAKET-<?=$p['ID_PAKET']?>/<?=$p['TAHUN_ANGGARAN']?></td>
                       <td><?=$p['TAHUN_ANGGARAN']?></td>
                       <td> <?=$p['NAMA_PAKET']?> </td>
                       <td> Rp. <?=number_format($p['TOTAL_ANGGARAN'],'0',',','.')?> </td>
@@ -107,7 +109,7 @@ $this->load->view("info_header");
         <h4 class="modal-title" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> Approve Pembayaran Dokumen Paket</h4>
       </div>
       <div class="modal-body">
-        <form enctype="multipart/form-data" action="<?=base_url()?>SPM/confirmSPM" method="POST">
+        <form enctype="multipart/form-data" action="<?=base_url()?>SPM/approve" method="POST">
           <input id="idPaket" type="hidden" name="id_paket">
           <h5>Anda Yakin Menyetujui Pembayaran Dokumen Ini ?</h5>
 

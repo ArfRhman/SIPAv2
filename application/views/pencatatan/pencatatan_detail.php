@@ -71,7 +71,7 @@
  function saveNoInvent(idalat){
    var data = $('.no_inven'+idalat).val();
     $.ajax({
-      url: '<?=base_url()?>Pencatatan/addNoInvent',
+      url: '<?=base_url()?>Pencatatan/add',
       type: "POST",
       data: {id:idalat,data:data},
       success : function(res){

@@ -63,7 +63,7 @@ class Progress extends CI_Controller {
 	}
 
 	public function saveProgressPengelompokan($kat){
-		$dataid=$this->m_pengelompokan->getPengelompokanByKategori($kat);
+		$dataid=$this->m_paket->getPengelompokanByKategori($kat);
 		$p=$this->input->post();
 		$p['id_paket']=$dataid['ID_PAKET'];
 		$p['id_user']=$this->session->userdata("ID_USER");
@@ -94,7 +94,7 @@ class Progress extends CI_Controller {
 	}
 
 	public function saveProgressLelang($kat){
-		$dataid=$this->m_pengelompokan->getPengelompokanByKategori($kat);
+		$dataid=$this->m_paket->getPengelompokanByKategori($kat);
 		$p=$this->input->post();
 		$p['id_paket']=$dataid['ID_PAKET'];
 		$p['id_user']=$this->session->userdata("ID_USER");

@@ -12,6 +12,7 @@ class BeritaAcara extends CI_Controller {
 	public function index(){
 		$this->load->view('top');
 		$data['paket']=$this->m_paket->getAllDataPaket();
+		// $data['maxProgress']=$this->m_progress->getMaksProgressAlatByPaket($id);
 		$this->load->view("berita_acara/view",$data);
 		$this->load->view('bottom');
 	}
@@ -61,6 +62,7 @@ class BeritaAcara extends CI_Controller {
 		$bukti = $this->m_beritaacara->getBuktiById($id);
 		$display = '<table class="table table-bordered"><tr class="active"><th> Tanggal </th><th> Bukti Pengadaan </th><th> Aksi </th></tr>';
 		foreach ($bukti as $b) {
+			$tgl = explode(" ", $p['TANGGAL']); echo IndoTgl($tgl[0]);
 			$display .= '<tr><td>'.$b['TANGGAL'].'</td><td><a href="'.base_url().'assets/bukti/'.$b['FILE'].'">'.$b['FILE'].'</td><td><a href="'.base_url().'BeritaAcara/deleteBukti/'.$b['ID_BUKTI'].'">Hapus</a></td></tr>';
 		}
 		$display .= '</table>';
@@ -97,8 +99,21 @@ class BeritaAcara extends CI_Controller {
 	{
 		// $this->m_beritaacara->getBAST($dataBukti);
 		$html=$this->load->view('berita_acara/BAST'); 
-
 	}	
+	// update progress untuk setujui data berita acara
+	public function setujui(){
+		$id = $this->input->post('id_paket');
+		$data = array(
+			'ID_PAKET'=>$id,
+			'ID_USER'=> $this->session->userdata('ID_USER'),
+			'ID_FASE'=> '5',
+			'STATUS'=>'12',
+			'REVISI_KE'=>'1'
+			);
+		$this->m_progress->saveProgressGeneral($data);
+
+		redirect($_SERVER['HTTP_REFERER']);	
+	}
 }
 
 ?>
