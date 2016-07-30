@@ -58,7 +58,7 @@ class Paket extends CI_Controller {
 		$this->m_progress->saveProgressGeneral($p);
 		
 		//$this->session->set_flashdata('data', 'Data Berhasil Diajukan ke Tim HPS');
-		//redirect("Paket");
+		redirect("Paket");
 	}
 
 

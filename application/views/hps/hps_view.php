@@ -39,7 +39,7 @@ $this->load->view("info_header");
                           <td><?=$noDok?></td>
                           <td><?=$p['TAHUN_ANGGARAN']?></td>
                           <td>
-                            <a href="<?=base_url()?>Hps/DetailHps/<?=$p['ID_PAKET']?>">
+                            <a href="<?=base_url()?>Hps/Detail/<?=$p['ID_PAKET']?>">
                               <?=$p['NAMA_PAKET']?>
                             </a>
                           </td>

@@ -307,7 +307,7 @@ $("#btnKonfirm").click(function(e){
       myFormData.set('kategori',rowUsulan[i][12]);
       myFormData.set('konfirmasi',rowUsulan[i][13]);
       $.ajax({
-        url: '<?=base_url()?>Usulan/updateAlat',
+        url: '<?=base_url()?>Usulan/update',
         type: "POST",
         data:myFormData,
         contentType: false,

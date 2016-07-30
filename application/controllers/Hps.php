@@ -5,7 +5,7 @@ class Hps extends CI_Controller {
 
 	public function hps(){
 		parent::__construct();
-		$this->load->model("m_pengelompokan");
+		$this->load->model("m_paket");
 		$this->load->model("m_alat");
 		$this->load->model("m_kategori");
 		$this->load->model("m_lokasi");
@@ -16,22 +16,22 @@ class Hps extends CI_Controller {
 	function index(){
 		$this->load->view('top');
 		$id=$this->session->userdata("ID_USER");
-		// $data['paket']=$this->m_pengelompokan->getPengelompokanByTim($id);
-		$this->load->view("hps/hps_view");
+		$data['paket']=$this->m_paket->getPengelompokanByTim($id);
+		$this->load->view("hps/hps_view",$data);
 	}
 
 	//Menampilkan detail hps
-	public function detailHps($p,$curr=-1){
+	public function detail($p,$curr=-1){
 		$id_jenis = $this->session->userdata('ID_JENIS_USER');
 		$tahun=date("Y");
-		$max=$this->m_alat->getMaxRevisiHps($p);
+		$max=$this->m_alat->getMaxRevisiPaket($p);
 		if($curr==-1){
 			$rev=$max['m'];
 		}else{
 			$rev=$curr;
 		}
-		$paket = $this->m_pengelompokan->getPengelompokanById($p);
-		$alat = $this->m_alat->getAlatByIdPengelompokan($paket['ID_PAKET'],$rev);
+		$paket = $this->m_paket->getPaketById($p);
+		$alat = $this->m_alat->getAlatByIdPaket($paket['ID_PAKET'],$rev);
 		$resKategori=$this->m_kategori->getAllKategori();
 		$resLokasi=$this->m_lokasi->getAllLokasi();
 		$lokasi=array();
@@ -72,6 +72,7 @@ class Hps extends CI_Controller {
 
 		$data['alat']=json_encode($res);
 		$this->load->view('top');
+
 		$this->load->view("hps/hps_detail",$data);
 	}
 

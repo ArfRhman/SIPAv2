@@ -20,7 +20,7 @@ class M_paket extends CI_Model {
 
 	//Mengambil data paket berdasarkan tim hps
 	function getPengelompokanByTim($id){
-		$query = $this->db->query("SELECT * from paket,team_hps where team_hps.ID_USER = '$id' AND paket.ID_TEAM_HPS = team_hps.ID_TEAM_HPS")->result_array();
+		$query = $this->db->query("SELECT * from paket,tim_hps where tim_hps.ID_USER = '$id' AND paket.ID_TIM_HPS = tim_hps.ID_TIM_HPS")->result_array();
 		return $query;
 	}
 

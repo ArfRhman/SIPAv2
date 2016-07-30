@@ -6,9 +6,11 @@ class Progress extends CI_Controller {
 	public function progress(){
 		parent::__construct();
 		$this->load->model("m_progress");
-		$this->load->model("m_pengelompokan");
+		$this->load->model("m_paket");
 	}
 
+
+	//Menyimpan data progress usulan
 	public function saveProgressUsulan(){
 		$p=$this->input->post();
 		$p['id_user']=$this->session->userdata("ID_USER");
@@ -86,7 +88,7 @@ class Progress extends CI_Controller {
 		if($this->session->userdata("ID_JENIS_USER")==6){
 			redirect("HPS");	
 		}else{
-			redirect("Pengelompokan");
+			redirect("Paket");
 		}
 		
 	}

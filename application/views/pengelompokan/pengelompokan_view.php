@@ -157,7 +157,7 @@ $this->load->view("info_header");
           url: '<?=base_url()?>Paket/ajukan/'+kat,
           type: "GET",
           success : function(res){
-           window.location.href='Pengelompokan';
+           window.location.href='Paket';
          },
          error: function (msg) {
           console.log("gagal"+msg);
