@@ -60,9 +60,9 @@
                     <th>Target Anggaran</th>
                     <th>Aktualisasi Anggaran</th>    
                     <th>Realisasi Anggaran (%) </th>    
-                    <th>Jumlah Alat </th>    
-                    <th>Alat Terinventaris</th>    
-                    <th>Alat Belum Terinventaris</th>    
+                    <!-- <th>Jumlah Alat </th>     -->
+                    <!-- <th>Alat Terinventaris</th>     -->
+                    <!-- <th>Alat Belum Terinventaris</th>     -->
                     <th></th>
                   </tr>
                   <tr>
@@ -71,9 +71,9 @@
                    <td> Rp. <?=number_format(100000000,'0',',','.') ?> juta </td>
                    <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
                    <td> <img src="<?=site_url()?>assets/img/backdrop/down.PNG" title="Turun dari tahun sebelumnya"> <?= number_format(90,'2',',','.') ?> % </td>
-                   <td> <span class="label label-primary" style="font-size: 14px;">100</span></td> 
-                   <td> <span class="label label-success" style="font-size: 14px;">90</span></td> 
-                   <td> <span class="label label-danger" style="font-size: 14px;">10</span></td> 
+                   <!-- <td> <span class="label label-primary" style="font-size: 14px;">100</span></td>  -->
+                   <!-- <td> <span class="label label-success" style="font-size: 14px;">90</span></td>  -->
+                   <!-- <td> <span class="label label-danger" style="font-size: 14px;">10</span></td>  -->
                    <td> <a href="<?=site_url()?>Performa/detailPaket"> Detail Pengajuan </a> </td>
                  </tr>
                  <tr>
@@ -82,9 +82,9 @@
                    <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
                    <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
                    <td> <img src="<?=site_url()?>assets/img/backdrop/up.PNG" title="Naik dari tahun sebelumnya"> <?= number_format(100,'2',',','.') ?> % </td>
-                   <td> <span class="label label-primary" style="font-size: 14px;">120</span></td> 
-                   <td> <span class="label label-success" style="font-size: 14px;">120</span></td> 
-                   <td> <span class="label label-danger" style="font-size: 14px;">0</span></td> 
+                   <!-- <td> <span class="label label-primary" style="font-size: 14px;">120</span></td>  -->
+                   <!-- <td> <span class="label label-success" style="font-size: 14px;">120</span></td>  -->
+                   <!-- <td> <span class="label label-danger" style="font-size: 14px;">0</span></td>  -->
                    <td> <a href="<?=site_url()?>Performa/detailPaket"> Detail Pengajuan </a> </td>
                  </tr>
                </table>
