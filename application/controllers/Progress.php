@@ -73,13 +73,13 @@ class Progress extends CI_Controller {
 		$p['status']=5;	
 		$this->m_progress->saveProgressGeneral($p);
 		$this->session->set_flashdata('data', 'Data Berhasil Diajukan ke Tim HPS');
-		redirect("Pengelompokan");
+		redirect("Paket");
 	}
 
 	public function saveProgressHps(){
 		$p=$this->input->post();
 		$p['id_user']=$this->session->userdata("ID_USER");
-		$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
+		//$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
 		$p['id_jenis_user']=$this->session->userdata("ID_JENIS_USER");
 		$p['revisi_ke']=$p['revisi_ke']-1;
 		$p['id_fase']=2;
@@ -94,7 +94,7 @@ class Progress extends CI_Controller {
 	}
 
 	public function saveProgressLelang($kat){
-		$dataid=$this->m_paket->getPengelompokanByKategori($kat);
+		$dataid=$this->m_paket->getPaketByKategori($kat);
 		$p=$this->input->post();
 		$p['id_paket']=$dataid['ID_PAKET'];
 		$p['id_user']=$this->session->userdata("ID_USER");
@@ -103,14 +103,14 @@ class Progress extends CI_Controller {
 		$p['status']=8;
 		$this->m_progress->saveProgressGeneral($p);
 		$this->session->set_flashdata('data', 'Dokumen Memasuki Tahap Lelang');	
-		redirect("Pengelompokan");	
+		redirect("Paket");	
 	}	
 
 
 	public function approveHps(){
 		$p=$this->input->post();
 		$p['id_user']=$this->session->userdata("ID_USER");
-		$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
+		//$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
 		$p['id_jenis_user']=$this->session->userdata("ID_JENIS_USER");
 		$p['revisi_ke']=$p['revisi_ke']-1;
 		$p['id_fase']=2;
@@ -119,7 +119,7 @@ class Progress extends CI_Controller {
 		if($this->session->userdata("ID_JENIS_USER")==6){
 			redirect("HPS");	
 		}else{
-			redirect("Pengelompokan");
+			redirect("Paket");
 		}
 		
 	}

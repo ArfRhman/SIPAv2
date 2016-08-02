@@ -36,7 +36,7 @@ class M_pagu extends CI_Model {
 
 	//Menyimpan tahun anggaran
 	function saveTahunAnggaran($p,$q){
-		$this->db->query("INSERT into tahun_anggaran(TAHUN_ANGGARAN,TANGGAL_MULAI) values('$p','$q')");
+		$query = $this->db->query("INSERT into tahun_anggaran(TAHUN_ANGGARAN,TANGGAL_MULAI) values('$p','$q')");
 		return $query;
 	}
 

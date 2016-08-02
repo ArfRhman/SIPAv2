@@ -66,6 +66,7 @@ class Pagu extends CI_Controller {
 	}
 
 
+
 /*
 //====================Old=====================
 	

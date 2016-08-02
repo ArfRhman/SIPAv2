@@ -156,6 +156,7 @@ class Usulan extends CI_Controller {
 		$tahun=date("Y");
 		$id = $this->session->userdata("ID_JURUSAN");
 		$max=$this->m_alat->getMaxRevisi($p);
+		
 		if($curr==-1){
 			$rev=$max['m'];
 		}else{
@@ -171,7 +172,7 @@ class Usulan extends CI_Controller {
 			$alat = $this->m_alat->getAlatByIdUsulan($usulan['ID_USULAN'],$rev);
 			$data['totalFinal']=1;
 		}
-
+		
 		$resKategori=$this->m_kategori->getAllKategori();
 		$resLokasi=$this->m_lokasi->getLokasiByIdJurusan($id);
 		$lokasi=array();
@@ -217,7 +218,6 @@ class Usulan extends CI_Controller {
 			$res[]=array('', '', '', '', '', '', '','','',"<input name='file[]' type='file'>",false,'','','','','');
 		}
 		
-		//print_r($res);
 
 		$data['alat']=json_encode($res);
 		if($id_jenis==6){

@@ -36,7 +36,7 @@ $this->load->view("info_header");
                       <tr>
                         <td><?=$k['KATEGORI']?></td>
                         <td><?=date("Y");?></td>
-                        <td><a href="<?=base_url()?>Hps/DetailHps/<?=$k['ID_PAKET']?>"><?=$k['NAMA_PAKET']?></a></td>
+                        <td><a href="<?=base_url()?>Hps/detail/<?=$k['ID_PAKET']?>"><?=$k['NAMA_PAKET']?></a></td>
                         <td><?=$k['TANGGAL_DIBUAT']?></td>
                         <td><?=$k['LAST_UPDATE']?></td>
                         <td>
