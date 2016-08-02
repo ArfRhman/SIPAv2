@@ -23,7 +23,7 @@ class M_site extends CI_Model {
 	}
 
 	function getDeadline(){
-		$date = $this->db->query("SELECT *  FROM deadline")->result_array();
+		$date = $this->db->query("SELECT *  FROM fase")->result_array();
 		return $date;
 	}
 
@@ -40,6 +40,11 @@ class M_site extends CI_Model {
 		$konten = '[REMINDER] Segera Masukkan Data Usulan';
 		// SendSMS($konten,'08997150058','Usulan');
 		}
+	}
+
+	function getDataKontakManajemenByIdJurusan($idj){
+		$query = $this->db->query("SELECT p.NO_HP FROM user AS u, pegawai AS p WHERE u.NIP = p.NIP AND u.ID_JURUSAN = $idj AND u.ID_JENIS_USER = 3");
+		return $query;
 	}
 	
 }

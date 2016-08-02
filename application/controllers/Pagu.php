@@ -29,17 +29,25 @@ class Pagu extends CI_Controller {
 	public function create(){
 		$p = $this->input->post();
 		$this->m_pagu->saveTahunAnggaran(date('Y'),date('Y-m-d'));
+		$konten = array();
 		foreach($p['pagu'] as $key=>$a){
+			$pagu = str_replace(',','',$a);
 			$data=array(
 				'id_jurusan'=>$key,
-				'pagu'=>$a,
+				'pagu'=>$pagu,
 				'tahun_anggaran'=>date("Y"),
 				'tanggal'=>date('Y-m-d'),
 				);
 			$this->m_pagu->savePagu($data);
+			$DataPegawai = $this->m_site->getDataKontakManajemenByIdJurusan($key)->result_array();
+			if(!empty($DataPegawai[0]['NO_HP'])){
+				for ($i=0; $i < count($DataPegawai); $i++) { 
+					$DataPegawai[$i]['KONTEN'] = '[NOTIFIKASI] Data Pagu Telah Dimasukkan Pada '.IndoTgl(date('Y-m-d'));
+				}
+				array_push($konten, $DataPegawai);
+			}
 		}
-		$konten = '[REMINDER] Data Pagu Telah Dimasukkan Pada '.IndoTgl(date('Y-m-d'));
-		// SendSMS($konten,'08997150058','Pagu');
+		SendSMS($konten,'Pagu');
 		redirect("Pagu");
 	}
 
@@ -56,6 +64,7 @@ class Pagu extends CI_Controller {
 		}
 		redirect("Pagu");
 	}
+
 
 /*
 //====================Old=====================

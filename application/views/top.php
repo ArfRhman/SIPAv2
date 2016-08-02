@@ -85,7 +85,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/grafik_dashboard.css"> -->
 
 </head>
-<body class="flat-blue">
+<body class="flat-blue" onload="startTime()">
     <div class="app-containers">
         <div class="row content-container">
             <nav class="navbar navbar-default navbar-fixed-top navbar-top">

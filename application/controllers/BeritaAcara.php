@@ -101,7 +101,7 @@ class BeritaAcara extends CI_Controller {
 		$html=$this->load->view('berita_acara/BAST'); 
 	}	
 	// update progress untuk setujui data berita acara
-	public function setujui(){
+	public function approve(){
 		$id = $this->input->post('id_paket');
 		$data = array(
 			'ID_PAKET'=>$id,

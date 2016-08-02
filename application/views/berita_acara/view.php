@@ -81,7 +81,7 @@ $this->load->view("info_header");
         <h4 class="modal-title" id="myModalLabel"><i class="fa fa-exclamation-triangle"></i> Setujui Data Berita Acara</h4>
       </div>
       <div class="modal-body">
-        <form enctype="multipart/form-data" action="<?=base_url()?>BeritaAcara/setujui" method="POST">
+        <form enctype="multipart/form-data" action="<?=base_url()?>BeritaAcara/approve" method="POST">
           <input id="frmIdSetujui" type="hidden" name="id_paket" value="">
           <h5>Anda Yakin Menyetujui Data Berita Acara Ini ?</h5>
 

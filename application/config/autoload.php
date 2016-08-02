@@ -83,7 +83,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url','tgl_indo','sms_gateway');
+$autoload['helper'] = array('url','tgl_indo','notifikasi');
 
 /*
 | -------------------------------------------------------------------

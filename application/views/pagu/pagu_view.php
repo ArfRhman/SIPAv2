@@ -42,14 +42,8 @@ $this->load->view("info_header");
                                     <button type="button" class="btn btn-primary btn-info" data-toggle="modal" data-target="#modalAddPagu">
                                       <i class="fa fa-plus-square"></i>&nbsp; Tambah Data Pagu
                                   </button>
-                                  <?php }else{ ?>
-                                  <a class="btn btn-warning" onclick="editPagu()"
-                                  data-toggle="modal" data-target="#modalEditPagu"><i class="fa fa-pencil"></i> Edit Data Pagu
-                                  <?php 
-                              } 
-                          } ?>
+                                  <?php } } ?>
                       </a>
-
                       <table class="table table-stripped table-bordered table-hover">
                           <tr class="active">
                             <th>Jurusan</th>
@@ -87,12 +81,12 @@ $this->load->view("info_header");
                <div class="card-body"  style="padding: 0px 20px !important;">
                 <form action="<?=base_url()?>Pagu/create" method="POST">
 
-                    <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujur">0</span></b></div>
+                    <!-- <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujur">0</span></b></div> -->
                     <?$totJur = 0;
                     foreach ($jurusan as $j) {
                         if($j['ID_JURUSAN']!=0){?>
                         <div class="sub-title"><b><?= $j['NAMA_JURUSAN'] ?></b>
-                            <input type="text" name="pagu[<?= $j['ID_JURUSAN'] ?>]" class="form-control formattedNumberField dataJur<?= $j['ID_JURUSAN']?>" placeholder="Masukan Nominal Pagu <?= $j['NAMA_JURUSAN'] ?>">
+                            <input type="text" onkeyup="FormatCurrency(this);" onkeypress="return CheckNumeric();" required name="pagu[<?= $j['ID_JURUSAN'] ?>]" class="form-control formattedNumberField dataJur<?= $j['ID_JURUSAN']?>" placeholder="Masukan Nominal Pagu <?= $j['NAMA_JURUSAN'] ?>">
                         </div>
 
                         <? $totJur++; }} ?>
@@ -121,7 +115,7 @@ $this->load->view("info_header");
               <div class="card">
                <div class="card-body"  style="padding: 0px 20px !important;">
                 <form action="<?=base_url()?>Pagu/update" method="POST">
-                    <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujurE">0</span></b></div>
+                    <!-- <div class="sub-title">Pagu Alat Jurusan <b style="float: right;"> TOTAL PAGU : <span id="totPagujurE">0</span></b></div> -->
                     <?$totJur = 0;$no=1;
                     foreach ($jurusan as $j) {
                         if($j['ID_JURUSAN']!=0){?>
@@ -146,23 +140,55 @@ $this->load->view("info_header");
 </div>
 </div>
 </div>
+
 <script type="text/javascript" src="<?=base_url()?>assets/lib/js/jquery.min.js"></script>
 <script type="text/javascript">
-    $(".periode").change(function(){
-      window.location.href = "<?=base_url()?>Pagu/index/"+$(".periode").val();
-  });
-
-    function editPagu () {
-        var total= 0;
-        $('tr').each(function(index){
-            if(index!=0){
-                total = total+Number($(this).find('td').eq(2).attr('nilai'));
-                $('.isian'+index).val($(this).find('td').eq(2).attr('nilai'));
-            }
-        });
-        var n = parseInt(total.toString().replace(/\D/g,''),10);
-        $('#totPagujurE').text(n.toLocaleString());
+ function FormatCurrency(ctrl) {
+    //Check if arrow keys are pressed - we want to allow navigation around textbox using arrow keys
+    if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39 || event.keyCode == 40)
+    {
+        return;
     }
+
+    var val = ctrl.value;
+
+    val = val.replace(/,/g, "")
+    ctrl.value = "";
+    val += '';
+    x = val.split('.');
+    x1 = x[0];
+    x2 = x.length > 1 ? '.' + x[1] : '';
+
+    var rgx = /(\d+)(\d{3})/;
+
+    while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+    }
+
+    ctrl.value = x1 + x2;
+}
+
+function CheckNumeric() {
+    return event.keyCode >= 48 && event.keyCode <= 57;
+}
+
+
+
+$(".periode").change(function(){
+  window.location.href = "<?=base_url()?>Pagu/index/"+$(".periode").val();
+});
+
+function editPagu () {
+    var total= 0;
+    $('tr').each(function(index){
+        if(index!=0){
+            total = total+Number($(this).find('td').eq(2).attr('nilai'));
+            $('.isian'+index).val($(this).find('td').eq(2).attr('nilai'));
+        }
+    });
+    var n = parseInt(total.toString().replace(/\D/g,''),10);
+    $('#totPagujurE').text(n.toLocaleString());
+}
 //   function myParse(num) {
 //       var n2 = num.split(".")
 //       out = 0
@@ -172,11 +198,11 @@ $this->load->view("info_header");
 //     }
 //     return out;
 // }
+
 $(".formattedNumberField").on('keyup',function(event) {
 // var n = parseInt($(this).val().replace(/\D/g,''),10);
 // $(this).val(n.toLocaleString());
-if(event.which < 46
-    || event.which > 59) {
+if(event.which < 46 || event.which > 59) {
     event.preventDefault();
     } // prevent if not number/dot
     var jml = <?=$totJur?> ;
@@ -191,6 +217,8 @@ var n = parseInt(tot.toString().replace(/\D/g,''),10);
 $('#totPagujur').text(n.toLocaleString());
 // $('#totPagujur').text(tot);
 });
+
+
 
 $(".formattedNumberFieldE").on('keyup',function(event) {
 // var n = parseInt($(this).val().replace(/\D/g,''),10);
@@ -211,6 +239,8 @@ var n = parseInt(tot.toString().replace(/\D/g,''),10);
 $('#totPagujurE').text(n.toLocaleString());
 // $('#totPagujurE').text(tot);
 });
+
+
 
 </script>
 
