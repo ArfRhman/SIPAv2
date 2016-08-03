@@ -39,11 +39,11 @@ $this->load->view("info_header");
                                         </div>
                                         <div class="pt-body">
                                             <h4> <? 
-                                                // if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                                // $usul = $this->m_usulan->getUsulanForFlow($id_jurusan,3);
-                                                // foreach ($usul as $u) { ?>
+                                                if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                $usul = $this->m_usulan->getUsulanForFlow($id_jurusan,3);
+                                                foreach ($usul as $u) { ?>
                                                 <button type="button" class="btn btn-default btn-shadow" data-toggle="modal" data-target="#modalLihatUsulanFinal"><i class="fa fa-file-text-o"></i> <?=$u['NAMA_PAKET']?></button>
-                                                <? //}          } ?>
+                                                <? }          } ?>
                                         </h4>
                                         <ul class="plan-detail">
                                             <li>20 Juni 2016 <b>(5 Hari)</b></li>

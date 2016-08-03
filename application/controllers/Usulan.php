@@ -299,17 +299,22 @@ class Usulan extends CI_Controller {
 		if($this->session->userdata("ID_JENIS_USER")==1){
 			$p['id_fase']=1;	
 			$p['status']=11;
+			$cek = array('PROGRESS_USULAN'=>array('STATUS'=>11,'ID_USULAN'=> $p['id_usulan'],'REVISI_KE'=>$p['revisi_ke']));
+			$this->session->set_userdata($cek); // set session dengan data user
 		}else if($this->session->userdata("ID_JENIS_USER")==2){
 			$p['id_fase']=1;
 			$p['status']=22;
+			$cek = array('PROGRESS_USULAN'=>array('STATUS'=>22,'ID_USULAN'=> $p['id_usulan'],'REVISI_KE'=>$p['revisi_ke']));
+			$this->session->set_userdata($cek); // set session dengan data user
 		}else if($this->session->userdata("ID_JENIS_USER")==3){
 			$p['id_fase']=1;
 			$p['status']=3;
+			$cek = array('PROGRESS_USULAN'=>array('STATUS'=>3,'ID_USULAN'=> $p['id_usulan'],'REVISI_KE'=>$p['revisi_ke']));
+			$this->session->set_userdata($cek); // set session dengan data user
 		}
 		$this->m_progress->saveProgressUsulan($p);
+
 		//$progress=$this->m_progress->getProgressByUserJurusan($p['id_jurusan'],$p['id_jenis_user']);
-		
-		//$this->session->set_userdata('PROGRESS',$progress);
 
 		redirect("Usulan");
 	}
@@ -324,9 +329,13 @@ class Usulan extends CI_Controller {
 		if($this->session->userdata("ID_JENIS_USER")==2){
 			$p['id_fase']=1;	
 			$p['status']=-1;
+			$cek = array('PROGRESS_USULAN'=>array('STATUS'=>-1,'ID_USULAN'=> $p['id_usulan'],'REVISI_KE'=>$p['revisi_ke']));
+			$this->session->set_userdata($cek); // set session dengan data user
 		}if($this->session->userdata("ID_JENIS_USER")==3){
 			$p['id_fase']=1;	
 			$p['status']=-2;
+			$cek = array('PROGRESS_USULAN'=>array('STATUS'=>-2,'ID_USULAN'=> $p['id_usulan'],'REVISI_KE'=>$p['revisi_ke']));
+			$this->session->set_userdata($cek); // set session dengan data user
 		}
 		$this->m_progress->saveProgressUsulan($p);
 		redirect("Usulan");

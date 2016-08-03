@@ -79,6 +79,7 @@
               <label class="label-jumlah" >Jumlah + Biaya Keuntungan + Pajak </label>
               <div class="controls">
                 <input type="text" id="totalAnggaranKeuntunganPajak" readonly value="" class="form-control">
+                <input type="hidden" id="totalAnggaranKeuntunganPajakH" readonly value="" class="form-control">
               </div>
             </div>
           </div>
@@ -213,6 +214,9 @@
     }
   }
 
+
+
+
   $(document).ready(function () {
     cekPagu();
 
@@ -247,7 +251,7 @@
       myFormData.append('prioritas','');
       myFormData.append('kategori','');
       myFormData.append('nama',$("#NM_PAKET").val());
-      myFormData.append('total',$("#totalAnggaranKeuntunganPajak").val());
+      myFormData.append('total',$("#totalAnggaranKeuntunganPajakH").val());
       myFormData.append('revisi',<?=$max['m']+1?>);
       myFormData.set('id_usulan',<?=$usulan['ID_USULAN']?>);
       myFormData.append('konfirmasi','');
@@ -342,7 +346,7 @@ $("#btnKonfirm").click(function(e){
   myFormData.append('prioritas','');
   myFormData.append('kategori','');
   myFormData.append('nama',$("#NM_PAKET").val());
-  myFormData.append('total',$("#totalAnggaranKeuntunganPajak").val());
+  myFormData.append('total',$("#totalAnggaranKeuntunganPajakH").val());
   myFormData.append('revisi',<?=$max['m']+1?>);
   myFormData.set('id_usulan',<?=$usulan['ID_USULAN']?>);
   myFormData.append('konfirmasi','');
@@ -441,7 +445,7 @@ $("#btnAccept").click(function(e){
   myFormData.append('prioritas','');
   myFormData.append('kategori','');
   myFormData.append('nama',$("#NM_PAKET").val());
-  myFormData.append('total',$("#totalAnggaranKeuntunganPajak").val());
+  myFormData.append('total',$("#totalAnggaranKeuntunganPajakH").val());
   myFormData.append('revisi',<?=$max['m']+1?>);
   myFormData.set('id_usulan',<?=$usulan['ID_USULAN']?>);
   myFormData.append('konfirmasi','');
@@ -521,8 +525,17 @@ $("#btnAccept").click(function(e){
 
 </script>
 <script data-jsfiddle="excel1">
-  var
-  data1 = <?=$alat?>,
+ Number.prototype.formatMoney = function(c, d, t){
+  var n = this, 
+  c = isNaN(c = Math.abs(c)) ? 2 : c, 
+  d = d == undefined ? "." : d, 
+  t = t == undefined ? "," : t, 
+  s = n < 0 ? "-" : "", 
+  i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+  j = (j = i.length) > 3 ? j % 3 : 0;
+  return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
+var  data1 = <?=$alat?>,
   //container1 = document.getElementById('dataTable'),
   hot1;
 
@@ -720,20 +733,20 @@ $("#btnAccept").click(function(e){
             }
 
 
-            
-            $("#totalAnggaran").val(totAnggaran);
+           $("#totalAnggaran").val((Number(totAnggaran)).formatMoney(0, '', ','));
             
             var keuntungan = (10/100)*Number(totAnggaran);
             var jumlahKeuntungan = Number(totAnggaran) + Number(keuntungan);
-            $("#totalAnggaranKeuntungan").val(jumlahKeuntungan);
+            $("#totalAnggaranKeuntungan").val((Number(jumlahKeuntungan)).formatMoney(0, '', ','));
             //$("#totalAnggaranKeuntungan").val(accounting.formatMoney(jumlahKeuntungan, "Rp", 2, ",", "."));
             
             var pajak = (10/100)*Number(jumlahKeuntungan);
             var jumlahKeuntunganPajak = Number(jumlahKeuntungan) + Number(pajak);
-            $("#totalAnggaranKeuntunganPajak").val(jumlahKeuntunganPajak);
+            $("#totalAnggaranKeuntunganPajak").val((Number(jumlahKeuntunganPajak)).formatMoney(0, '', ','));
+            $("#totalAnggaranKeuntunganPajakH").val(jumlahKeuntunganPajak);
             
             var pagu = <?=$pagu['PAGU_ALAT']?>;
-            $(".pagu_alat").text(Number(pagu)-jumlahKeuntunganPajak);
+            $(".pagu_alat").text((Number(pagu)-jumlahKeuntunganPajak).formatMoney(0, '', ','));
 
           }                            
 

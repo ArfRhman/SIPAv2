@@ -61,19 +61,31 @@ class M_usulan extends CI_Model {
 		return $query;
 	}
 
+	//Mengambil progress usulan berdasarkan usulan dan id jurusan
+	function getProgressUsulanByUserJurusan($id){
+		$query = $this->db->query("SELECT pp.STATUS,pp.ID_USULAN,pp.REVISI_KE FROM usulan AS u, progress_paket AS pp WHERE u.ID_USER  = '$id' AND u.ID_USULAN = pp.ID_USULAN")->row_array();
+		return $query;
+	}
+
+	//mengambil data usulan berdasarkan id jurusan dan fase pengadaan
+	function getUsulanForFlow($id,$fase){
+		$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,jurusan where jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND progress_paket.STATUS = '$fase' AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
+		return $query;
+	}
+	
+	function getUsulanFinalJurusan($fase){
+		$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,jurusan where jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND progress_paket.STATUS = '$fase' AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
+		return $query;
+	}
+
+
+
 /*
 //==========================OLD=====================
 
-	// function getUsulanForFlow($id,$fase){
-	// 	$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,jurusan where jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND progress_paket.ID_JURUSAN = '$id' AND progress_paket.STATUS = '$fase' AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
-	// 	return $query;
-	// }
-
+	
 	// // get data usulan final semua jurusan
-	// function getUsulanFinalJurusan($fase){
-	// 	$query = $this->db->query("SELECT *,progress_paket.STATUS as STAT from progress_paket,usulan,jurusan where jurusan.ID_JURUSAN = usulan.ID_JURUSAN AND progress_paket.STATUS = '$fase' AND usulan.ID_USULAN = progress_paket.ID_USULAN AND ID_PROGRESS_PAKET = (SELECT MAX(ID_PROGRESS_PAKET) from progress_paket where progress_paket.ID_USULAN = usulan.ID_USULAN) group by progress_paket.ID_USULAN order by ID_PROGRESS_PAKET DESC")->result_array();
-	// 	return $query;
-	// }
+	
 
 	// //Mengambil data anggaran usulan berdasarkan Id jurusan
 	// function getUsulanAnggaranByIdJurusan($id){

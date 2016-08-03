@@ -31,69 +31,92 @@ $days = ($secs / 86400).' Hari Lagi';
 $fase = $this->m_data->getDataFromTblWhere('fase','ID_FASE',$fases)->row()->NAMA_FASE;
 }
 
+// set status untuk stiap user
 $status="";
+  // jika user teknisi
 if($sess['ID_JENIS_USER']==1){
-    if($sess['PROGRESS']){
-        if($sess['PROGRESS']['STATUS']==11){
-            $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/DetailUsulan/".$sess['PROGRESS']['ID_USULAN']."/".$sess['PROGRESS']['REVISI_KE']."'>(Lihat)</a>";
-        }else{
-            $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-            if($days <= 3 AND $fases == 1){
-                $this->m_site->setReminder($sess['ID_USER'],1);
-            }    
-        }
+  if($sess['PROGRESS_USULAN']){
+    if($sess['PROGRESS_USULAN']['STATUS']==11){
+      $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/detail/".$sess['PROGRESS_USULAN']['ID_USULAN']."/".$sess['PROGRESS_USULAN']['REVISI_KE']."'>(Lihat)</a>";
     }else{
-        $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-        if($days <= 3 AND $fases == 1){
-            $this->m_site->setReminder($sess['ID_USER'],1);
-        }    
+      $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
     }
-}else if($sess['ID_JENIS_USER']==2){
-    if($sess['PROGRESS']){
-        if($sess['PROGRESS']['STATUS']==22){
-            $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/DetailUsulan/".$sess['PROGRESS']['ID_USULAN']."/".$sess['PROGRESS']['REVISI_KE']."'>(Lihat)</a>";
-        }else{
-            $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-            if($days <= 3 AND $fases == 1){
-                $this->m_site->setReminder($sess['ID_USER'],1);
-            }    
-        }
+  }else{
+    $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  }
+}else if($sess['ID_JENIS_USER']==2){  // jika user kalab
+  if($sess['PROGRESS_USULAN']){
+    if($sess['PROGRESS_USULAN']['STATUS']==22){
+      $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/detail/".$sess['PROGRESS_USULAN']['ID_USULAN']."/".$sess['PROGRESS_USULAN']['REVISI_KE']."'>(Lihat)</a>";
     }else{
-        $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-         if($days <= 3 AND $fases == 1){
-                $this->m_site->setReminder($sess['ID_USER'],1);
-            }    
+      $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
     }
-}else if($sess['ID_JENIS_USER']==3){
-    if($sess['PROGRESS']){
-        if($sess['PROGRESS']['STATUS']==3){
-            $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/DetailUsulan/".$sess['PROGRESS']['ID_USULAN']."/".$sess['PROGRESS']['REVISI_KE']."'>(Lihat)</a>";
-        }else{
-            $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-             if($days <= 3 AND $fases == 1){
-               $this->m_site->setReminder($sess['ID_USER'],1);
-            }    
-        }
-    }else{
-        $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
-         if($days <= 3 AND $fases == 1){
-                $this->m_site->setReminder($sess['ID_USER'],1);
-            }    
-    }
-}else if($sess['ID_JENIS_USER']==4){
-    $pagu=$this->m_pagu->getPaguByPeriode(date('Y'));
-    // print_r($pagu); die();
-    if(!empty($pagu)){
-        if($pagu[0]['TAHUN_ANGGARAN']){
-         $status = "<strong style='color:green'><span><i class='fa fa-check icon'></i></span></strong> Sudah Membuat Pagu";
-     }else{
-        $status = "<strong style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Memasukkan Pagu";
-    }
-}else{
-    $status = "<strong style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Memasukkan Pagu";
+  }else{
+    $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  }
+}else  if($sess['ID_JENIS_USER']==3){  // jika user manajemen
+      if($sess['PROGRESS_USULAN']){
+          if($sess['PROGRESS_USULAN']['STATUS']==3){
+              $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/detail/".$sess['PROGRESS_USULAN']['ID_USULAN']."/".$sess['PROGRESS_USULAN']['REVISI_KE']."'>(Lihat)</a>";
+          }else{
+              $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+               if($days <= 3 AND $fases == 1){
+                 $this->m_site->setReminderManajemen($sess['ID_JENIS_USER'],$id_jurusan,1);
+              }    
+          }
+      }else{
+          $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+           if($days <= 3 AND $fases == 1){
+                 $this->m_site->setReminderManajemen($sess['ID_JENIS_USER'],$id_jurusan,1);
+              }    
+      }
+  }
+  // }else if($sess['ID_JENIS_USER']==2){
+  //     if($sess['PROGRESS']){
+  //         if($sess['PROGRESS']['STATUS']==22){
+  //             $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/DetailUsulan/".$sess['PROGRESS']['ID_USULAN']."/".$sess['PROGRESS']['REVISI_KE']."'>(Lihat)</a>";
+  //         }else{
+  //             $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  //             if($days <= 3 AND $fases == 1){
+  //                 $this->m_site->setReminder($sess['ID_USER'],1);
+  //             }    
+  //         }
+  //     }else{
+  //         $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  //          if($days <= 3 AND $fases == 1){
+  //                 $this->m_site->setReminder($sess['ID_USER'],1);
+  //             }    
+  //     }
+  // }else if($sess['ID_JENIS_USER']==3){
+  //     if($sess['PROGRESS']){
+  //         if($sess['PROGRESS']['STATUS']==3){
+  //             $status = "Sudah Mengajukan Usulan <a href='".base_url()."Usulan/DetailUsulan/".$sess['PROGRESS']['ID_USULAN']."/".$sess['PROGRESS']['REVISI_KE']."'>(Lihat)</a>";
+  //         }else{
+  //             $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  //              if($days <= 3 AND $fases == 1){
+  //                $this->m_site->setReminder($sess['ID_USER'],1);
+  //             }    
+  //         }
+  //     }else{
+  //         $status = "<strong  style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Mengajukan Usulan";
+  //          if($days <= 3 AND $fases == 1){
+  //                 $this->m_site->setReminder($sess['ID_USER'],1);
+  //             }    
+  //     }
+  // }else if($sess['ID_JENIS_USER']==4){
+  //     $pagu=$this->m_pagu->getPaguByPeriode(date('Y'));
+  //     // print_r($pagu); die();
+  //     if(!empty($pagu)){
+  //         if($pagu[0]['TAHUN_ANGGARAN']){
+  //          $status = "<strong style='color:green'><span><i class='fa fa-check icon'></i></span></strong> Sudah Membuat Pagu";
+  //      }else{
+  //         $status = "<strong style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Memasukkan Pagu";
+  //     }
+  // }else{
+  //     $status = "<strong style='color:red'><span><i class='fa fa-exclamation-triangle icon'></i></span></strong> Belum Memasukkan Pagu";
 
-}
-} 
+  // }
+  // } 
 
 ?>
 <!-- Main Content -->
