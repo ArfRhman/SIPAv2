@@ -342,6 +342,11 @@ class M_alat extends CI_Model {
 		$this->db->update('alat',$data);
 
 	}
+
+	function getAlatByIdJurusan($id){
+		$query = $this->db->query("SELECT * FROM alat a WHERE a.ID_PAKET != '' AND a.ID_JURUSAN = '$id'")->result_array();
+		return $query;
+	}
 /*
 //==================OLd============
 	

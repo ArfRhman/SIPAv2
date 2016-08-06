@@ -39,152 +39,157 @@ $this->load->view("info_header");
                                         </div>
                                         <div class="pt-body">
                                             <h4> <? 
+                                                $dibuat = '';
                                                 if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                                $usul = $this->m_usulan->getUsulanForFlow($id_jurusan,3);
-                                                foreach ($usul as $u) { ?>
-                                                <button type="button" class="btn btn-default btn-shadow" data-toggle="modal" data-target="#modalLihatUsulanFinal"><i class="fa fa-file-text-o"></i> <?=$u['NAMA_PAKET']?></button>
-                                                <? }          } ?>
-                                        </h4>
-                                        <ul class="plan-detail">
-                                            <li>20 Juni 2016 <b>(5 Hari)</b></li>
-                                        </ul>
-                                    </div>
-                                    <div class="pt-footer">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="pricing-table blue">
-                                    <div class="pt-header">
-                                        <div class="plan-pricing">
-                                            <div class="pricing"><span class="icon fa fa-money"></span></div>
-                                            <div class="pricing-type">VERIFIKASI HPS</div>
+                                                    $usul = $this->m_usulan->getUsulanForFlow($id_jurusan,3);
+
+                                                    foreach ($usul as $u) { 
+                                                        $dibuat = $u['LAST_UPDATE']; ?>
+                                                        <button type="button" class="btn btn-default btn-shadow" data-toggle="modal" data-target="#modalLihatUsulanFinal"><i class="fa fa-file-text-o"></i> <?=$u['NAMA_PAKET']?></button>
+                                                        <? }          } ?>
+                                                    </h4>
+                                                    <ul class="plan-detail">
+                                                        <li>Dibuat pada : <? $tgl = explode(" ", $dibuat); echo IndoTgl($tgl[0]);?></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="pt-footer">
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="pt-body">
-                                        <h4>
-                                             <? //if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                            //     $alat = $this->m_progress->getAlatByIdJurusan($id_jurusan);
-                                            //     foreach ($alat as $a) {
-                                            //         $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                            //         if($cekHPS['ST']==6 || $cekHPS['ST']==7){ ?>
-                                                    <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
-                                                    <? //}  }       }?>
-                                        </h4>
-                                        <ul class="plan-detail">
-                                            <li>-</li>
-                                        </ul>
-                                    </div>
-                                    <div class="pt-footer">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-2">
-                                <div class="pricing-table yellow">
-                                    <div class="pt-header">
-                                        <div class="plan-pricing">
-                                            <div class="pricing"><span class="icon fa fa-shopping-cart"></span></div>
-                                            <div class="pricing-type">PENGADAAN</div>
-                                        </div>
-                                    </div>
-                                    <div class="pt-body">
-                                        <h4>
-                                           <? //if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                            // $alat = $this->m_progress->getAlatByIdJurusan($id_jurusan);
-                                            // foreach ($alat as $a) {
-                                            //     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                            //     if($cekHPS['ST']==8 || $cekHPS['ST']==9 || $cekHPS['ST']==-9){ ?>
-                                                <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
-                                                <? //}  } } ?>
-                                    </h4>
-                                    <ul class="plan-detail">
-                                        <li>-</li>
-                                    </ul>
-                                </div>
-                                <div class="pt-footer">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pricing-table blue">
-                                <div class="pt-header">
-                                    <div class="plan-pricing">
-                                        <div class="pricing"><span class="icon fa fa-check-square"></span></div>
-                                        <div class="pricing-type">PENETAPAN KONTRAK</div>
-                                    </div>
-                                </div>
-                                <div class="pt-body">
-                                    <h4>
-                                        <? //if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                            // $alat = $this->m_progress->getAlatByIdJurusan($id_jurusan);
-                                            // foreach ($alat as $a) {
-                                            //     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                            //     if($cekHPS['ST']==10){ ?>
-                                                <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
-                                                <? //}}  } ?>
-                                    </h4>
-                                    <ul class="plan-detail">
-                                        <li>-</li>
-                                    </ul>
-                                </div>
-                                <div class="pt-footer">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pricing-table green">
-                                <div class="pt-header">
-                                    <div class="plan-pricing">
-                                        <div class="pricing"><span class="icon fa fa-compress"></span></div>
-                                        <div class="pricing-type">PENERIMAAN</div>
-                                    </div>
-                                </div>
-                                <div class="pt-body">
-                                    <h4> <? //if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                        // $alat = $this->m_progress->getAlatByIdJurusan($id_jurusan);
-                                        // foreach ($alat as $a) {
-                                        //     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                        //     if($cekHPS['ST']==12 ){ ?>
-                                            <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
-                                            <?// } }} ?></h4>
-                                    <ul class="plan-detail">
-                                        <li>-</li>
-                                    </ul>
-                                </div>
-                                <div class="pt-footer">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <div class="pricing-table yellow">
-                                <div class="pt-header">
-                                    <div class="plan-pricing">
-                                        <div class="pricing"><span class="icon fa fa-pencil"></span></div>
-                                        <div class="pricing-type">PENCATATAN</div>
-                                    </div>
-                                </div>
-                                <div class="pt-body">
-                                    <h4>
-                                        <? //if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
-                                            // $alat = $this->m_progress->getAlatByIdJurusan($id_jurusan);
-                                            // foreach ($alat as $a) {
-                                            //     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                            //     if($cekHPS['ST']==13){ ?>
-                                                <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
-                                                <?// }} } ?>
-                                    </h4>
-                                    <ul class="plan-detail">
-                                    <li>31 Juni 2016</li>
-                                    </ul>
-                                </div>
-                                <div class="pt-footer">
-                                </div>
-                            </div>
-                        </div>
+                                        <div class="col-sm-2">
+                                            <div class="pricing-table blue">
+                                                <div class="pt-header">
+                                                    <div class="plan-pricing">
+                                                        <div class="pricing"><span class="icon fa fa-money"></span></div>
+                                                        <div class="pricing-type">VERIFIKASI HPS</div>
+                                                    </div>
+                                                </div>
+                                                <div class="pt-body">
+                                                    <h4>
+                                                     <? if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                        $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
+
+                                                        foreach ($alat as $a) {
+                                                            $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
+                                                            if($cekHPS['ST']==6 || $cekHPS['ST']==7){ ?>
+                                                            <button type="button"  data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TANGGAL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                            <? }  }       }?>
+                                                        </h4>
+                                                        <ul class="plan-detail">
+                                                            <li>-</li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="pt-footer">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="pricing-table yellow">
+                                                    <div class="pt-header">
+                                                        <div class="plan-pricing">
+                                                            <div class="pricing"><span class="icon fa fa-shopping-cart"></span></div>
+                                                            <div class="pricing-type">PENGADAAN</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pt-body">
+                                                        <h4>
+                                                         <? if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                            $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
+                                                            foreach ($alat as $a) {
+                                                                $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
+                                                                print_r($cekHPS);
+                                                                if($cekHPS['ST']==8 || $cekHPS['ST']==9 || $cekHPS['ST']==-9){ ?>
+                                                                <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TANGGAL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                <? }  } } ?>
+                                                            </h4>
+                                                            <ul class="plan-detail">
+                                                                <li>-</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="pt-footer">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="pricing-table blue">
+                                                        <div class="pt-header">
+                                                            <div class="plan-pricing">
+                                                                <div class="pricing"><span class="icon fa fa-check-square"></span></div>
+                                                                <div class="pricing-type">PENETAPAN KONTRAK</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="pt-body">
+                                                            <h4>
+                                                                <? if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                                 $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
+                                                                 foreach ($alat as $a) {
+                                                                     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
+                                                                     if($cekHPS['ST']==10){ ?>
+                                                                     <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                     <? }}  } ?>
+                                                                 </h4>
+                                                                 <ul class="plan-detail">
+                                                                    <li>-</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="pt-footer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <div class="pricing-table green">
+                                                            <div class="pt-header">
+                                                                <div class="plan-pricing">
+                                                                    <div class="pricing"><span class="icon fa fa-compress"></span></div>
+                                                                    <div class="pricing-type">PENERIMAAN</div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="pt-body">
+                                                                <h4> <? if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                                 $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
+                                                                 foreach ($alat as $a) {
+                                                                    $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
+                                                                    if($cekHPS['ST']==12 ){ ?>
+                                                                    <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                    <? } }} ?></h4>
+                                                                    <ul class="plan-detail">
+                                                                        <li>-</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="pt-footer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <div class="pricing-table yellow">
+                                                                <div class="pt-header">
+                                                                    <div class="plan-pricing">
+                                                                        <div class="pricing"><span class="icon fa fa-pencil"></span></div>
+                                                                        <div class="pricing-type">PENCATATAN</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="pt-body">
+                                                                    <h4>
+                                                                        <? if($id_jenis== 1 || $id_jenis==2 || $id_jenis==3){
+                                                                         $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
+                                                                         foreach ($alat as $a) {
+                                                                             $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
+                                                                             if($cekHPS['ST']==13){ ?>
+                                                                             <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                             <? }} } ?>
+                                                                         </h4>
+                                                                         <ul class="plan-detail">
+                                                                            <li>-</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="pt-footer">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
 
-                    </div>
-                    <div class="card-body no-padding">
+                                                        </div>
+                                                        <div class="card-body no-padding">
                         <!--<div class="step card-no-padding">
                             <ul class="nav nav-tabs nav-justified" role="tablist">
                                 <li role="step" class="plan-pricing <?=($sess['fase']==1)?'active':''?> <?=($sess['fase']>=1)?'step-success':''?>">
@@ -295,3 +300,63 @@ $this->load->view("info_header");
 </div>
 <!-- End Modal Usulan Final -->
 
+<!-- Modal Show Detail Alat -->
+<div class="modal fade modal-info" id="modalLihatDetailAlat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="myModalLabel">Detail Data Alat</h4>
+    </div>
+    <div class="modal-body">
+        <div class="card">
+           <div class="card-body"  style="padding: 0px 20px !important;">
+             <div class="card">
+                 <div class="card-body"  style="padding: 0px 20px !important;">
+                  <div class="sub-title">
+                    <b>Nama Alat</b> :  <span id="spanNama"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Spesifikasi</b> :  <span id="spanSpek"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Satuan</b> :  <span id="spanSat"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Jumlah</b> :  <span id="spanJml"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Harga</b> :  <span id="spanHrg"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Total</b> :  <span id="spanTot"></span> 
+                </div>
+                <div class="sub-title">
+                    <b>Waktu Update</b> :  <span id="spanUpdt"></span> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+</div>
+</div>
+</div>
+</div>
+<!-- End Modal Usulan Final -->
+<script type="text/javascript">
+    function detailAlat(nama,spek,satuan,jml,harga,tanggal) {
+        document.getElementById('spanNama').textContent=nama;
+        document.getElementById('spanSpek').textContent=spek;
+        document.getElementById('spanSat').textContent=satuan;
+        document.getElementById('spanJml').textContent=jml;
+        document.getElementById('spanHrg').textContent=harga;
+        var tot = 0;
+        tot = parseInt(jml) * parseInt(harga);
+        document.getElementById('spanTot').textContent=tot;
+        document.getElementById('spanUpdt').textContent=tanggal;
+        // alert('asd');
+    }
+</script>

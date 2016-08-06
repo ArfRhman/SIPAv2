@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="<?=base_url()?>assets/css/themes/flat-blue.css">
 
     <style type="text/css">
-       .navbar {
+     .navbar {
         padding-left: 0px;
     }
     .navbar .navbar-breadcrumb > li {
@@ -217,30 +217,40 @@
                                                                 </li>
                                                             </a>
                                                             <? } } ?>
-                                                            <a href="#">
-                                                                <li class="list-group-item message">
-                                                                   Lihat Semua
-                                                               </li>
-                                                           </a>
-                                                       </ul>
-                                                   </li>
-                                               </ul>
-                                           </li>
-                                           <li class="dropdown profile">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="
-                                            line-height: 25px;
-                                            padding-top: 10px;
-                                            text-align: center;
-                                            font-size: 15px;
-                                            "><span >
-                                            <?= $this->m_data->getDataFromTblWhere('jenis_user', 'ID_JENIS_USER', $id_jenis)->row()->NAMA_JENIS_USER ?>
-                                            <br> 
-                                            <? $nama_jur = $this->m_data->getDataFromTblWhere('jurusan', 'ID_JURUSAN', $id_jurusan)->row()->NAMA_JURUSAN;
-                                            if($nama_jur!=''){?>
-                                            <b>( <?= $nama_jur ?> )</b> </span> 
-                                            <?}?>
-                                            <span class="caret"></span></a>
-                                            <ul class="dropdown-menu animated fadeInDown" style="margin-top:10px">
+                                                            <? if($id_jenis== 3 || $id_jenis== 6){
+                                                                $usul=$this->m_progress->getProgressPaketByFase(7);
+                                                                $jmlUsul = count($usul);
+                                                                if($jmlUsul!=0){?>
+                                                                <a href="<?=site_url()?>">
+                                                                    <li class="list-group-item">
+                                                                        <span class="badge"><?= $jmlUsul ?></span> <i class="fa fa-check"></i> HPS Disetujui PPK
+                                                                    </li>
+                                                                </a>
+                                                                <? } } ?>
+                                                                <a href="#">
+                                                                    <li class="list-group-item message">
+                                                                     Lihat Semua
+                                                                 </li>
+                                                             </a>
+                                                         </ul>
+                                                     </li>
+                                                 </ul>
+                                             </li>
+                                             <li class="dropdown profile">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="
+                                                line-height: 25px;
+                                                padding-top: 10px;
+                                                text-align: center;
+                                                font-size: 15px;
+                                                "><span >
+                                                <?= $this->m_data->getDataFromTblWhere('jenis_user', 'ID_JENIS_USER', $id_jenis)->row()->NAMA_JENIS_USER ?>
+                                                <br> 
+                                                <? $nama_jur = $this->m_data->getDataFromTblWhere('jurusan', 'ID_JURUSAN', $id_jurusan)->row()->NAMA_JURUSAN;
+                                                if($nama_jur!=''){?>
+                                                <b>( <?= $nama_jur ?> )</b> </span> 
+                                                <?}?>
+                                                <span class="caret"></span></a>
+                                                <ul class="dropdown-menu animated fadeInDown" style="margin-top:10px">
                                 <!-- <li class="profile-img" style="width: 100px;margin: auto;">
                                     <img src="<?php echo base_url()?>/assets/img/profile/1.jpg" class="profile-img">
                                 </li> -->
@@ -278,8 +288,8 @@
                         </div>
 
                         <ul class="nav navbar-nav" style="font-size: 20px;">
-                           <? if($id_jenis==1 || $id_jenis==2 || $id_jenis==3){ ?>
-                           <li class="list <?= ($this->uri->segment(1)=='Dashboard')?'active':''; ?>">
+                         <? if($id_jenis==1 || $id_jenis==2 || $id_jenis==3){ ?>
+                         <li class="list <?= ($this->uri->segment(1)=='Dashboard')?'active':''; ?>">
                             <a href="<?=base_url()?>Dashboard">
                                 <span class="icon fa fa-tasks"></span><span class="title">Progress Paket 
                             </span>

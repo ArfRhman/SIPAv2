@@ -50,7 +50,7 @@ class M_site extends CI_Model {
 		}
 		if($i!=0){
 			array_push($konten2,$konten);
-			SendSMS($konten2,'Usulan');
+			SendSMS($konten2,'Reminder_Usulan');
 		}
 		
 	}

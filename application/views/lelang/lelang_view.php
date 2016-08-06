@@ -48,53 +48,57 @@ $this->load->view("info_header");
                         </td>
                         <td>
                          <?php 
-                         if($p['status_progress']==9 || $p['status_progress']==-9){ 
+                          print_r($p);
+                         if($p['status_progress']==9 || $p['status_progress']==-9){ // pengecekan apakah status lelang gagal atau berhasil
                           if($p['ID_TIM_PENERIMA']!=0){
                               $TimPenerima = $this->m_data->getDataFromTblWhere('tim_penerima', 'ID_TIM_PENERIMA', $p['ID_TIM_PENERIMA'])->row()->NAMA_TIM; // mengambil data tim penerima
                               $dataPemenang = $this->m_pemenang->getDataPemenangByPaket($p['ID_PAKET']);
-                              $p['TENDER_A']='-';
-                              $p['NAMA_A']='-';
-                              $p['NPWP_A']='-';
-                              $p['ALAMAT_A']='-';
-                              $p['TENDER_B']='-';
-                              $p['NAMA_B']='-';
-                              $p['NPWP_B']='-';
-                              $p['ALAMAT_B']='-';
-                              $p['TENDER_C']='-';
-                              $p['NAMA_C']='-';
-                              $p['NPWP_C']='-';
-                              $p['ALAMAT_C']='-';
-                              if(isset($dataPemenang[0]['ID_PEMENANG'])){
-                                $p['TENDER_A']=$dataPemenang[0]['NAMA_PERUSAHAAN'];
-                                $p['NAMA_A']=$dataPemenang[0]['NPWP'];
-                                $p['NPWP_A']=$dataPemenang[0]['ALAMAT'];
-                                $p['ALAMAT_A']=$dataPemenang[0]['PIC_PERUSAHAAN'];
-                              }
-                              if(isset($dataPemenang[1]['ID_PEMENANG'])){
-                                $p['TENDER_B']=$dataPemenang[1]['NAMA_PERUSAHAAN'];
-                                $p['NAMA_B']=$dataPemenang[1]['NPWP'];
-                                $p['NPWP_B']=$dataPemenang[1]['ALAMAT'];
-                                $p['ALAMAT_B']=$dataPemenang[1]['PIC_PERUSAHAAN'];
-                              }
-                              if(isset($dataPemenang[2]['ID_PEMENANG'])){
-                                $p['TENDER_C']=$dataPemenang[2]['NAMA_PERUSAHAAN'];
-                                $p['NAMA_C']=$dataPemenang[2]['NPWP'];
-                                $p['NPWP_C']=$dataPemenang[2]['ALAMAT'];
-                                $p['ALAMAT_C']=$dataPemenang[2]['PIC_PERUSAHAAN'];
-                              }
+
+                              // $p['TENDER_A']='-';
+                              // $p['NAMA_A']='-';
+                              // $p['NPWP_A']='-';
+                              // $p['ALAMAT_A']='-';
+                              // $p['TENDER_B']='-';
+                              // $p['NAMA_B']='-';
+                              // $p['NPWP_B']='-';
+                              // $p['ALAMAT_B']='-';
+                              // $p['TENDER_C']='-';
+                              // $p['NAMA_C']='-';
+                              // $p['NPWP_C']='-';
+                              // $p['ALAMAT_C']='-';
+
+                              // if(isset($dataPemenang[0]['ID_PEMENANG'])){
+                              //   $p['TENDER_A']=$dataPemenang[0]['NAMA_PERUSAHAAN'];
+                              //   $p['NAMA_A']=$dataPemenang[0]['NPWP'];
+                              //   $p['NPWP_A']=$dataPemenang[0]['ALAMAT'];
+                              //   $p['ALAMAT_A']=$dataPemenang[0]['PIC_PERUSAHAAN'];
+                              // }
+                              // if(isset($dataPemenang[1]['ID_PEMENANG'])){
+                              //   $p['TENDER_B']=$dataPemenang[1]['NAMA_PERUSAHAAN'];
+                              //   $p['NAMA_B']=$dataPemenang[1]['NPWP'];
+                              //   $p['NPWP_B']=$dataPemenang[1]['ALAMAT'];
+                              //   $p['ALAMAT_B']=$dataPemenang[1]['PIC_PERUSAHAAN'];
+                              // }
+                              // if(isset($dataPemenang[2]['ID_PEMENANG'])){
+                              //   $p['TENDER_C']=$dataPemenang[2]['NAMA_PERUSAHAAN'];
+                              //   $p['NAMA_C']=$dataPemenang[2]['NPWP'];
+                              //   $p['NPWP_C']=$dataPemenang[2]['ALAMAT'];
+                              //   $p['ALAMAT_C']=$dataPemenang[2]['PIC_PERUSAHAAN'];
+                              // }
+
                             }else{
                               $TimPenerima = "";
                             }
                             ?>
-                            <a class="btn btn-warning" 
+                           <!--  <a class="btn btn-warning" 
                             onclick="editLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
-                            data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a>
+                            data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a> -->
 
-                            <a class="btn btn-info" onclick="lihatLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$TimPenerima?>')"
-                              data-toggle="modal" data-target="#modalLihatLelang"><i class="fa fa-search"></i> Lihat</a>
+                            <!-- <a class="btn btn-info" onclick="lihatLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$TimPenerima?>')"
+                              data-toggle="modal" data-target="#modalLihatLelang"><i class="fa fa-search"></i> Lihat</a> -->
                               <?}else{?>
-                               <a class="btn btn-warning" 
-                            onclick="editLelang1('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
+                                <a class="btn btn-warning" 
+                            onclick="editLelang1('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
                             data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a>
                                <?} ?>
                             </td>

@@ -39,6 +39,16 @@ class M_lelang extends CI_Model {
 			");		
 		return 1;
 	}
+
+	//Mengupdate data paket kembali ke normal
+	function updateLelangNormal($p){
+		$query = $this->db->query("UPDATE paket set 
+			STATUS='8',
+			KETERANGAN_GAGAL_KONTRAK='' 
+			where ID_PAKET='$p[id_paket]'
+			");
+		return $query;
+	}
 /*
 //=============Old==============
 	//Mengambil data paket lelang berdasarkan id paket
@@ -57,20 +67,7 @@ class M_lelang extends CI_Model {
 
 
 
-	//Mengupdate data paket kembali ke normal
-	function updateLelangNormal($p){
-		$query = $this->db->query("UPDATE paket set 
-			STATUS='8',
-			TENDER_A='',
-			TENDER_B='',
-			TENDER_C='',
-			TENDER_D='',
-			TENDER_E='',
-			KETERANGAN_GAGAL_KONTRAK='' 
-			where ID_PAKET='$p[id_paket]'
-			");
-		return $query;
-	}
+	
 	*/
 }
 

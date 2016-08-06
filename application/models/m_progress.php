@@ -45,6 +45,10 @@ class M_progress extends CI_Model {
 		return $query;
 	}
 	
+		function getProgressAlatByPaket($id){
+			$query = $this->db->query("SELECT MAX(pp.STATUS) AS ST, MAX(pp.TANGGAL) AS TGL FROM progress_paket pp WHERE pp.ID_PAKET = '$id'")->row_array();
+			return $query;
+		}
 	/*
 	//============Old===========
 	function getProgressByUserJurusan($id,$id_jenis){

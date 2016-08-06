@@ -314,6 +314,10 @@ class Usulan extends CI_Controller {
 		}
 		$this->m_progress->saveProgressUsulan($p);
 
+		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
+		// array_push($konten,$k2);
+		// SendSMS($konten,'Konfirmasi_Usulan');
+
 		//$progress=$this->m_progress->getProgressByUserJurusan($p['id_jurusan'],$p['id_jenis_user']);
 
 		redirect("Usulan");
@@ -338,6 +342,11 @@ class Usulan extends CI_Controller {
 			$this->session->set_userdata($cek); // set session dengan data user
 		}
 		$this->m_progress->saveProgressUsulan($p);
+		
+		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
+		// array_push($konten,$k2);
+		// SendSMS($konten,'Konfirmasi_Usulan');
+
 		redirect("Usulan");
 	}
 
@@ -361,6 +370,9 @@ class Usulan extends CI_Controller {
 		$p['id_fase']=1;	
 		$p['status']=2;
 		$this->m_progress->saveProgressUsulan($p);
+		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
+		// array_push($konten,$k2);
+		// SendSMS($konten,'Konfirmasi_Usulan');
 	}
 
 	//===============Tambahan==============
