@@ -28,7 +28,7 @@ class Pagu extends CI_Controller {
 	//Menyimpan data pagu
 	public function create(){
 		$p = $this->input->post();
-		// $this->m_pagu->saveTahunAnggaran(date('Y'),date('Y-m-d'));
+		$this->m_pagu->saveTahunAnggaran(date('Y'),date('Y-m-d'));
 		$konten = array();
 		foreach($p['pagu'] as $key=>$a){
 			$pagu = str_replace(',','',$a);

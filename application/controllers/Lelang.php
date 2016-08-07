@@ -94,8 +94,9 @@ class Lelang extends CI_Controller {
 			$this->m_lelang->updateLelangGagal($p);
 			$this->m_progress->saveProgressGeneral($data);
 
-			$konten = '[NOTIFIKASI] Data Hasil Lelang Gagal Telah Dimasukkan Pada '.IndoTgl(date('Y-m-d'));
-			// SendSMS($konten,'08997150058','Lelang');
+			// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
+		// array_push($konten,$k2);
+		// SendSMS($konten,'Konfirmasi_Usulan');
 		}
 		$this->session->set_flashdata('data', 'Data Berhasil Dimasukkan');
 		redirect("Lelang");
