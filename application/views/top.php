@@ -288,7 +288,7 @@
                         </div>
 
                         <ul class="nav navbar-nav" style="font-size: 20px;">
-                         <? if($id_jenis==1 || $id_jenis==2 || $id_jenis==3){ ?>
+                         <? if($id_jenis==3){ ?>
                          <li class="list <?= ($this->uri->segment(1)=='Dashboard')?'active':''; ?>">
                             <a href="<?=base_url()?>Dashboard">
                                 <span class="icon fa fa-tasks"></span><span class="title">Progress Paket 

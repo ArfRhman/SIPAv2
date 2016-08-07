@@ -72,7 +72,7 @@ $this->load->view("info_header");
                                                         foreach ($alat as $a) {
                                                             $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
                                                             if($cekHPS['ST']==6 || $cekHPS['ST']==7){ ?>
-                                                            <button type="button"  data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TANGGAL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                            <button type="button"  data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
                                                             <? }  }       }?>
                                                         </h4>
                                                         <ul class="plan-detail">
@@ -99,7 +99,7 @@ $this->load->view("info_header");
                                                                 $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
                                                                 print_r($cekHPS);
                                                                 if($cekHPS['ST']==8 || $cekHPS['ST']==9 || $cekHPS['ST']==-9){ ?>
-                                                                <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TANGGAL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
                                                                 <? }  } } ?>
                                                             </h4>
                                                             <ul class="plan-detail">

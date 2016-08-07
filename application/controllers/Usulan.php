@@ -26,8 +26,6 @@ class Usulan extends CI_Controller {
 		//usulan final dipanggil disini sekalian
 		$data['final']=$this->m_usulan->getUsulanFinal($id,$tahun);
 		$data['usulan_below']=array();
-
-
 		if($id_jenis==2){
 			$usul=$this->m_usulan->getUsulanFromBelow($id);
 			foreach($usul as $u){
@@ -43,18 +41,7 @@ class Usulan extends CI_Controller {
 				}
 			}
 		}
-
-
-		if($id_jenis==5 || $id_jenis==4){
-			//$data['anggaran_usulan']=$this->m_usulan->getUsulanAnggaranByIdJurusan($id);
-			$this->load->view('usulan/usulan_view_pd');
-		}else if($id_jenis==6){
-			//$data['anggaran_usulan']=$this->m_usulan->getUsulanAnggaranByIdJurusan($id);
-			$this->load->view('usulan/usulan_view_tim_hps');
-		}else{ // menampilkan halaman awal usulan untuk teknisi , kalab, dan manajemen jurusan
-			//$this->load->view('usulan/usulan_view',$data);
-			$this->load->view('usulan/usulan_view',$data);
-		}
+		$this->load->view('usulan/usulan_view',$data);
 
 	}
 
@@ -162,7 +149,6 @@ class Usulan extends CI_Controller {
 		}else{
 			$rev=$curr;
 		}
-		
 		$data['pagu']=$this->m_pagu->getPaguByIdJurusan($id);
 		$usulan = $this->m_usulan->getUsulanByIdUsulan($p);
 		if($this->session->userdata("ID_JENIS_USER")==3){
@@ -172,7 +158,6 @@ class Usulan extends CI_Controller {
 			$alat = $this->m_alat->getAlatByIdUsulan($usulan['ID_USULAN'],$rev);
 			$data['totalFinal']=1;
 		}
-		
 		$resKategori=$this->m_kategori->getAllKategori();
 		$resLokasi=$this->m_lokasi->getLokasiByIdJurusan($id);
 		$lokasi=array();
@@ -344,7 +329,7 @@ class Usulan extends CI_Controller {
 		$this->m_progress->saveProgressUsulan($p);
 		
 		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
-		// array_push($konten,$k2);
+		// array_push($konten,$k2);	
 		// SendSMS($konten,'Konfirmasi_Usulan');
 
 		redirect("Usulan");

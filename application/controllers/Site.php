@@ -26,8 +26,10 @@ class Site extends CI_Controller {
 			$this->session->set_userdata($cek); // set session dengan data user
 			
 			$id_jenis = $this->session->userdata('ID_JENIS_USER');
-			if($id_jenis==1 || $id_jenis==2 || $id_jenis == 3){
+			if($id_jenis == 3){
 				redirect(base_url().'Dashboard');
+			}elseif($id_jenis==1 || $id_jenis==2){
+				redirect(base_url().'Usulan');
 			}elseif($id_jenis == 4){
 				redirect(base_url().'Pagu');
 			}elseif($id_jenis == 5){
