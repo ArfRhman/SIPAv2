@@ -34,8 +34,8 @@
                   </tr>
                   <?
                   // print_r($alat);
-                  //foreach ($alat as $p) {?>
-                 <!--  <tr>
+                  foreach ($alat as $p) {?>
+                  <tr>
                     <td> PC</td>
                     <td> <?=$p['SPESIFIKASI']?> </td>
                     <td> <?=$p['SETARA']?> </td>
@@ -49,24 +49,8 @@
                     <td> <input type="checkbox" <?=($p['DATA_AHLI']==1)?'checked':'';?> disabled></td>
                     <td> <?=$p['TANGGAL_UPDATE']?></td>
                     <td class="td<?=$p['ID_ALAT']?>"> <?=($p['NO_INVENTARIS']=='')?'<input type="text" class="form-control no_inven'.$p['ID_ALAT'].'" style="width:100%">':'<span class="no_inven_span'.$p['ID_ALAT'].'">'.$p['NO_INVENTARIS'].'</span>'?></td>
-                    <td class="td_b<?=$p['ID_ALAT']?>"> <?='<span style="display:none;">'.$p['ID_ALAT'].'</span>';?><?=($p['NO_INVENTARIS']=='')?'<button class="btn btn-success btn_inven" onclick=\'saveNoInvent("'.$p['ID_ALAT'].'");\'>Simpan</button>':'<button class="btn btn-warning btn_edit_inven" >Edit</button>'?></td>
-                  </tr> -->
-                  <?//}?>
-                   <tr>
-                    <td> PC</td>
-                    <td> core i3, Ram 4GB , HDD 1TB</td>
-                    <td> Helwett Packard (HP) </td>
-                    <td> Unit </td>
-                    <td> 15 </td>
-                    <td> <?=number_format(40000000,'0',',','.')?> </td>
-                    <td> <?=number_format(40000000*15,'0',',','.')?> </td>
-                    <td> Lab. RPL </td>
-                    <td> 15> </td>
-                    <td> <a href="#" target="_blank"> brosur_PC.pdf </a></td>
-                    <td> <input type="checkbox" checked disabled></td>
-                    <td> 10 Juni 2016 </td>
-                    <td> 01231-ARC230-2016 </td>
-                  </tr>
+                  </tr> 
+                  <?php } ?>
                 </table>
               </div>
 

@@ -8,6 +8,7 @@
     word-break: break-word;
   }
 </style>
+
 <div class="app-container-slide">
   <div class="container-fluid">
     <div class="side-body padding-top"  style="padding-top:90px;">
@@ -38,7 +39,8 @@
         </tbody>
       </table> --><!-- 
       <button id="bbtn"> save </button>
- <button id="add"> add </button> -->
+      <button id="add"> add </button> -->
+
       <div class="row  no-margin-bottom">
         <div class="row">
           <div class="col-xs-12">
@@ -55,6 +57,7 @@
                 <br>
                 <table class="table table-stripped table-bordered table-hover">
                   <tr class="active">
+                    <th>#</th>
                     <th>Jurusan</th>
                     <th>Tahun Anggaran</th>
                     <th>Target Anggaran</th>
@@ -65,28 +68,40 @@
                     <!-- <th>Alat Belum Terinventaris</th>     -->
                     <th></th>
                   </tr>
-                  <tr>
-                   <td> Teknik Komputer & Informatika </td>
-                   <td> 2016 </td>
-                   <td> Rp. <?=number_format(100000000,'0',',','.') ?> juta </td>
-                   <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
-                   <td> <img src="<?=site_url()?>assets/img/backdrop/down.PNG" title="Turun dari tahun sebelumnya"> <?= number_format(90,'2',',','.') ?> % </td>
-                   <!-- <td> <span class="label label-primary" style="font-size: 14px;">100</span></td>  -->
-                   <!-- <td> <span class="label label-success" style="font-size: 14px;">90</span></td>  -->
-                   <!-- <td> <span class="label label-danger" style="font-size: 14px;">10</span></td>  -->
-                   <td> <a href="<?=site_url()?>Performa/detailPaket"> Detail Pengajuan </a> </td>
-                 </tr>
-                 <tr>
-                   <td> Administrasi Niaga </td>
-                   <td> 2016 </td>
-                   <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
-                   <td> Rp. <?=number_format(90000000,'0',',','.') ?> juta </td>
-                   <td> <img src="<?=site_url()?>assets/img/backdrop/up.PNG" title="Naik dari tahun sebelumnya"> <?= number_format(100,'2',',','.') ?> % </td>
-                   <!-- <td> <span class="label label-primary" style="font-size: 14px;">120</span></td>  -->
-                   <!-- <td> <span class="label label-success" style="font-size: 14px;">120</span></td>  -->
-                   <!-- <td> <span class="label label-danger" style="font-size: 14px;">0</span></td>  -->
-                   <td> <a href="<?=site_url()?>Performa/detailPaket"> Detail Pengajuan </a> </td>
-                 </tr>
+                  <?php
+                  foreach($performa as $p){
+                    $a = $p['total']+($p['total']*10/100);
+                    $aktual=$a+($a*10/100);
+                    $persenA = 100*$aktual/$p['pagu'];
+                    $b = $p['lastTotal']+($p['lastTotal']*10/100);
+                    $bktual=$b+($b*10/100);
+                    $persenB = 100*$bktual/$p['pagu'];
+                    $totalPersen = abs($persenA - $persenB);
+                    ?>
+                    <tr>
+                    <td>
+                    <?php 
+                    if($persenA == $persenB){
+                        echo "--";
+                    }elseif ($persenA > $persenB) {
+                        echo "<img src='".site_url()."assets/img/backdrop/up.PNG' title='Naik ".$totalPersen."% dari tahun sebelumnya'> ".$totalPersen." %";
+                    }elseif ($persenA < $persenB){
+                        echo "<img src='".site_url()."assets/img/backdrop/down.PNG' title='Turun ".$totalPersen."% dari tahun sebelumnya'> ".$totalPersen." %";
+                    }
+                    ?></td>
+                    <td> <?=$p['NAMA_JURUSAN']?> </td>
+                     <td> 2016 </td>
+                     <td> Rp. <?=number_format($p['pagu'],'0',',','.') ?></td>
+                     <td> Rp. <?=number_format($aktual,'0',',','.') ?></td>
+                     <td> <?= number_format($persenA,'2',',','.') ?> % </td>
+                     <!-- <td> <span class="label label-primary" style="font-size: 14px;">100</span></td>  -->
+                     <!-- <td> <span class="label label-success" style="font-size: 14px;">90</span></td>  -->
+                     <!-- <td> <span class="label label-danger" style="font-size: 14px;">10</span></td>  -->
+                     <td> <a href="<?=site_url()?>Performa/detailPerforma/<?=$p['ID_JURUSAN']?>"> Detail Pengajuan </a> </td>
+                   </tr>
+                   <?php 
+                 }
+                 ?>
                </table>
              </div>
            </div>
@@ -163,37 +178,37 @@
         alert($('.'+i+'-sel').val());
       }
 
-     };
-    });
+    };
+  });
     $("#add").click(function(){
       $('#bre').append('<tr style="background-color:white;"><td contenteditable="true" class="1-a"></td><td contenteditable="true" class="1-b"></td><td><input type="file" class="1-file"></td><td><select class="1-sel"><option>1</option><option>2</option></select></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>');
     });
-   $(function () {
+    $(function () {
 
-    var defaultTitle = "Performa Serapan Anggaran Tahun 2016";
-    var drilldownTitle = "Performa Serapan Anggaran Jurusan ";
+      var defaultTitle = "Performa Serapan Anggaran Tahun 2016";
+      var drilldownTitle = "Performa Serapan Anggaran Jurusan ";
 
-    var chart = new Highcharts.Chart({
+      var chart = new Highcharts.Chart({
 
-      chart: {
-        type: 'column',
-        renderTo: 'container',
-        events: {
-          drilldown: function(e) {
-            chart.setTitle({ text: drilldownTitle + e.point.name });
-          },
-          drillup: function(e) {
-            chart.setTitle({ text: defaultTitle });
+        chart: {
+          type: 'column',
+          renderTo: 'container',
+          events: {
+            drilldown: function(e) {
+              chart.setTitle({ text: drilldownTitle + e.point.name });
+            },
+            drillup: function(e) {
+              chart.setTitle({ text: defaultTitle });
+            }
           }
-        }
-      },
-      title: {
-        text: defaultTitle
-      },
-      subtitle: {
-        text: 'Pengadaan Alat POLBAN'
-      },
-      xAxis: {
+        },
+        title: {
+          text: defaultTitle
+        },
+        subtitle: {
+          text: 'Pengadaan Alat POLBAN'
+        },
+        xAxis: {
         // categories: [
         // 'Komputer &Informatika',
         // 'Sipil',
@@ -219,7 +234,7 @@
       tooltip: {
         headerFormat: '<span style="font-size:10px"><b>{point.key}</b></span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} Juta</b></td></tr>',
+        '<td style="padding:0"><b>{point.y}</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -232,37 +247,13 @@
       },
       series: [{
         name: 'Target',
-        data: [
-        {name:'Komputer & Informatika',y: 100, drilldown: '1t'},
-        {name:'Sipil',y: 100, drilldown: '1t'},
-        {name:'Mesin',y: 600, drilldown: '1t'},
-        {name:'Administrasi Niaga',y: 400, drilldown: '1t'},
-        {name:'Refrigerasi dan Tata Udara',y: 120, drilldown: '1t'},
-        {name:'Konversi Energi',y: 330, drilldown: '1t'},
-        {name:'Elektro',y: 120, drilldown: '1t'},
-        {name:'Kimia',y: 510, drilldown: '1t'},
-        {name:'Akuntansi',y: 120, drilldown: '1t'},
-        {name:'Bahasa Inggris',y: 130, drilldown: '1t'},
-        {name:'MKU',y: 120, drilldown: '1t'},
-        ]
+        data: <?=$target?>
             // [100,100,600,400,120,330,120,510,520,130,120]
 
           },
           {
             name: 'Aktual',
-            data: [
-            {name:'Komputer & Informatika',y: 90, drilldown: '1a'},
-            {name:'Sipil',y: 85, drilldown: '1a'},
-            {name:'Mesin',y: 400, drilldown: '1a'},
-            {name:'Administrasi Niaga',y: 400, drilldown: '1a'},
-            {name:'Refrigerasi dan Tata Udara',y: 120, drilldown: '1a'},
-            {name:'Konversi Energi',y: 130, drilldown: '1a'},
-            {name:'Elektro',y: 100, drilldown: '1a'},
-            {name:'Kimia',y: 510, drilldown: '1a'},
-            {name:'Akuntansi',y: 420, drilldown: '1a'},
-            {name:'Bahasa Inggris',y: 120, drilldown: '1a'},
-            {name:'MKU',y: 120, drilldown: '1a'},
-            ]
+            data: <?=$realisasi?>
         // [90,85,400,400,120,130,100,510,420,120,120]
 
       }],
