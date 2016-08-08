@@ -273,7 +273,14 @@
   ['', '', '', '', '', '', '','','','','','','']
   ],
   container1 = document.getElementById('dataTable'),
-  hot1;
+  hot1,
+  emptyValidator = function(value, callback) {
+    if (isEmpty(value)) { // isEmpty is a function that determines emptiness, you should define it
+        callback(false);
+    } else {
+        callback(true);
+    }
+  };
 
   function firstRowRenderer(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments);
