@@ -14,7 +14,7 @@ if ( ! function_exists('IndoTgl')){
 		$bulan = substr($date, 5, 2); // memisahkan format bulan menggunakan substring
 		$tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
 		
-		$result = $tgl+1 . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
+		$result = $tgl . " " . $BulanIndo[(int)$bulan-1] . " ". $tahun;
 		return($result);
 	}
 }

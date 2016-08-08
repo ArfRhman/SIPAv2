@@ -97,8 +97,8 @@ $this->load->view("info_header");
                                                             $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
                                                             foreach ($alat as $a) {
                                                                 $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                                                print_r($cekHPS);
-                                                                if($cekHPS['ST']==8 || $cekHPS['ST']==9 || $cekHPS['ST']==-9){ ?>
+                                                                // print_r($cekHPS);
+                                                                if($cekHPS['ST']==8 || $cekHPS['ST']==-9){ ?>
                                                                 <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
                                                                 <? }  } } ?>
                                                             </h4>
@@ -124,8 +124,8 @@ $this->load->view("info_header");
                                                                  $alat = $this->m_alat->getAlatByIdJurusan($id_jurusan);
                                                                  foreach ($alat as $a) {
                                                                      $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
-                                                                     if($cekHPS['ST']==10){ ?>
-                                                                     <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                     if($cekHPS['ST']==10 || $cekHPS['ST']==9){ ?>
+                                                                     <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
                                                                      <? }}  } ?>
                                                                  </h4>
                                                                  <ul class="plan-detail">
@@ -150,7 +150,7 @@ $this->load->view("info_header");
                                                                  foreach ($alat as $a) {
                                                                     $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
                                                                     if($cekHPS['ST']==12 ){ ?>
-                                                                    <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                    <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow"><i class="fa fa-check-circle" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"></i> <?=$a['NAMA_ALAT']?></button>
                                                                     <? } }} ?></h4>
                                                                     <ul class="plan-detail">
                                                                         <li>-</li>
@@ -175,7 +175,7 @@ $this->load->view("info_header");
                                                                          foreach ($alat as $a) {
                                                                              $cekHPS = $this->m_progress->getProgressAlatByPaket($a['ID_PAKET']); 
                                                                              if($cekHPS['ST']==13){ ?>
-                                                                             <button type="button" class="btn btn-default btn-shadow"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
+                                                                             <button type="button" data-toggle="modal" data-target="#modalLihatDetailAlat" class="btn btn-default btn-shadow" onclick="detailAlat('<?=$a['NAMA_ALAT']?>','<?=$a['SPESIFIKASI']?>','<?=$a['SATUAN']?>','<?=$a['JUMLAH_ALAT']?>','<?=$a['HARGA_SATUAN']?>','<?=$cekHPS['TGL']?>')"><i class="fa fa-check-circle"></i> <?=$a['NAMA_ALAT']?></button>
                                                                              <? }} } ?>
                                                                          </h4>
                                                                          <ul class="plan-detail">

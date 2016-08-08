@@ -92,7 +92,7 @@ class Progress extends CI_Controller {
 		}
 		
 	}
-
+	// menyimpan status progress lelang
 	public function saveProgressLelang($kat){
 		$dataid=$this->m_paket->getPaketByKategori($kat);
 		$p=$this->input->post();

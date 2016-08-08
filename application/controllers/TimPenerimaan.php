@@ -36,7 +36,11 @@ class TimPenerimaan extends CI_Controller {
 		$exp = explode(',', $p['anggota']);
 		$jml = count($exp);
 		for($i=0; $i < $jml; $i++) { 
-			$this->m_timPenerimaan->saveAnggotaTimPenerima($exp[$i],$idt);
+			$ket = 0;
+			if($exp[$i]==$p['ketua']){
+				$ket=1;
+			}
+			$this->m_timPenerimaan->saveAnggotaTimPenerima($exp[$i],$idt,$ket);
 		}
 	}
 

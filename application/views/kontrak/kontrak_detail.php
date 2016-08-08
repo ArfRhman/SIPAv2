@@ -13,8 +13,6 @@
                             <div class="card-header">
                                 <div class="card-title" style="width:100%">
                                     <span class="title">Manage Penetapan Kontrak</span>
-                                    
-
                                     <a href="<?=site_url()?>Kontrak" class="btn btn-primary pull-right"><i class="fa fa-chevron-left"></i> Kembali </a>
                                 </div>
                             </div>
@@ -24,11 +22,9 @@
                                         <div class="row">
                                             <span class="col-md-3" style="margin-bottom:5px"><b>No. Dokumen : </b></span>
                                             <span class="col-md-3" style="margin-bottom:5px"> HPS-<?=$paket['ID_PAKET']?>/<?=$paket['TAHUN_ANGGARAN']?></span>
-
                                             <span class="col-md-3" style="margin-bottom:5px"><b> Total Anggaran :</b></span>
                                             <span class="col-md-3" style="margin-bottom:5px"> Rp. <?= number_format($paket['TOTAL_ANGGARAN'],'0',',','.') ?></span>
                                         </div>
-
                                         <div class="row">
                                             <span class="col-md-3" style="margin-bottom:5px"><b>Tahun : </b></span>
                                             <span class="col-md-3" style="margin-bottom:5px"> <?=$paket['TAHUN_ANGGARAN']?></span>
@@ -36,13 +32,21 @@
                                             <span class="col-md-3" style="margin-bottom:5px"><b> Tanggal Hasil Lelang :</b></span>
                                             <span class="col-md-3" style="margin-bottom:5px"> <?  $tgl = explode(" ", $paket['TANGGAL']); echo IndoTgl($tgl[0]);?></span>
                                         </div>
-
                                         <div class="row">
                                             <span class="col-md-3" style="margin-bottom:5px"><b>Nama Paket  : </b></span>
                                             <span class="col-md-3" style="margin-bottom:5px"> <?=$paket['NAMA_PAKET']?></span>
 
                                             <span class="col-md-3" style="margin-bottom:5px"><b> Penyedia :</b></span>
-                                            <span class="col-md-3" style="margin-bottom:5px"> <?=$paket['PENYEDIA'].' ('.$paket['WAKTU_PENGADAAN'].' / '.$paket['TYPE_WAKTU'].') ';?></span>
+                                            
+                                            <? 
+                                            $penyediaAlat = '';
+                                            foreach ($penyedia as $peny) {
+                                                if($peny['STATUS_PENYEDIA']==1){
+                                                    $penyediaAlat = $peny['NAMA_PERUSAHAAN'];
+                                                    break;
+                                                }
+                                            }?>
+                                            <span class="col-md-3" style="margin-bottom:5px"> <?=$penyediaAlat.' ('.$paket['WAKTU_PENGADAAN'].' / '.$paket['TYPE_WAKTU'].') ';?></span>
                                         </div>
 
                                     </div>
@@ -57,7 +61,7 @@
                                 </button>
                                 <?
                                 $cekSetujui = 0;
-                                if($paket['PENYEDIA']!='' AND count($kontrak)!=0){
+                                if($penyediaAlat!='' AND count($kontrak)!=0){
                                     $cekSetujui = 1;
                                 }
                                 ?>
@@ -113,10 +117,8 @@
                                             <option value="">- Pilih Penyedia -</option>
 
                                             <? foreach ($penyedia as $pn) {?>
-                                            <option value="<?=$pn['PIC_PERUSHAAN']?>/<?=$pn['NPWP']?>/<?=$pn['ALAMAT']?>/<?= $pn['NAMA_PERUSAHAAN']?>" <?=($pn['NAMA_PERUSAHAAN']==$paket['PENYEDIA'])?'selected':''?>> <?= $pn['NAMA_PERUSAHAAN']?></option>
+                                            <option value="<?=$pn['PIC_PERUSAHAAN']?>/<?=$pn['NPWP']?>/<?=$pn['ALAMAT']?>/<?= $pn['NAMA_PERUSAHAAN']?>/<?= $pn['ID_PEMENANG']?>"<?=($pn['NAMA_PERUSAHAAN']==$paket['PENYEDIA'])?'selected':''?>> <?= $pn['NAMA_PERUSAHAAN']?></option>
                                             <?}?>
-
-
                                         </select>
                                     </div>
                                     <div style="display:none"  id="dataPenyedia">

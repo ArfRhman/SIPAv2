@@ -17,6 +17,11 @@ class M_pemenang extends CI_Model {
 		return 1;
 	}
 
+	function getPenyediaByIdPaket($id){
+		$query = $this->db->query("SELECT * FROM pemenang WHERE ID_PAKET = '$id' AND STATUS_PENYEDIA = 1");
+		return $query;
+	}
+
 }
 
 ?>

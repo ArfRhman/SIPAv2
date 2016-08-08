@@ -16,7 +16,6 @@ class Usulan extends CI_Controller {
 
 	// menampilkan halaman awal usulan alat
 	public function index(){
-
 		$id_jenis = $this->session->userdata('ID_JENIS_USER');
 		$this->load->view('top');
 		$id = $this->session->userdata("ID_JURUSAN");
@@ -299,9 +298,14 @@ class Usulan extends CI_Controller {
 		}
 		$this->m_progress->saveProgressUsulan($p);
 
-		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
-		// array_push($konten,$k2);
-		// SendSMS($konten,'Konfirmasi_Usulan');
+
+		$konten = array();
+		$konten2 = array();
+		$k2 = array('NO_HP'=>'08997150058', 'KONTEN'=>'[NOTIFIKASI] Data Usulan Telah Dibuat');
+		array_push($konten,$k2);	
+
+		array_push($konten2,$konten);
+		SendSMS($konten2,'Dokumen Usulan Diajukan');
 
 		//$progress=$this->m_progress->getProgressByUserJurusan($p['id_jurusan'],$p['id_jenis_user']);
 
@@ -310,6 +314,7 @@ class Usulan extends CI_Controller {
 
 	//Mengkonfirmasi usulan
 	function konfirmasi(){
+		
 		$p=$this->input->post();
 		$p['id_user']=$this->session->userdata("ID_USER");
 		$p['id_jurusan']=$this->session->userdata("ID_JURUSAN");
@@ -328,9 +333,15 @@ class Usulan extends CI_Controller {
 		}
 		$this->m_progress->saveProgressUsulan($p);
 		
-		// $k2 = array('NO_HP'=>$m['NO_HP'], 'KONTEN'=>'[NOTIFIKASI] Segera Masukkan Data Usulan');
-		// array_push($konten,$k2);	
-		// SendSMS($konten,'Konfirmasi_Usulan');
+		$konten = array();
+		$konten2 = array();
+		$k2 = array('NO_HP'=>'08997150058', 'KONTEN'=>'[NOTIFIKASI] Konfirmasi Data Usulan');
+		array_push($konten,$k2);	
+
+		array_push($konten2,$konten);
+		SendSMS($konten2,'Konfirmasi Usulan');
+		
+		
 
 		redirect("Usulan");
 	}

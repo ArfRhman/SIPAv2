@@ -11,7 +11,8 @@ class BeritaAcara extends CI_Controller {
 	// menampilkan data paket di halaman awal berita acara
 	public function index(){
 		$this->load->view('top');
-		$data['paket']=$this->m_paket->getAllDataPaket();
+		$getDataTim = $this->m_timPenerimaan->getAllTimPenerimaanByIdUser($this->session->userdata('ID_USER'));
+		$data['paket']=$this->m_paket->getAllDataPaket($getDataTim['ID_TIM_PENERIMA']);
 		// $data['maxProgress']=$this->m_progress->getMaksProgressAlatByPaket($id);
 		$this->load->view("berita_acara/view",$data);
 		$this->load->view('bottom');
@@ -95,11 +96,13 @@ class BeritaAcara extends CI_Controller {
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
-	public function BAST()
-	{
-		// $this->m_beritaacara->getBAST($dataBukti);
-		$html=$this->load->view('berita_acara/BAST'); 
+	public function BAST($id){
+
+		$data['timPenerima']=$this->m_timPenerimaan->getTimPenerimaByPaket($id);
+		$data['penyedia']=$this->m_timPenerimaan->getPenyediaByPaket($id);
+		$html=$this->load->view('berita_acara/BAST',$data); 
 	}	
+	
 	// update progress untuk setujui data berita acara
 	public function approve(){
 		$id = $this->input->post('id_paket');

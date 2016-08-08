@@ -40,7 +40,7 @@ $this->load->view("info_header");
                     <td><a href="<?=site_url()?>BeritaAcara/BAPP/<?=$p['ID_PAKET']?>" class="btn btn-info"><i class="fa fa-search"></i> Detail </a></td>
                     <td>
                      <!-- <a href="#" class="btn btn-success"><i class="fa fa-plus"></i> Tambah </a> -->
-                     <a href="<?=site_url()?>BeritaAcara/BAST" class="btn btn-primary" target="_blank"><i class="fa fa-eye"></i> Lihat </a></td>
+                     <a href="<?=site_url()?>BeritaAcara/BAST/<?=$p['ID_PAKET']?>" class="btn btn-primary" target="_blank"><i class="fa fa-eye"></i> Lihat </a></td>
                      <!-- <td><a href="#"><i class="fa fa-search"></i> Detail </a></td> -->
                      <td><a href="#" class="btn btn-success" data-toggle="modal" data-target="#modalAddBukti" onclick="setAddBukti('<?=$p['ID_PAKET']?>')"><i class="fa fa-plus"></i> Tambah </a></td>
                      <td> 

@@ -1,5 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-// error_reporting(0);
+error_reporting(0);
 if ( ! function_exists('SendSMS')){
 	function SendSMS($data,$type){
        //get main CodeIgniter object

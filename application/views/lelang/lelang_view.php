@@ -48,215 +48,213 @@ $this->load->view("info_header");
                         </td>
                         <td>
                          <?php 
-                         print_r($p);
-                         if($p['status_progress']==9 || $p['status_progress']==-9){ // pengecekan apakah status lelang gagal atau berhasil
+                         $p['TENDER_A']='-';
+                         $p['NAMA_A']='-';
+                         $p['NPWP_A']='-';
+                         $p['ALAMAT_A']='-';
+                         $p['TENDER_B']='-';
+                         $p['NAMA_B']='-';
+                         $p['NPWP_B']='-';
+                         $p['ALAMAT_B']='-';
+                         $p['TENDER_C']='-';
+                         $p['NAMA_C']='-';
+                         $p['NPWP_C']='-';
+                         $p['ALAMAT_C']='-';
+                         // print_r($p); 
+                         if($p['status_progress']==9 || $p['status_progress']==-9){ 
                           if($p['ID_TIM_PENERIMA']!=0){
                               $TimPenerima = $this->m_data->getDataFromTblWhere('tim_penerima', 'ID_TIM_PENERIMA', $p['ID_TIM_PENERIMA'])->row()->NAMA_TIM; // mengambil data tim penerima
                               $dataPemenang = $this->m_pemenang->getDataPemenangByPaket($p['ID_PAKET']);
 
-                              // $p['TENDER_A']='-';
-                              // $p['NAMA_A']='-';
-                              // $p['NPWP_A']='-';
-                              // $p['ALAMAT_A']='-';
-                              // $p['TENDER_B']='-';
-                              // $p['NAMA_B']='-';
-                              // $p['NPWP_B']='-';
-                              // $p['ALAMAT_B']='-';
-                              // $p['TENDER_C']='-';
-                              // $p['NAMA_C']='-';
-                              // $p['NPWP_C']='-';
-                              // $p['ALAMAT_C']='-';
-
-                              // if(isset($dataPemenang[0]['ID_PEMENANG'])){
-                              //   $p['TENDER_A']=$dataPemenang[0]['NAMA_PERUSAHAAN'];
-                              //   $p['NAMA_A']=$dataPemenang[0]['NPWP'];
-                              //   $p['NPWP_A']=$dataPemenang[0]['ALAMAT'];
-                              //   $p['ALAMAT_A']=$dataPemenang[0]['PIC_PERUSAHAAN'];
-                              // }
-                              // if(isset($dataPemenang[1]['ID_PEMENANG'])){
-                              //   $p['TENDER_B']=$dataPemenang[1]['NAMA_PERUSAHAAN'];
-                              //   $p['NAMA_B']=$dataPemenang[1]['NPWP'];
-                              //   $p['NPWP_B']=$dataPemenang[1]['ALAMAT'];
-                              //   $p['ALAMAT_B']=$dataPemenang[1]['PIC_PERUSAHAAN'];
-                              // }
-                              // if(isset($dataPemenang[2]['ID_PEMENANG'])){
-                              //   $p['TENDER_C']=$dataPemenang[2]['NAMA_PERUSAHAAN'];
-                              //   $p['NAMA_C']=$dataPemenang[2]['NPWP'];
-                              //   $p['NPWP_C']=$dataPemenang[2]['ALAMAT'];
-                              //   $p['ALAMAT_C']=$dataPemenang[2]['PIC_PERUSAHAAN'];
-                              // }
-
+                              if(isset($dataPemenang[0]['ID_PEMENANG'])){
+                                $p['TENDER_A']=$dataPemenang[0]['NAMA_PERUSAHAAN'];
+                                $p['NAMA_A']=$dataPemenang[0]['NPWP'];
+                                $p['NPWP_A']=$dataPemenang[0]['ALAMAT'];
+                                $p['ALAMAT_A']=$dataPemenang[0]['PIC_PERUSAHAAN'];
+                              }
+                              if(isset($dataPemenang[1]['ID_PEMENANG'])){
+                                $p['TENDER_B']=$dataPemenang[1]['NAMA_PERUSAHAAN'];
+                                $p['NAMA_B']=$dataPemenang[1]['NPWP'];
+                                $p['NPWP_B']=$dataPemenang[1]['ALAMAT'];
+                                $p['ALAMAT_B']=$dataPemenang[1]['PIC_PERUSAHAAN'];
+                              }
+                              if(isset($dataPemenang[2]['ID_PEMENANG'])){
+                                $p['TENDER_C']=$dataPemenang[2]['NAMA_PERUSAHAAN'];
+                                $p['NAMA_C']=$dataPemenang[2]['NPWP'];
+                                $p['NPWP_C']=$dataPemenang[2]['ALAMAT'];
+                                $p['ALAMAT_C']=$dataPemenang[2]['PIC_PERUSAHAAN'];
+                              }
                             }else{
                               $TimPenerima = "";
                             }
                             ?>
-                           <!--  <a class="btn btn-warning" 
-                            onclick="editLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
-                            data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a> -->
-
-                            <!-- <a class="btn btn-info" onclick="lihatLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$TimPenerima?>')"
-                            data-toggle="modal" data-target="#modalLihatLelang"><i class="fa fa-search"></i> Lihat</a> -->
-                            <?}else{?>
                             <a class="btn btn-warning" 
-                            onclick="editLelang1('<?= $p['NAMA_PAKET'] ?>','<?= $p['status_progress'] ?>')"
+                            onclick="editLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
                             data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a>
-                            <?} ?>
-                          </td>
-                        </tr>
-                        <?php 
-                      }
-                      ?>
-                    </table>
+
+                            <a class="btn btn-info" data-toggle="modal" data-target="#modalLihatLelang" onclick="lihatLelang('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?= $TimPenerima?>')"
+                              ><i class="fa fa-search"></i> Lihat</a>
+                              <?}else{?>
+                              <a class="btn btn-warning" 
+                              onclick="editLelang1('<?= $p['NAMA_PAKET'] ?>','<?= $p['ID_PAKET'] ?>','<?= $p['status_progress'] ?>','<?= $p['TENDER_A'] ?>','<?= $p['NAMA_A']?>','<?= $p['NPWP_A']?>','<?= $p['ALAMAT_A']?>','<?= $p['TENDER_B'] ?>','<?= $p['NAMA_B']?>','<?= $p['NPWP_B']?>','<?= $p['ALAMAT_B']?>','<?= $p['TENDER_C'] ?>','<?= $p['NAMA_C']?>','<?= $p['NPWP_C']?>','<?= $p['ALAMAT_C']?>','<?=$p['KETERANGAN_GAGAL_LELANG']?>','<?=$p['ID_TIM_PENERIMA']?>')"
+                              data-toggle="modal" data-target="#modalEditLelang"><i class="fa fa-pencil"></i> Edit</a>
+                              <?} ?>
+                            </td>
+                          </tr>
+                          <?php 
+                        }
+                        ?>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <!-- End Main Content -->
-            <!-- Modal Edit Lelang -->
-            <div class="modal fade modal-warning" id="modalEditLelang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Edit Penetapan Hasil Lelang</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div class="card">
-                     <div class="card-body"  style="padding: 0px 20px !important;">
-                       <form action="<?=base_url()?>Lelang/updateLelang" method="POST">
-                        <input type="hidden" name="id_paket" id="frmId" value="">
-                        <div class="sub-title">Nama Dokumen Penglompokan</div>
-                        <div>
-                         <input disabled type="text" name="nama" id="frmNama" class="form-control">
-                       </div>
-                       <div class="sub-title">Status Lelang</div>
-                       <div>
-                         <select name="status" id="frmStatus" class="form-control" style="width: 30%;" onchange="getStatus(this)">
-                           <option value="8">-</option>
-                           <option value="9">Sukses</option>
-                           <option value="-9">Gagal</option>
-                         </select>
-                       </div>
-                       <div id="successForm" style="display:none">
-                         <br>
-                         <div class="sub-title">
-                           Tim Penerima : 
-                           <select name="timPenerima" id="frmPen" class="form-control" style="width: 63%;">
-                             <option value="">Pilih Tim Penerima</option>
-
-                             <?foreach ($timpenerima as $t) {?>
-                             <option value="<?=$t['ID_TIM_PENERIMA']?>"><?=$t['NAMA_TIM']?></option>
-                             <?}?>
-
+              <!-- End Main Content -->
+              <!-- Modal Edit Lelang -->
+              <div class="modal fade modal-warning" id="modalEditLelang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Edit Penetapan Hasil Lelang</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="card">
+                       <div class="card-body"  style="padding: 0px 20px !important;">
+                         <form action="<?=base_url()?>Lelang/updateLelang" method="POST">
+                          <input type="hidden" name="id_paket" id="frmId" value="">
+                          <div class="sub-title">Nama Dokumen Penglompokan</div>
+                          <div>
+                           <input disabled type="text" name="nama" id="frmNama" class="form-control">
+                         </div>
+                         <div class="sub-title">Status Lelang</div>
+                         <div>
+                           <select name="status" id="frmStatus" class="form-control" style="width: 30%;" onchange="getStatus(this)">
+                             <option value="8">-</option>
+                             <option value="9">Sukses</option>
+                             <option value="-9">Gagal</option>
                            </select>
                          </div>
+                         <div id="successForm" style="display:none">
+                           <br>
+                           <div class="sub-title">
+                             Tim Penerima : 
+                             <select name="timPenerima" id="frmPen" class="form-control" style="width: 63%;">
+                               <option value="">Pilih Tim Penerima</option>
 
-                         <div class="sub-title">  
-                           <input type="text" name="tender_a" id="frmTenderA" class="form-control" style="width: 80%;" placeholder="Pemenang 1"> 
+                               <?foreach ($timpenerima as $t) {?>
+                               <option value="<?=$t['ID_TIM_PENERIMA']?>"><?=$t['NAMA_TIM']?></option>
+                               <?}?>
+
+                             </select>
+                           </div>
+
+                           <div class="sub-title">  
+                             <input type="text" name="tender_a" id="frmTenderA" class="form-control" style="width: 80%;" placeholder="Pemenang 1"> 
+                           </div>
+                           <div class="sub-title">
+                            <input type="text" name="nama_a" id="frmNamaA" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 1">
+                          </div>
+                          <div class="sub-title"> 
+                            <input type="text" name="npwp_a" id="frmNPWPA" class="form-control" style="width: 85%;" placeholder="NPWP 1"> 
+                          </div>
+                          <div class="sub-title">
+                            <textarea name="alamat_a" id="frmAlamatA" class="form-control" placeholder="Alamat 1"></textarea>
+                          </div>
+                          <br>
+                          <div class="sub-title">  
+                           <input type="text" name="tender_b" id="frmTenderB" class="form-control" style="width: 80%;" placeholder="Pemenang 2"> 
                          </div>
                          <div class="sub-title">
-                          <input type="text" name="nama_a" id="frmNamaA" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 1">
+                          <input type="text" name="nama_b" id="frmNamaB" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 2">
                         </div>
                         <div class="sub-title"> 
-                          <input type="text" name="npwp_a" id="frmNPWPA" class="form-control" style="width: 85%;" placeholder="NPWP 1"> 
+                          <input type="text" name="npwp_b" id="frmNPWPB" class="form-control" style="width: 85%;" placeholder="NPWP 2"> 
                         </div>
                         <div class="sub-title">
-                          <textarea name="alamat_a" id="frmAlamatA" class="form-control" placeholder="Alamat 1"></textarea>
+                          <textarea name="alamat_b" id="frmAlamatB" class="form-control" placeholder="Alamat 2"></textarea>
                         </div>
                         <br>
                         <div class="sub-title">  
-                         <input type="text" name="tender_b" id="frmTenderB" class="form-control" style="width: 80%;" placeholder="Pemenang 2"> 
+                         <input type="text" name="tender_c" id="frmTenderC" class="form-control" style="width: 80%;" placeholder="Pemenang 3"> 
                        </div>
                        <div class="sub-title">
-                        <input type="text" name="nama_b" id="frmNamaB" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 2">
+                        <input type="text" name="nama_c" id="frmNamaC" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 3">
                       </div>
                       <div class="sub-title"> 
-                        <input type="text" name="npwp_b" id="frmNPWPB" class="form-control" style="width: 85%;" placeholder="NPWP 2"> 
+                        <input type="text" name="npwp_c" id="frmNPWPC" class="form-control" style="width: 85%;" placeholder="NPWP 3"> 
                       </div>
                       <div class="sub-title">
-                        <textarea name="alamat_b" id="frmAlamatB" class="form-control" placeholder="Alamat 2"></textarea>
+                        <textarea name="alamat_c" id="frmAlamatC" class="form-control" placeholder="Alamat 3"></textarea>
                       </div>
-                      <br>
-                      <div class="sub-title">  
-                       <input type="text" name="tender_c" id="frmTenderC" class="form-control" style="width: 80%;" placeholder="Pemenang 3"> 
+                    </div>
+                    <div id="failForm" style="display:none">
+                     <div class="sub-title">Keterangan :</div>
+                     <div>
+                       <textarea class="form-control" name="keterangan" id="frmKet"></textarea>
                      </div>
-                     <div class="sub-title">
-                      <input type="text" name="nama_c" id="frmNamaC" class="form-control" style="width: 63%;" placeholder="Nama Yang Menyerahkan 3">
-                    </div>
-                    <div class="sub-title"> 
-                      <input type="text" name="npwp_c" id="frmNPWPC" class="form-control" style="width: 85%;" placeholder="NPWP 3"> 
-                    </div>
-                    <div class="sub-title">
-                      <textarea name="alamat_c" id="frmAlamatC" class="form-control" placeholder="Alamat 3"></textarea>
-                    </div>
-                  </div>
-                  <div id="failForm" style="display:none">
-                   <div class="sub-title">Keterangan :</div>
-                   <div>
-                     <textarea class="form-control" name="keterangan" id="frmKet"></textarea>
                    </div>
                  </div>
                </div>
              </div>
-           </div>
-           <div class="modal-footer">
-            <button type="submit" class="btn btn-success">Simpan</button>
-          </form>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+             <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Simpan</button>
+            </form>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- End Modal Edit Lelang -->
+    <!-- End Modal Edit Lelang -->
 
-  <!-- Modal Lihat Lelang -->
-  <div class="modal fade modal-info" id="modalLihatLelang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel">Lihat Penetapan Hasil Lelang</h4>
-        </div>
-        <div class="modal-body">
-          <div class="card">
-           <div class="card-body"  style="padding: 0px 20px !important;">
-            <div class="sub-title">
-              <b>Nama Dokumen Penglompokan</b> :  <span id="spanNama"></span> 
-            </div>
-            <div class="sub-title">
-             <b>Status Lelang</b> : <span id="spanStatus"  class="label"></span> 
-           </div>
-           <div id="spanSuccess" style="display:none">
-             <div class="sub-title"><b>Tim Penerima</b> :  <span id="spanTim"></span> </div>
-             <div class="sub-title"><b>Pemenang 1</b> :  <span id="spanTenA"></span> </div>
-             <div class="sub-title"><b>Nama 1</b> :  <span id="spanNamA"></span> </div>
-             <div class="sub-title"><b>NPWP 1</b> :  <span id="spanNPWPA"></span> </div>
-             <div class="sub-title"><b>Alamat 1</b> :  <span id="spanAlmtA"></span> </div>
-             <br>
-             <div class="sub-title"><b>Pemenang 2</b> :  <span id="spanTenB"></span> </div>
-             <div class="sub-title"><b>Nama 2</b> :  <span id="spanNamB"></span> </div>
-             <div class="sub-title"><b>NPWP 2</b> :  <span id="spanNPWPB"></span> </div>
-             <div class="sub-title"><b>Alamat 2</b> :  <span id="spanAlmtB"></span> </div>
-             <br>
-             <div class="sub-title"><b>Pemenang 3</b> :  <span id="spanTenC"></span> </div>
-             <div class="sub-title"><b>Nama 3</b> :  <span id="spanNamC"></span> </div>
-             <div class="sub-title"><b>NPWP 3</b> :  <span id="spanNPWPC"></span> </div>
-             <div class="sub-title"><b>Alamat 3</b> :  <span id="spanAlmtC"></span> </div>
-           </div>
-           <div id="spanFail" style="display:none">
-             <div class="sub-title"><b>Keterangan </b> :</div>
-             <div>
-               <span id="spanKet"></span> 
+    <!-- Modal Lihat Lelang -->
+    <div class="modal fade modal-info" id="modalLihatLelang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="modal-title" id="myModalLabel">Lihat Penetapan Hasil Lelang</h4>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+             <div class="card-body"  style="padding: 0px 20px !important;">
+              <div class="sub-title">
+                <b>Nama Dokumen Penglompokan</b> :  <span id="spanNamaPaket"></span> 
+              </div>
+              <div class="sub-title">
+               <b>Status Lelang</b> : <span id="spanStatus"  class="label"></span> 
+             </div>
+             <div id="spanSuccess" style="display:none">
+               <div class="sub-title"><b>Tim Penerima</b> :  <span id="spanTim"></span> </div>
+               <div class="sub-title"><b>Pemenang 1</b> :  <span id="spanTenA"></span> </div>
+               <div class="sub-title"><b>Nama 1</b> :  <span id="spanNamA"></span> </div>
+               <div class="sub-title"><b>NPWP 1</b> :  <span id="spanNPWPA"></span> </div>
+               <div class="sub-title"><b>Alamat 1</b> :  <span id="spanAlmtA"></span> </div>
+               <br>
+               <div class="sub-title"><b>Pemenang 2</b> :  <span id="spanTenB"></span> </div>
+               <div class="sub-title"><b>Nama 2</b> :  <span id="spanNamB"></span> </div>
+               <div class="sub-title"><b>NPWP 2</b> :  <span id="spanNPWPB"></span> </div>
+               <div class="sub-title"><b>Alamat 2</b> :  <span id="spanAlmtB"></span> </div>
+               <br>
+               <div class="sub-title"><b>Pemenang 3</b> :  <span id="spanTenC"></span> </div>
+               <div class="sub-title"><b>Nama 3</b> :  <span id="spanNamC"></span> </div>
+               <div class="sub-title"><b>NPWP 3</b> :  <span id="spanNPWPC"></span> </div>
+               <div class="sub-title"><b>Alamat 3</b> :  <span id="spanAlmtC"></span> </div>
+             </div>
+             <div id="spanFail" style="display:none">
+               <div class="sub-title"><b>Keterangan </b> :</div>
+               <div>
+                 <span id="spanKet"></span> 
+               </div>
              </div>
            </div>
          </div>
        </div>
-     </div>
-     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+      </div>
     </div>
   </div>
-</div>
 </div>
 <!-- End Modal Add Pagu -->
 </div>
@@ -266,7 +264,8 @@ $this->load->view("info_header");
 
 <script type="text/javascript">
   function lihatLelang(a,b,status,tA,nA,npA,aA,tB,nB,npB,aB,tC,nC,npC,aC,ket,pen) {
-    document.getElementById('spanNama').textContent=a;
+    alert(a);
+    document.getElementById('spanNamaPaket').textContent=a;
     if(status==9){
       document.getElementById('spanTim').textContent=pen;
       document.getElementById('spanStatus').setAttribute('class','label label-success');
@@ -290,17 +289,26 @@ $this->load->view("info_header");
       document.getElementById('spanFail').style.display = 'block';
       document.getElementById('spanKet').textContent=ket;
          // $("#spanKet option[value="+status+"]").attr("selected","selected");
-
-
        }
-
      }
-     function editLelang1(a,status) {
+     function editLelang1(a,b,status,tA,nA,npA,aA,tB,nB,npB,aB,tC,nC,npC,aC,ket,pen) {
       document.getElementById('frmNama').value=a;
-      
+      document.getElementById('frmId').value=b;
+      document.getElementById('frmTenderA').value=tA;
+      document.getElementById('frmNamaA').value=nA;
+      document.getElementById('frmNPWPA').value=npA;
+      document.getElementById('frmAlamatA').value=aA;
+      document.getElementById('frmTenderB').value=tB;
+      document.getElementById('frmNamaB').value=nB;
+      document.getElementById('frmNPWPB').value=npB;
+      document.getElementById('frmAlamatB').value=aB;
+      document.getElementById('frmTenderC').value=tC;
+      document.getElementById('frmNamaC').value=nC;
+      document.getElementById('frmNPWPC').value=npC;
+      document.getElementById('frmAlamatC').value=aC;
+      document.getElementById('frmKet').value=ket;
       var element = document.getElementById('frmPen');
       element.value = pen;
-
       $("#frmStatus option").removeAttr("selected");
       $("#frmStatus option[value="+status+"]").attr("selected","selected");
       if(status==9){
@@ -316,7 +324,6 @@ $this->load->view("info_header");
        document.getElementById('successForm').style.display = 'none';
      }
    }
-
    function editLelang(a,b,status,tA,nA,npA,aA,tB,nB,npB,aB,tC,nC,npC,aC,ket,pen) {
     document.getElementById('frmNama').value=a;
     document.getElementById('frmId').value=b;
@@ -335,7 +342,6 @@ $this->load->view("info_header");
     document.getElementById('frmKet').value=ket;
     var element = document.getElementById('frmPen');
     element.value = pen;
-
     $("#frmStatus option").removeAttr("selected");
     $("#frmStatus option[value="+status+"]").attr("selected","selected");
     if(status==9){
@@ -362,10 +368,5 @@ $this->load->view("info_header");
    document.getElementById('failForm').style.display = 'none';
    document.getElementById('successForm').style.display = 'none';
  }
-
 }
-
 </script>
-
-
-

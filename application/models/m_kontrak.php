@@ -51,9 +51,12 @@ class M_kontrak extends CI_Model {
 
 
 	//Mengupdate data penyedia pada paket
-	function updatePenyedia($id,$data){
+	function updatePenyedia($id,$data,$idp){
 		$this->db->where('ID_PAKET',$id);
 		$this->db->update('paket',$data);
+
+		$this->db->where('ID_PEMENANG',$idp);
+		$this->db->update('pemenang',array('STATUS_PENYEDIA'=>1));
 		return 1;
 	}
 

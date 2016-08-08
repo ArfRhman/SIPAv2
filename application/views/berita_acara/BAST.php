@@ -1,8 +1,57 @@
 <?php
+$nama = '';
+$nip = '';
+$anggota = '';
+foreach ($timPenerima as $tp ) {
+    if($tp['STATUS_KETUA']==1){
+        $nama = $tp['NAMA_PEGAWAI'];
+        $nip = $tp['NIP'];
+    }else{
+    $anggota .= '<tr>
+            <td width="243" valign="top">
+            </td>
+            <td width="38" valign="top">
+            </td>
+            <td width="255" valign="top">
+                <p>
+                    <strong>'.$tp['NAMA_PEGAWAI'].'</strong>
+                </p>
+            </td>
+            <td width="124" valign="top">
+            </td>
+        </tr>
+        <tr>
+            <td width="243" valign="top">
+                <p>
+                   
+                </p>
+            </td>
+            <td width="38" valign="top">
+            </td>
+            <td width="255" valign="top">
+                <p>
+                    NIP '.$tp['NIP'].'
+                </p>
+            </td>
+            <td width="124" valign="top">
+            </td>
+        </tr>
+        <tr>
+            <td width="243" valign="top">
+            </td>
+            <td width="38" valign="top">
+            </td>
+            <td width="255" valign="top">
+            </td>
+            <td width="124" valign="top">
+            </td>
+        </tr>';
+    }
+}
 $html='
 <p align="center">
     <strong>
-        <img width="633" height="123" src="file:///C:/Users/ARIFR~1/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg"/>
+        <img width="633" height="123" src="'.base_url().'/assets/img/kopBAST.jpg">
     </strong>
 </p>
 <p align="center">
@@ -13,19 +62,19 @@ $html='
     <strong>PENGADAAN ALAT PROGRAM KERJASAMA</strong>
     <strong></strong>
 <br>
-    <strong>POLITEKNIK NEGERI BANDUNG TAHUN ANGGARAN 2015</strong>
+    <strong>POLITEKNIK NEGERI BANDUNG TAHUN ANGGARAN '.date('Y').'</strong>
 </p>
 <p align="center">
-    Nomor : 173.3/PL1.R18.1/SP/2015
+    Nomor : ....
 </p>
 <p>
-    Pada hari ini, Senin tanggal Dua bulan Nopember tahun Dua ribu lima belas (02-11-2015), kami yang bertandatangan di bawah ini:
+    Pada hari ini, tanggal '.date('d-m-Y').', kami yang bertandatangan di bawah ini:
 </p>
 <p>
-    Nama : Waluyo Musiono B., SST., M.Eng
+    Nama :'.$nama.'
 </p>
 <p>
-    NIP : 196207301986031003
+    NIP : '.$nip.'
 </p>
 <p>
     Jabatan : Ketua Panitia Pemeriksa/Penerima Hasil Pekerjaan Barang/Jasa Politeknik Negeri Bandung
@@ -34,19 +83,19 @@ $html='
     Alamat : Jl. Gegerkalong Hilir, Ds. Ciwaruga Bandung 40012
 </p>
 <p>
-    Telah mengadakan pemeriksaan hasil Pengadaan Alat Program Kerjasama Politeknik Negeri Bandung Tahun Anggaran 2015, yang dilaksanakan oleh:
+    Telah mengadakan pemeriksaan hasil Pengadaan Alat Program Kerjasama Politeknik Negeri Bandung Tahun Anggaran '.date('Y').', yang dilaksanakan oleh:
 </p>
 <p>
-    Nama Perusahaan : PT. Bhinneka Mentaridimensi
+    Nama Perusahaan : '.$penyedia['NAMA_PERUSAHAAN'].'
 </p>
 <p>
-    NPWP : 01.608.941.9-027.000
+    NPWP : '.$penyedia['NPWP'].'
 </p>
 <p>
-    Alamat : Jln. Gunung Sahari Raya 73 C No.5-6 Jakarta Pusat
+    Alamat : '.$penyedia['ALAMAT'].'
 </p>
 <p>
-    Nomor Kontrak : 3309/PL1.R18/SP/2015, Tanggal 02 Nopember 2015
+    Nomor Kontrak : ....
 </p>
 <p>
     dengan lampiran sebagai berikut :
@@ -79,7 +128,7 @@ $html='
         <tr>
             <td width="243" valign="top">
                 <p>
-                    PT. Bhinneka Mentaridimensi
+                   '.$penyedia['NAMA_PERUSAHAAN'].'
                 </p>
             </td>
             <td width="38" valign="top">
@@ -112,7 +161,7 @@ $html='
             </td>
             <td width="255" valign="top">
                 <p>
-                    <strong>Waluyo Musiono B., SST., M.Eng</strong>
+                    <strong>'.$nama.'</strong>
                 </p>
             </td>
             <td width="124" valign="top">
@@ -125,7 +174,7 @@ $html='
             </td>
             <td width="255" valign="top">
                 <p>
-                    NIP 196207301986031003<strong></strong>
+                    NIP '.$nip.'<strong></strong>
                 </p>
             </td>
             <td width="124" valign="top">
@@ -147,7 +196,7 @@ $html='
         <tr>
             <td width="243" valign="top">
                 <p>
-                    <strong>Achmad Sofyan</strong>
+                    <strong>'.$penyedia['PIC_PERUSAHAAN'].'</strong>
                 </p>
             </td>
             <td width="38" valign="top">
@@ -166,7 +215,7 @@ $html='
         <tr>
             <td width="243" valign="top">
                 <p>
-                    Business Manager<strong></strong>
+                    PIC PERUSAHAAN<strong></strong>
                 </p>
             </td>
             <td width="38" valign="top">
@@ -179,110 +228,13 @@ $html='
             <td width="124" valign="top">
             </td>
         </tr>
-        <tr>
-            <td width="243" valign="top">
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    <strong>Rully Suswelly</strong>
-                </p>
-            </td>
-            <td width="124" valign="top">
-            </td>
-        </tr>
+         
+        '.$anggota.' 
+       
         <tr>
             <td width="243" valign="top">
                 <p>
-                    Wakil Pengguna Akhir,
-                </p>
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    NIP 1964123119890310024
-                </p>
-            </td>
-            <td width="124" valign="top">
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-            </td>
-            <td width="124" valign="top">
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    <strong>Maman Supriatna</strong>
-                </p>
-            </td>
-            <td width="124" valign="top">
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    NIP 196407271990021001
-                </p>
-            </td>
-            <td width="124" valign="top">
-                <p>
-                    <strong></strong>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    <strong></strong>
-                </p>
-            </td>
-            <td width="124" valign="top">
-                <p>
-                    <strong></strong>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-                <p>
-                    <img width="192" height="2" src="file:///C:/Users/ARIFR~1/AppData/Local/Temp/msohtmlclip1/01/clip_image003.gif"/>
-                </p>
-            </td>
-            <td width="38" valign="top">
-            </td>
-            <td width="255" valign="top">
-                <p>
-                    <strong></strong>
-                </p>
-            </td>
-            <td width="124" valign="top">
-            </td>
-        </tr>
-        <tr>
-            <td width="243" valign="top">
-                <p>
-                    NIP <strong></strong>
+                <strong></strong>
                 </p>
             </td>
             <td width="38" valign="top">

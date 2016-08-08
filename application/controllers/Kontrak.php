@@ -43,13 +43,13 @@ class Kontrak extends CI_Controller {
 	public function updatePenyedia(){
 		$penyedia = explode("/", $this->input->post('penyedia'));
 		$data = array(
-			'PENYEDIA' => $penyedia[3],
 			'WAKTU_PENGADAAN' => $this->input->post('hariPengerjaan'),
 			'TYPE_WAKTU'=>$this->input->post('jenisHari')
 			);
 
 		$id = $this->input->post('id_paket');
-		$this->m_kontrak->updatePenyedia($id,$data);
+		$idp = $penyedia[3];
+		$this->m_kontrak->updatePenyedia($id,$data,$idp);
 		redirect($_SERVER['HTTP_REFERER']);
 
 	}

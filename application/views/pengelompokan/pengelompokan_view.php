@@ -48,138 +48,144 @@ $this->load->view("info_header");
                           if($k['STATUS_PROGRESS']==6){
                             ?>
                             <span class="label label-danger" style="font-size: 12px;">Menunggu Verifikasi</span>
-                            <?php } else if($k['STATUS_PROGRESS']==8){
+                            <?php } else if($k['STATUS_PROGRESS']==-9){
                               ?>
-                              <span class="label label-info" style="font-size: 12px;">Tahap Lelang</span>
-                              <?php } else if($k['STATUS_PROGRESS']==7){
+                              <span class="label label-danger" style="font-size: 12px;">Paket Gagal Lelang</span>
+                              <?php } else if($k['STATUS_PROGRESS']==9){
                                 ?>
-                                <span class="label label-primary" style="font-size: 12px;">Sudah Disetujui</span>
-                                <?php }else {
+                                <span class="label label-success" style="font-size: 12px;">Paket Sukses Lelang</span>
+                                <?php } else if($k['STATUS_PROGRESS']==8){
                                   ?>
-                                  <span class="label label-success" style="font-size: 12px;">Sudah Dibuat</span>
-                                  <?php } 
-                                }
-                                ?>
-                              </td>
-                              <td>
-                                <a onClick="getPaketByIdKategori(<?=$k['ID_KAT']?>)" class="btn btn-primary" data-toggle="modal" data-target="#modalLihatPengelompokan"><i class="fa fa-search"></i> Lihat </a>
-                                <a <?=empty($k['ID_PAKET'])||$k['STATUS_PROGRESS']==7 ? 'disabled' : ''?> onClick="ajukanPaket(<?=$k['ID_KAT']?>)" class="btn btn-info"><i class="fa fa-check"></i> Ajukan </a>
-                                <a <?=$k['STATUS_PROGRESS']!=7 ? 'disabled' : ''?> onClick="lelangPaket(<?=$k['ID_KAT']?>)" class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Lelang </a>
-                              </td>
-                            </tr>
-                            <?php 
-                          }
-                          ?>
-                        </table>
+                                  <span class="label label-info" style="font-size: 12px;">Tahap Lelang</span>
+                                  <?php } else if($k['STATUS_PROGRESS']==7){
+                                    ?>
+                                    <span class="label label-primary" style="font-size: 12px;">Sudah Disetujui</span>
+                                    <?php }else {
+                                      ?>
+                                      <span class="label label-success" style="font-size: 12px;">Sudah Dibuat</span>
+                                      <?php } 
+                                    }
+                                    ?>
+                                  </td>
+                                  <td>
+                                    <a onClick="getPaketByIdKategori(<?=$k['ID_KAT']?>)" class="btn btn-primary" data-toggle="modal" data-target="#modalLihatPengelompokan"><i class="fa fa-search"></i> Lihat </a>
+                                    <a <?=empty($k['ID_PAKET'])||$k['STATUS_PROGRESS']==7 ? 'disabled' : ''?> onClick="ajukanPaket(<?=$k['ID_KAT']?>)" class="btn btn-info"><i class="fa fa-check"></i> Ajukan </a>
+                                    <a <?=$k['STATUS_PROGRESS']!=7 ? 'disabled' : ''?> onClick="lelangPaket(<?=$k['ID_KAT']?>)" class="btn btn-warning"><i class="fa fa-shopping-cart"></i> Lelang </a>
+                                  </td>
+                                </tr>
+                                <?php 
+                              }
+                              ?>
+                            </table>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <!-- End Main Content -->
-                <!-- Modal Lihat Pengelompokan -->
-                <div class="modal fade modal-primary" id="modalLihatPengelompokan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                  <div class="modal-dialog modal-lg"  style="width: 90%;">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Lihat Paket Pengelompokan</h4>
-                      </div>
-                      <form action="<?=base_url()?>Paket/create" method="POST">
-                        <div class="modal-body" id="bodyPengelompokan">
+                    <!-- End Main Content -->
+                    <!-- Modal Lihat Pengelompokan -->
+                    <div class="modal fade modal-primary" id="modalLihatPengelompokan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                      <div class="modal-dialog modal-lg"  style="width: 90%;">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Lihat Paket Pengelompokan</h4>
+                          </div>
+                          <form action="<?=base_url()?>Paket/create" method="POST">
+                            <div class="modal-body" id="bodyPengelompokan">
+
+                            </div>
+                            <div class="modal-footer">
+
+                              <button type="submit" class="btn btn-success">Update</button>
+                            </form>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                          </div>
 
                         </div>
-                        <div class="modal-footer">
-
-                          <button type="submit" class="btn btn-success">Update</button>
-                        </form>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                       </div>
-
+                    </div>
+                  </div>
+                  <!-- End Modal Lihat Pengelompokan Pagu -->
+                  <!-- Modal Edit Pagu -->
+                  <div class="modal fade modal-warning" id="modalEditPengelompokan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                          <h4 class="modal-title" id="myModalLabel">Edit Data Paket Pengelompokan</h4>
+                        </div>
+                        <div class="modal-body">
+                          <div class="card">
+                           <div class="card-body"  style="padding: 0px 20px !important;">
+                            <form action="<?=base_url()?>Pengelompokan/updatePengelompokan" method="POST">
+                              <div class="sub-title">Nama Paket Pengelompokan</div>
+                              <div>
+                               <input type="hidden" name="id" id="frmIdPengelompokan">
+                               <input type="text" name="nama" id="frmNamaPengelompokan" class="form-control" placeholder="Masukan Nama Paket Pengelompokan">
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Update</button>
+                      </form>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- End Modal Lihat Pengelompokan Pagu -->
-              <!-- Modal Edit Pagu -->
-              <div class="modal fade modal-warning" id="modalEditPengelompokan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Edit Data Paket Pengelompokan</h4>
-                    </div>
-                    <div class="modal-body">
-                      <div class="card">
-                       <div class="card-body"  style="padding: 0px 20px !important;">
-                        <form action="<?=base_url()?>Pengelompokan/updatePengelompokan" method="POST">
-                          <div class="sub-title">Nama Paket Pengelompokan</div>
-                          <div>
-                           <input type="hidden" name="id" id="frmIdPengelompokan">
-                           <input type="text" name="nama" id="frmNamaPengelompokan" class="form-control" placeholder="Masukan Nama Paket Pengelompokan">
-                         </div>
-                       </div>
-                     </div>
-                   </div>
-                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Update</button>
-                  </form>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                </div>
-              </div>
+              <!-- End Modal Add Pagu -->
             </div>
           </div>
-          <!-- End Modal Add Pagu -->
         </div>
-      </div>
-    </div>
-    <script type="text/javascript">
-      function editPengelompokan (a,b) {
-        document.getElementById('frmNamaPengelompokan').value=a;
-        document.getElementById('frmIdPengelompokan').value=b;
-      }
-      function getPaketByIdKategori(kat){
-        $.ajax({
-          url: '<?=base_url()?>Paket/getPaketByIdKategori/'+kat,
-          type: "GET",
-          success : function(res){
-           $("#bodyPengelompokan").html(res);
-         },
-         error: function (msg) {
-          console.log("gagal"+msg);
-          return false;
-        }
+        <script type="text/javascript">
+          function editPengelompokan (a,b) {
+            document.getElementById('frmNamaPengelompokan').value=a;
+            document.getElementById('frmIdPengelompokan').value=b;
+          }
+          function getPaketByIdKategori(kat){
+            $.ajax({
+              url: '<?=base_url()?>Paket/getPaketByIdKategori/'+kat,
+              type: "GET",
+              success : function(res){
+               $("#bodyPengelompokan").html(res);
+             },
+             error: function (msg) {
+              console.log("gagal"+msg);
+              return false;
+            }
 
-      })
-      }
+          })
+          }
 
-      function ajukanPaket(kat){
-        $.ajax({
-          url: '<?=base_url()?>Paket/ajukan/'+kat,
-          type: "GET",
-          success : function(res){
-           window.location.href='Paket';
-         },
-         error: function (msg) {
-          console.log("gagal"+msg);
-          return false;
-        }
+          function ajukanPaket(kat){
+            $.ajax({
+              url: '<?=base_url()?>Paket/ajukan/'+kat,
+              type: "GET",
+              success : function(res){
+               window.location.href='Paket';
+             },
+             error: function (msg) {
+              console.log("gagal"+msg);
+              return false;
+            }
 
-      })
-      }
-      function lelangPaket(kat){
-        $.ajax({
-          url: '<?=base_url()?>Progress/saveProgressLelang/'+kat,
-          type: "GET",
-          success : function(res){
-           window.location.href='Pengelompokan';
-         },
-         error: function (msg) {
-          console.log("gagal"+msg);
-          return false;
-        }
+          })
+          }
+          function lelangPaket(kat){
+            $.ajax({
+              url: '<?=base_url()?>Progress/saveProgressLelang/'+kat,
+              type: "GET",
+              success : function(res){
+               window.location.href='Paket';
+             },
+             error: function (msg) {
+              console.log("gagal"+msg);
+              return false;
+            }
 
-      })
-      }
-    </script>
+          })
+          }
+        </script>
 
 

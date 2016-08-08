@@ -39,7 +39,7 @@ class M_paket extends CI_Model {
 	}
 
 	//Mengambil data paket untuk berita acara
-	function getAllDataPaket(){
+	function getAllDataPaket($id){
 		$query = $this->db->query("SELECT * 
 			from paket p
 			inner join (
@@ -48,6 +48,7 @@ class M_paket extends CI_Model {
 				ORDER BY pp.TANGGAL desc 
 				) r
 		on r.ID_PAKET = p.ID_PAKET
+		WHERE p.ID_TIM_PENERIMA = '$id'
 		group by r.ID_PAKET")->result_array();
 		return $query;
 	}

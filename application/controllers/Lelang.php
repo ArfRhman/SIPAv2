@@ -59,7 +59,7 @@ class Lelang extends CI_Controller {
 				$this->m_pemenang->updateDataPemenang($data_pemenang);
 				$this->m_progress->saveProgressGeneral($data);
 
-				$konten = '[NOTIFIKASI] Data Hasil Lelang Sukses Telah Dimasukkan Pada '.IndoTgl(date('Y-m-d'));
+				// $konten = '[NOTIFIKASI] Data Hasil Lelang Sukses Telah Dimasukkan Pada '.IndoTgl(date('Y-m-d'));
 				// SendSMS($konten,'08997150058','Lelang');
 
 				if($p['tender_b']!=''){
